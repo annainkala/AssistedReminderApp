@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Assisted Reminder App</string>
+    <string name="user_name">User name:</string>
+    <string name="first_name">First name:</string>
+    <string name="last_name">Last name:</string>
+    <string name="password">Password:</string>
+    <string name="login_image">Login image</string>
+    <string name="search">Search</string>
+    <string name="account">Account</string>
+   <string name="login">Login</string>
+    <string name="profile_image">Profile image</string>
+    <string name="pick_image">Pick an image</string>
+    <string name="time">Time</string>
+    <string name="message">Message</string>
+    <string name="date_created">Date Created: </string>
+    <string name="email">Email: </string>
+    <string name="save">Save message</string>
+</resources>
