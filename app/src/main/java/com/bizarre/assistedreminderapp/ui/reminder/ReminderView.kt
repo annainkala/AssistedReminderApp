@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.Graph
 import com.bizarre.assistedreminderapp.R
-import com.bizarre.assistedreminderapp.ui.profile.ProfileScreenViewModel
+
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderViewModel
 
 
@@ -38,7 +38,7 @@ fun ReminderView(
 viewModel: ReminderViewModel = hiltViewModel(),
 
 ){
-   val userViewModel=  ProfileScreenViewModel()
+
     androidx.compose.material.Surface() {
         val message = rememberSaveable { mutableStateOf("") }
         var reminderDate = rememberSaveable { mutableStateOf(LocalDateTime.now()) }
@@ -50,14 +50,13 @@ viewModel: ReminderViewModel = hiltViewModel(),
         val year = reminderDate.value.year
         val month = reminderDate.value.month
         val day = reminderDate.value.dayOfMonth;
+
     Column(){
         ReminderTopAppBar(navController)
         val formatter = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm:ss")
 
 
         Card() {
-
-          
 
             val datePickerDialog = DatePickerDialog(
                 LocalContext.current,
@@ -124,7 +123,7 @@ viewModel: ReminderViewModel = hiltViewModel(),
             0.0,0.0,
             creationDate.value,
             reminderDate.value,
-            userViewModel.getUser()?.userName.toString(),
+            viewModel.getUser()?.userName.toString(),
             false
             ,
 

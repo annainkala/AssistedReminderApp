@@ -1,14 +1,17 @@
 package com.bizarre.assistedreminderapp.ui.reminder
 
+import android.util.Log
 import com.bizarre.core_domain.entity.Reminder
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bizarre.assistedreminderapp.Graph
-import com.bizarre.assistedreminderapp.ui.profile.ProfileScreenViewState
+import com.bizarre.assistedreminderapp.ui.user.UserState
+
 import com.bizarre.core_domain.repository.ReminderRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import user.User
 import user.UserRepository
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -18,13 +21,11 @@ class ReminderViewModel @Inject constructor(private val reminderRepository: Remi
     private val _reminderViewState = MutableStateFlow<ReminderViewState>(ReminderViewState.Loading)
 
     val reminderState: StateFlow<ReminderViewState> = _reminderViewState
-
     private val userRepository = UserRepository(Graph.appContext)
+    private val _userState = MutableStateFlow(UserState())
 
-    private val _userState = MutableStateFlow(ProfileScreenViewState())
 
-
-    val userState :StateFlow<ProfileScreenViewState>
+    val userState :StateFlow<UserState>
         get() = _userState
 
 
@@ -52,6 +53,27 @@ class ReminderViewModel @Inject constructor(private val reminderRepository: Remi
 
 
 
+    fun getUser(): User? {
+
+        viewModelScope.launch {
+            val user = userRepository.getUser()
+
+            Log.d("UUUUUUUU",user.toString())
+            _userState.value = UserState(user = user)
+
+        }
+        return _userState.value.user
+
+    }
+
+
+    fun saveUser(user:User){
+
+        userRepository.updateUser(user)
+
+
+    }
+
 
     fun saveReminder(reminder:Reminder){
         viewModelScope.launch {
@@ -76,6 +98,18 @@ class ReminderViewModel @Inject constructor(private val reminderRepository: Remi
 }
 
 
+
+fun checkLogin(userName:String,password:String): User? {
+
+    var user = UserRepository(Graph.appContext).getUser();
+
+    Log.d("yyyyyyyy " ,user.toString())
+    if (userName == user.userName && password == user.password){
+        return user;
+    }
+    return null
+
+}
 private fun dummyReminders() : List<Reminder> {
     return listOf(
         Reminder(

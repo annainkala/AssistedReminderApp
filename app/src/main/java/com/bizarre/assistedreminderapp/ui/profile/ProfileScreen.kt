@@ -35,6 +35,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -44,6 +45,7 @@ import com.bizarre.assistedreminderapp.Graph
 
 import com.bizarre.assistedreminderapp.R
 import com.bizarre.assistedreminderapp.ui.ProfileImage
+import com.bizarre.assistedreminderapp.ui.reminder.ReminderViewModel
 
 import com.bizarre.assistedreminderapp.ui.theme.Typography
 import com.bizarre.assistedreminderapp.ui.utils.ReminderTopAppBar
@@ -54,7 +56,7 @@ import java.net.URLEncoder
 
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileScreenViewModel= viewModel(),
+    viewModel: ReminderViewModel= hiltViewModel(),
     navController: NavController,
 
 
