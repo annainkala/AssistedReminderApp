@@ -28,6 +28,7 @@
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/7646d034c06065d2691c6679d906b7d0/transformed/navigation-common-ktx-2.5.3-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/fdc259699bf60dc70e8bd6558e5d8c58/transformed/navigation-common-2.5.3-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/6540c29eb42447f2dcd17be6c361a270/transformed/lifecycle-runtime-ktx-2.5.1-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/0d311706861715dff65c2d492bb1863f/transformed/work-runtime-ktx-2.5.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/fac33e1c11edcc906104b8e50e58e0b3/transformed/lifecycle-viewmodel-compose-2.5.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/ac7e78e26de34cbe6a8b081b7c02f1cc/transformed/lifecycle-viewmodel-ktx-2.5.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/2723d01795ca1913c9a82ea46d5e8bba/transformed/ui-tooling-1.1.1-api.jar</arg>
@@ -86,7 +87,8 @@
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/0f9a0b7810182c8561b03240823a9d50/transformed/lifecycle-runtime-2.5.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/a2408cb28e683ae38b91514e85f89f46/transformed/cursoradapter-1.0.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/1343fdfb2036dae56b2033696ed054f9/transformed/savedstate-1.2.0-api.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/cd21a50dbe83e250b2aaa74c07a87dec/transformed/lifecycle-livedata-2.0.0-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/9ed1886b976517e4adea668cf26f6d30/transformed/work-runtime-2.5.0-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/319bdd7618348fc291b769a258d1bdb2/transformed/lifecycle-livedata-2.1.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/ff5077cef1e11a118bd521fa634ae193/transformed/lifecycle-livedata-core-2.5.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.5.1/1fdb7349701e9cf2f0a69fc10642b6fef6bb3e12/lifecycle-common-2.5.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/5f2168f88bbce28c509b1f89027ab7a1/transformed/lifecycle-viewmodel-2.5.1-api.jar</arg>
@@ -100,6 +102,7 @@
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.7.10/d2abf9e77736acc4450dc4a3f707fa2c10f5099d/kotlin-stdlib-1.7.10.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.7.10/bac80c520d0a9e3f3673bc2658c6ed02ef45a76a/kotlin-stdlib-common-1.7.10.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/com.google.guava/listenablefuture/1.0/c949a840a6acbc5268d088e47b04177bf90b3cad/listenablefuture-1.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/com.google.dagger/hilt-core/2.44.2/92996b5a78973b3e6813a7a07bbeee097b65a95c/hilt-core-2.44.2.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/com.google.dagger/dagger/2.44.2/5c4265ab0e8e6beca4391afd9cf7c432df6d5243/dagger-2.44.2.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar</arg>
@@ -204,6 +207,7 @@
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:4.10.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio-jvm:3.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:1.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.compose.ui:ui-tooling:1.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.compose.runtime:runtime:1.2.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.compose.ui:ui:1.2.1@aar" level="project" />
@@ -251,7 +255,7 @@
     <orderEntry type="library" name="Gradle: com.google.dagger:dagger-lint-aar:2.44.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.fragment:fragment:1.5.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.loader:loader:1.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.viewpager:viewpager:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.customview:customview:1.0.0@aar" level="project" />
@@ -275,5 +279,7 @@
     <orderEntry type="library" name="Gradle: io.coil-kt:coil-compose-base:2.2.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.coil-kt:coil-base:2.2.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.coil-kt:coil:2.2.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.work:work-runtime-ktx:2.5.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.work:work-runtime:2.5.0@aar" level="project" />
   </component>
 </module>

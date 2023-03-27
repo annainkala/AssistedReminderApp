@@ -20,6 +20,7 @@
                 <arg>$MODULE_DIR$/../../../core-data/build/intermediates/compile_library_classes_jar/debug/classes.jar</arg>
                 <arg>$MODULE_DIR$/../../../core-domain/build/intermediates/compile_library_classes_jar/debug/classes.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/dc737429a7c88b1ca37f88994b9f7ea8/transformed/constraintlayout-compose-1.0.1-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/0d311706861715dff65c2d492bb1863f/transformed/work-runtime-ktx-2.5.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/6442f6ba97ee2c7ba35c1b1c03e3c804/transformed/hilt-navigation-compose-1.0.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/35dbbd9f64979373f0c2eb5a7f1bb21b/transformed/navigation-compose-2.5.3-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/47ba82f40efb11df4bb138ced3d8cc07/transformed/activity-compose-1.6.1-api.jar</arg>
@@ -95,7 +96,8 @@
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/b384c6ecfd4e446c56139b66ad93190f/transformed/savedstate-ktx-1.2.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/1343fdfb2036dae56b2033696ed054f9/transformed/savedstate-1.2.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/0f9a0b7810182c8561b03240823a9d50/transformed/lifecycle-runtime-2.5.1-api.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/cd21a50dbe83e250b2aaa74c07a87dec/transformed/lifecycle-livedata-2.0.0-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/9ed1886b976517e4adea668cf26f6d30/transformed/work-runtime-2.5.0-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/319bdd7618348fc291b769a258d1bdb2/transformed/lifecycle-livedata-2.1.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/ff5077cef1e11a118bd521fa634ae193/transformed/lifecycle-livedata-core-2.5.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.5.1/1fdb7349701e9cf2f0a69fc10642b6fef6bb3e12/lifecycle-common-2.5.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/5f2168f88bbce28c509b1f89027ab7a1/transformed/lifecycle-viewmodel-2.5.1-api.jar</arg>
@@ -292,7 +294,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.dagger:dagger-lint-aar:2.44.2@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.fragment:fragment:1.5.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.loader:loader:1.0.0@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-runtime:2.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.viewpager:viewpager:1.0.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.customview:customview:1.0.0@aar" level="project" />
@@ -316,6 +318,8 @@
     <orderEntry type="library" scope="TEST" name="Gradle: io.coil-kt:coil-compose-base:2.2.2@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.coil-kt:coil-base:2.2.2@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.coil-kt:coil:2.2.2@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.work:work-runtime-ktx:2.5.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.work:work-runtime:2.5.0@aar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="AssistedReminderApp.app.main" />
 </module>

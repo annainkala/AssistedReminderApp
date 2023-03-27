@@ -129,7 +129,9 @@ viewModel: ReminderViewModel = hiltViewModel(),
             ,
 
 
-            )) }) {
+            ))
+                navController.popBackStack()
+            }) {
             
             Text(stringResource(id = R.string.save), style = MaterialTheme.typography.body1)
 
