@@ -1,10 +1,11 @@
-package com.bizarre.assistedreminderapp.ui.reminder
+package com.bizarre.assistedreminderapp.ui
 
 import android.util.Log
 import com.bizarre.core_domain.entity.Reminder
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bizarre.assistedreminderapp.Graph
+import com.bizarre.assistedreminderapp.ui.reminder.ReminderViewState
 import com.bizarre.assistedreminderapp.ui.user.UserState
 
 import com.bizarre.core_domain.repository.ReminderRepository

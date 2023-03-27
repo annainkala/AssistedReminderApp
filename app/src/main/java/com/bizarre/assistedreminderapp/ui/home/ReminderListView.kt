@@ -10,7 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.bizarre.assistedreminderapp.ui.reminder.ReminderViewModel
+import com.bizarre.assistedreminderapp.ui.ReminderViewModel
+
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderViewState
 
 import com.bizarre.core_domain.entity.Reminder
@@ -51,8 +52,6 @@ fun ReminderListView(
 @Composable
 fun SimpleCheckbox(reminder:Reminder,viewModel: ReminderViewModel) {
     val isChecked = remember { mutableStateOf(reminder.is_seen) }
-
-
 
     Checkbox(checked = isChecked.value, onCheckedChange = { isChecked.value = it
         viewModel.saveReminder(reminder)
