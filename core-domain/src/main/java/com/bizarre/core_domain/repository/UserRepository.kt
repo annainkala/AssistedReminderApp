@@ -5,8 +5,9 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface UserRepository {
-    suspend fun addUser(user: User): Long
-    suspend fun deleteUser(user: User): Long
+    suspend fun addUser(user: User)
+    suspend fun deleteUser(user: User)
     suspend fun loadUsers(): Flow<List<User>>
+
 
 }

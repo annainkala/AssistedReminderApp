@@ -14,10 +14,11 @@ import com.bizarre.assistedreminderapp.navigation.Navigation
 
 
 import com.bizarre.assistedreminderapp.ui.theme.AssistedReminderAppTheme
+import com.bizarre.core_domain.entity.User
+import com.bizarre.core_domain.repository.UserRepository
 
 import dagger.hilt.android.AndroidEntryPoint
-import user.User
-import user.UserRepository
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
             AssistedReminderAppTheme() {
 
-                UserRepository(this).addUser(User("Lois","Griffin", password = "pw", userName = "Un", profilePic = "", userEmail = ""))
+             //   UserRepository(this).addUser(User("Lois","Griffin", password = "pw", userName = "Un", profilePic = "", userEmail = ""))
 
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize() ) {

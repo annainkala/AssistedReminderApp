@@ -1,18 +1,19 @@
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.Checkbox
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.bizarre.assistedreminderapp.ui.ReminderViewModel
+import com.bizarre.assistedreminderapp.ui.reminder.AppViewModel
 
-import com.bizarre.assistedreminderapp.ui.reminder.ReminderViewState
+
+import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 
 import com.bizarre.core_domain.entity.Reminder
 import java.time.format.DateTimeFormatter
@@ -21,16 +22,16 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun ReminderListView(
     navController: NavController,
-    viewModel: ReminderViewModel = hiltViewModel(),
+    viewModel: AppViewModel = hiltViewModel(),
 ){
 
-        viewModel.getReminders()
+
 
         val reminderViewState by viewModel.reminderState.collectAsState()
         when (reminderViewState) {
-            is ReminderViewState.Loading -> {}
-            is  ReminderViewState.Success -> {
-                val reminderList = (reminderViewState as ReminderViewState.Success).data
+            is ReminderState.Loading -> {}
+            is  ReminderState.Success -> {
+                val reminderList = (reminderViewState as ReminderState.Success).data
 
                 LazyColumn(
                     contentPadding = PaddingValues(0.dp),
@@ -50,7 +51,7 @@ fun ReminderListView(
 
 
 @Composable
-fun SimpleCheckbox(reminder:Reminder,viewModel: ReminderViewModel) {
+fun SimpleCheckbox(reminder:Reminder,viewModel: AppViewModel) {
     val isChecked = remember { mutableStateOf(reminder.is_seen) }
 
     Checkbox(checked = isChecked.value, onCheckedChange = { isChecked.value = it
@@ -60,11 +61,19 @@ fun SimpleCheckbox(reminder:Reminder,viewModel: ReminderViewModel) {
 }
 
 @Composable
-fun ReminderListItem(reminder:Reminder,viewModel: ReminderViewModel){
+fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
 
     val formatter = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm:ss")
+    val openDialog = remember { mutableStateOf(false)  }
+    OutlinedButton(modifier = Modifier .pointerInput(Unit){
+        detectTapGestures(
+            onLongPress = {
+                openDialog.value = true
+            }
+        )
+    }, onClick = {}) {
 
-    Card(modifier = Modifier.fillMaxSize().padding(10.dp)) {
+
         Row (horizontalArrangement = Arrangement.SpaceBetween){
             Column(
                 horizontalAlignment = Alignment.Start,
@@ -80,12 +89,50 @@ fun ReminderListItem(reminder:Reminder,viewModel: ReminderViewModel){
         }
     }
 
+    if (openDialog.value) {
+
+        AlertDialog(
+            onDismissRequest = {
+                // Dismiss the dialog when the user clicks outside the dialog or on the back
+                // button. If you want to disable that functionality, simply use an empty
+                // onCloseRequest.
+                openDialog.value = false
+            },
+            title = {
+                Text(text = "Dialog Title")
+            },
+            text = {
+                Text("Here is a text ")
+            },
+            confirmButton = {
+                OutlinedButton(
+
+                    onClick = {
+                        openDialog.value = false
+                    }) {
+                    Text("This is the Confirm Button")
+                }
+            },
+            dismissButton = {
+                Button(
+
+                    onClick = {
+                        openDialog.value = false
+                    }) {
+                    Text("This is the dismiss Button")
+                }
+            }
+        )
+    }
+
+    }
 
 
 
 
 
 
-}
+
+
 
 

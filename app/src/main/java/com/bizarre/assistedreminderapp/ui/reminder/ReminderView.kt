@@ -22,8 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.Graph
 import com.bizarre.assistedreminderapp.R
-
-import com.bizarre.assistedreminderapp.ui.reminder.ReminderViewModel
+import com.bizarre.assistedreminderapp.ui.reminder.AppViewModel
 
 
 import com.bizarre.assistedreminderapp.ui.theme.Typography
@@ -35,9 +34,9 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun ReminderView(
     navController: NavController,
-viewModel: ReminderViewModel = hiltViewModel(),
+    viewModel: AppViewModel = hiltViewModel(),
 
-){
+    ){
 
     androidx.compose.material.Surface() {
         val message = rememberSaveable { mutableStateOf("") }
@@ -119,12 +118,13 @@ viewModel: ReminderViewModel = hiltViewModel(),
             Log.d("xxxxxxxxxxxxxxx",reminderDate.toString())
             viewModel.saveReminder(reminder =   Reminder(
             0,
-            message.value,
-            0.0,0.0,
-            creationDate.value,
-            reminderDate.value,
-            viewModel.getUser()?.userName.toString(),
-            false
+            message = message.value,
+            location_x = 0.0,
+                location_y = 0.0,
+            creation_date = creationDate.value,
+            reminder_date = reminderDate.value,
+            creator_email = viewModel.users.value[0].userEmail,
+            is_seen = false
             ,
 
 

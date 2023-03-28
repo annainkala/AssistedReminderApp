@@ -11,12 +11,19 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 class UserRepositoryImpl @Inject constructor(
-    private val userDataSource: UserDataSource
+    private val dataSource: UserDataSource
 ) : UserRepository {
-    override suspend fun addUser(user: User): Long = userDataSource.addUser(user)
-    override suspend fun deleteUser(user: User): Long = userDataSource.addUser(user)
-    override suspend fun loadUsers(): Flow<List<User>> {
-        return userDataSource.loadUsers()
+    override suspend fun addUser(user:User) {
+        dataSource.addUser(user)
     }
+
+    override suspend fun deleteUser(user:User) {
+        dataSource.deleteUser(user)
+    }
+
+    override suspend fun loadUsers(): Flow<List<User>> {
+        return dataSource.loadUsers()
+    }
+
 
 }

@@ -15,12 +15,12 @@ class UserDataSourceImpl @Inject constructor(
     private val userDao: UserDao
 ) : UserDataSource {
 
-    override suspend fun addUser(user: User): Long {
-        return userDao.insertOrUpdate(user.toEntity())
+    override suspend fun addUser(user: User){
+        userDao.insertOrUpdate(user.toEntity())
     }
 
-    override suspend fun deleteUser(user: User): Long {
-        return userDao.insertOrUpdate(user.toEntity())
+    override suspend fun deleteUser(user: User) {
+        userDao.delete(user.userId)
     }
 
     override suspend fun loadUsers(): Flow<List<User>> = flow {
@@ -43,6 +43,7 @@ class UserDataSourceImpl @Inject constructor(
     userName = this.userEmail,
      profilePic = this.profilePic,
     userEmail = this.userEmail,
+        isSeen = this.isSeen
 
     )
 
@@ -53,6 +54,8 @@ class UserDataSourceImpl @Inject constructor(
         password = this.password,
         userName = this.userName,
         profilePic = this.profilePic,
-        userEmail = this.userEmail
+        userEmail = this.userEmail,
+        isSeen = this.isSeen
+
     )
 }

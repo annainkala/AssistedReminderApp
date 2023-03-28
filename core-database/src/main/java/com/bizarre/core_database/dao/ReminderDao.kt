@@ -19,6 +19,8 @@ interface ReminderDao {
     @Query("SELECT * FROM reminders WHERE reminderId LIKE :reminderId")
     fun findOne(reminderId: Long): Flow<ReminderEntity>
 
+    @Query("SELECT * FROM reminders WHERE user_id LIKE :userId")
+    fun findRemindersByUser(userId: Long): Flow<List<ReminderEntity>>
 
 
     @Delete

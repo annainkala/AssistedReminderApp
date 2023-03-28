@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.bizarre.assistedreminderapp.R
-import user.UserRepository
+
 
 
 @Composable

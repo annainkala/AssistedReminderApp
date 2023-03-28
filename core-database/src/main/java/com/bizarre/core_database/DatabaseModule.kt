@@ -3,6 +3,7 @@ package com.bizarre.core_database
 import android.content.Context
 import androidx.room.Room
 import com.bizarre.core_database.dao.ReminderDao
+import com.bizarre.core_database.dao.UserDao
 
 import dagger.Module
 import dagger.Provides
@@ -21,6 +22,10 @@ class DatabaseModule {
     }
 
 
+    @Provides
+    fun provideUserDao(appDatabase: AppDatabase): UserDao {
+        return appDatabase.userDao()
+    }
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {

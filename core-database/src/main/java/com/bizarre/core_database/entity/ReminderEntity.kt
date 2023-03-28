@@ -13,15 +13,26 @@ import java.time.LocalDateTime
         Index("reminderId", unique = true)
 
     ],
-
-
+    foreignKeys = [
+        ForeignKey(
+            entity = UserEntity::class,
+            parentColumns = ["userId"],
+            childColumns = ["user_id"],
+            onUpdate = ForeignKey.CASCADE,
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
 )
+
+
 data class ReminderEntity(
     @PrimaryKey(autoGenerate = true)
     val reminderId: Long = 0,
     val message: String,
     val location_x: Double,
     val location_y: Double,
+    @ColumnInfo(name = "user_id")
+    val userId: Long,
     val reminder_date: LocalDateTime,
     val creation_date: LocalDateTime,
     val creator_email: String,

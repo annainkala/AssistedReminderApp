@@ -4,6 +4,7 @@ import com.bizarre.core_database.dao.ReminderDao
 import com.bizarre.core_database.entity.ReminderEntity
 
 import com.bizarre.core_domain.entity.Reminder
+import com.bizarre.core_domain.entity.User
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -24,9 +25,19 @@ class ReminderDataSourceImpl @Inject constructor(
 
     }
 
-    override suspend fun loadAllReminders():List<Reminder> {
+    override suspend fun deleteReminder(reminder: Reminder) {
+        reminderDao.delete(reminder.toEntity())
+    }
+    override suspend fun loadAllReminders(): List<Reminder> {
         return reminderDao.findAll().map {
             it.fromEntity()
+        }
+    }
+    override suspend fun loadRemindersByUser(user:User): Flow<List<Reminder>> {
+        return reminderDao.findRemindersByUser(user.userId).map { list ->
+            list.map {
+                it.fromEntity()
+            }
         }
     }
 
@@ -35,6 +46,7 @@ class ReminderDataSourceImpl @Inject constructor(
 
 
         reminderId = this.reminderId,
+        userId = this.userId,
           message = this.message,
         location_x = this.location_x,
        location_y = this.location_y,

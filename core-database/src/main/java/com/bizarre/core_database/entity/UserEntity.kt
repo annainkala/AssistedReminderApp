@@ -24,5 +24,6 @@ data class UserEntity(
     val password: String,
     val userName: String,
     val profilePic: String,
-    val userEmail: String,)
+    val userEmail: String,
+val isSeen:Boolean)
 
