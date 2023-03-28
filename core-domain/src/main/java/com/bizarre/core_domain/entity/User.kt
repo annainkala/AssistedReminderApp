@@ -8,5 +8,5 @@ data class User(
     val userName: String,
     val profilePic: String,
     val userEmail: String,
-    val isSeen:Boolean
+
 )

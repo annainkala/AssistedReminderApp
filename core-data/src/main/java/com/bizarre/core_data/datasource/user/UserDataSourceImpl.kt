@@ -1,6 +1,7 @@
 package com.bizarre.core_data.datasource.user
 
 
+import android.util.Log
 import com.bizarre.core_database.dao.UserDao
 import com.bizarre.core_database.entity.UserEntity
 
@@ -16,6 +17,7 @@ class UserDataSourceImpl @Inject constructor(
 ) : UserDataSource {
 
     override suspend fun addUser(user: User){
+        Log.d("","INSERTTTTTTTT2222222222222::::: " + user.toString())
         userDao.insertOrUpdate(user.toEntity())
     }
 
@@ -40,10 +42,10 @@ class UserDataSourceImpl @Inject constructor(
     firstName =  this.firstName,
     lastName = this.lastName,
     password = this.password,
-    userName = this.userEmail,
+    userName = this.userName,
      profilePic = this.profilePic,
     userEmail = this.userEmail,
-        isSeen = this.isSeen
+
 
     )
 
@@ -55,7 +57,7 @@ class UserDataSourceImpl @Inject constructor(
         userName = this.userName,
         profilePic = this.profilePic,
         userEmail = this.userEmail,
-        isSeen = this.isSeen
+
 
     )
 }

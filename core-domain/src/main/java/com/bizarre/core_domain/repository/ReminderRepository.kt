@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface ReminderRepository {
     suspend fun addReminder(reminder: Reminder)
     suspend fun deleteReminder(reminder: Reminder)
-    suspend fun loadRemindersByUser(user: User):Flow<List<Reminder>>
+    suspend fun loadRemindersByUser(userId: User):Flow<List<Reminder>>
     suspend fun loadAllReminders(): List<Reminder>
 }

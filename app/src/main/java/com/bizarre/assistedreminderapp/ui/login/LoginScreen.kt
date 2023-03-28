@@ -60,12 +60,27 @@ fun LoginScreen(
     when (viewState) {
         is UserState.Success -> {
             val user = (viewState as UserState.Success).selectedUser
+
+
             // val users = (viewState as UserState.Success).data
 
+            Log.d("","INSERTTTTTTT:00000::::11111111:::::: " + user.toString())
+            if(user == null){
+                Log.d("","INSERTTTTTTT:::::11111111:::::: " + user.toString())
+                viewModel.saveUser(
+                    User(
+                        firstName = "Lois",
+                        lastName = "Griffin",
+                        password = "pw",
+                        userName = "Un",
+                        profilePic = "",
+                        userEmail = "",
+                        userId = 0,
 
-            if(user?.userName == ""){
 
-                viewModel.savePreferences()
+                        )
+                )
+
             }
             Surface(
                 modifier = Modifier.fillMaxSize()
@@ -118,30 +133,19 @@ fun LoginScreen(
                     OutlinedButton(
                         onClick = {
 
-
-                            Log.d("XXXXX ", user?.userName.toString())
-
-
-
-                            if(user?.userName!!.isBlank()){
-
-                                viewModel.getUserPreferences()
+                            val user2 = viewModel.users.value[0]
+                            Log.d("000000000","RRRRRRR 1: " +
+                                    user2.toString())
+                            Log.d("XXXXXXX","RRRRRRR 1: " +
+                                    user2.userName.toString() + " " + user2.password)
 
 
-                                val username1 = userState2.value.username
-                                Log.d("XXXXX 3 ", username1.toString())
-                                val password1 = userState2.value.password
-                                if (username1 == username.value && password1 == password.value) {
-                                  //  val encodedUrl = URLEncoder.encode(user.profilePic)
-                                    var username2 = user?.firstName + "_" + ""
-                                    "home".replace("{user}", username2)
-                                    navController.navigate("home/$username2")
 
-                                }
-                            }
-                            else{
-                                if (user?.userName == username.value && user?.password == password.value) {
-                                    val encodedUrl = URLEncoder.encode(user.profilePic)
+                                if (user2.userName == username.value &&
+                                    user2.password == password.value) {
+
+                                    Log.d("XXXXXXX","AAAAAAAAAAA " + user2.toString())
+                                    val encodedUrl = URLEncoder.encode(user!!.profilePic)
                                     var username1 = user?.firstName + "_" + encodedUrl
                                     "home".replace("{user}", username1)
                                     navController.navigate("home/$username1")
@@ -149,7 +153,7 @@ fun LoginScreen(
                                 }
 
 
-                            }
+
 
 
                         },

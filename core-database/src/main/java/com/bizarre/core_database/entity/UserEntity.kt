@@ -9,21 +9,20 @@ import java.time.LocalDateTime
 
 @Entity(
     tableName = "users",
-    indices = [
-        Index("userId", unique = true)
+   indices = [Index("userId", unique = true)]
 
-    ],
+   // ],
 
 
     )
 data class UserEntity(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "userId")
     val userId: Long = 0,
     val firstName: String,
     val lastName: String,
     val password: String,
     val userName: String,
     val profilePic: String,
-    val userEmail: String,
-val isSeen:Boolean)
+    val userEmail: String)
 

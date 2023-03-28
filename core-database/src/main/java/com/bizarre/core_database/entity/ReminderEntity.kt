@@ -10,7 +10,8 @@ import java.time.LocalDateTime
 @Entity(
     tableName = "reminders",
     indices = [
-        Index("reminderId", unique = true)
+        Index("reminderId", unique = true),
+        Index("user_id")
 
     ],
     foreignKeys = [
@@ -35,7 +36,6 @@ data class ReminderEntity(
     val userId: Long,
     val reminder_date: LocalDateTime,
     val creation_date: LocalDateTime,
-    val creator_email: String,
     val is_seen: Boolean = false)
 
 

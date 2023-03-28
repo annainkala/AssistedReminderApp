@@ -16,7 +16,7 @@ import com.bizarre.assistedreminderapp.ui.user.UserState
 import com.bizarre.core_domain.entity.User
 
 import com.bizarre.core_domain.repository.ReminderRepository
-import com.bizarre.core_domain.repository.UserPreferenceRepository
+
 import com.bizarre.core_domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -28,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AppViewModel @Inject constructor(private val reminderRepository: ReminderRepository,
                                        private val userRepository:UserRepository,):ViewModel() {
-    private val userRepository2 = UserPreferenceRepository(Graph.appContext)
+
     private val _userState2 = MutableStateFlow(UserPreferenceState())
 
     val userState2 :StateFlow<UserPreferenceState>
@@ -36,9 +36,6 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
 
     private val __reminderState = MutableStateFlow<ReminderState>(ReminderState.Loading)
     val reminderState: StateFlow<ReminderState> = __reminderState
-
-
-
 
     private val _userList: MutableStateFlow<List<User>> = MutableStateFlow(mutableListOf())
     val users: StateFlow<List<User>> = _userList
@@ -50,6 +47,7 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
 
     fun saveReminder(reminder: Reminder) {
         viewModelScope.launch {
+            Log.d("SAVE::::::: ", reminder.toString())
             reminderRepository.addReminder(reminder)
             // notifyUserOfReminder(reminder)
 
@@ -60,6 +58,7 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
     fun saveUser(user:User) {
         viewModelScope.launch {
             userRepository.addUser(user)
+            loadUsers()
             // notifyUserOfReminder(reminder)
         }
     }
@@ -70,21 +69,6 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
     }
 
 
-    fun savePreferences(){
-
-        userRepository2.addUserLogin()
-
-        Log.d(" UUUUUUUUUU ",userRepository2.getUserName())
-    }
-
-    fun getUserPreferences(){
-        _userState2.value = UserPreferenceState(firstname =  UserPreferenceRepository(Graph.appContext).geName(),
-        username = UserPreferenceRepository(Graph.appContext).getUserName(),
-            password = UserPreferenceRepository(Graph.appContext).getPassword())
-        Log.d(" UUUUUUUUUU 77777 ", _userState2.value.username)
-
-    }
-
 
     fun loadRemindersFor(user: User?) {
         if (user != null) {
@@ -92,9 +76,7 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
                 val reminders = reminderRepository.loadAllReminders()
                 __reminderState.value =
                     ReminderState.Success(
-                        reminders.filter {
-                            it.userId == user.userId
-                        }
+                        reminders
                     )
             }
         }
@@ -106,6 +88,8 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
 
         viewModelScope.launch {
             loadUsers()
+
+
         }
 
 
@@ -121,6 +105,7 @@ private suspend fun loadUsers() {
             userRepository.loadUsers()
                 .onEach { users ->
                     if (users.isNotEmpty() && _selectedUser.value == null) {
+                        Log.d("ZZZZZZZZZZZZZ:::: ", users.toString())
                         _selectedUser.value = users.first()
                     }
                 },

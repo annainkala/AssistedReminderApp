@@ -1,7 +1,9 @@
 package com.bizarre.assistedreminderapp.navigation
 
 
-import ReminderView
+
+
+import ReminderView3
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
@@ -56,7 +58,7 @@ fun Navigation() {
 
 
         composable("reminder") {
-           ReminderView(navController = navController,)
+           ReminderView3(navController = navController,)
         }
     }
 }

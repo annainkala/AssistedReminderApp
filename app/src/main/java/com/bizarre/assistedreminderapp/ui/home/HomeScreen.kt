@@ -33,6 +33,7 @@ import com.bizarre.assistedreminderapp.ui.reminder.AppViewModel
 
 import com.bizarre.assistedreminderapp.ui.theme.Typography
 import com.bizarre.assistedreminderapp.ui.user.UserState
+import com.bizarre.core_domain.entity.User
 import java.net.URLDecoder
 
 @Composable
@@ -42,27 +43,14 @@ fun HomeScreen(
     navController: NavController,
     viewModel: AppViewModel = hiltViewModel(),
 
-) {
-
-
+    ) {
 
 
     val viewState by viewModel.userState.collectAsState()
 
     when (viewState) {
         is UserState.Success -> {
-            val selectedUser = (viewState as UserState.Success).selectedUser
-            val users = (viewState as UserState.Success).data
-
-
-
-
-
-
-
-
-
-
+            val user = getUser(viewModel)
 
             val name1 = text1.split("_")[0]
             val uri = text1.split("_")[1]//URLDecoder.decode(text1.split("_")[1])
@@ -119,7 +107,7 @@ fun HomeScreen(
                     )
 
                     Text("Hello $name1}!!!!")
-                    ReminderListView(navController)
+                    ReminderListView(navController,user!!)
 
 
 
@@ -127,20 +115,6 @@ fun HomeScreen(
 
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         }
@@ -153,6 +127,11 @@ fun HomeScreen(
     }
 
 }
-    
 
 
+
+
+
+private fun getUser(viewModel: AppViewModel): User {
+    return viewModel.users.value[0]
+}

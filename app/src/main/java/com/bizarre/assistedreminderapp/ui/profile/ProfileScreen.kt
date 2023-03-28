@@ -206,7 +206,7 @@ fun ProfileScreen(
                                     profilePic = imageUri1.value.toString(),
                                     userEmail = userEmail.value.toString(),
                                     userId = user?.userId!!,
-                                    isSeen = user.isSeen
+
 
                                     )
 
