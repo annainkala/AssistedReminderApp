@@ -55,6 +55,7 @@ fun LoginScreen(
 
 ) {
     val viewState by viewModel.userState.collectAsState()
+    val userState2 = viewModel.userState2
 
     when (viewState) {
         is UserState.Success -> {
@@ -62,6 +63,10 @@ fun LoginScreen(
             // val users = (viewState as UserState.Success).data
 
 
+            if(user?.userName == ""){
+
+                viewModel.savePreferences()
+            }
             Surface(
                 modifier = Modifier.fillMaxSize()
 
@@ -117,11 +122,31 @@ fun LoginScreen(
                             Log.d("XXXXX ", user?.userName.toString())
 
 
-                            if (user?.userName == username.value && user?.password == password.value) {
-                                val encodedUrl = URLEncoder.encode(user.profilePic)
-                                var username1 = user?.firstName + "_" + encodedUrl
-                                "home".replace("{user}", username1)
-                                navController.navigate("home/$username1")
+
+                            if(user?.userName!!.isBlank()){
+
+                                viewModel.getUserPreferences()
+
+
+                                val username1 = userState2.value.username
+                                Log.d("XXXXX 3 ", username1.toString())
+                                val password1 = userState2.value.password
+                                if (username1 == username.value && password1 == password.value) {
+                                  //  val encodedUrl = URLEncoder.encode(user.profilePic)
+                                    var username2 = user?.firstName + "_" + ""
+                                    "home".replace("{user}", username2)
+                                    navController.navigate("home/$username2")
+
+                                }
+                            }
+                            else{
+                                if (user?.userName == username.value && user?.password == password.value) {
+                                    val encodedUrl = URLEncoder.encode(user.profilePic)
+                                    var username1 = user?.firstName + "_" + encodedUrl
+                                    "home".replace("{user}", username1)
+                                    navController.navigate("home/$username1")
+
+                                }
 
 
                             }
