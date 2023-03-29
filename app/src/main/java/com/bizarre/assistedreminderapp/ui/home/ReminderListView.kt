@@ -35,7 +35,7 @@ fun ReminderListView(
             is ReminderState.Loading -> {}
             is  ReminderState.Success -> {
                 val reminderList = (reminderViewState as ReminderState.Success).data
-                Log.d("ZZZZZZZZZ ", " " + reminderList.toString())
+                Log.d("ZZZZZZZZZ ", " " + user.toString())
                 LazyColumn(
                     contentPadding = PaddingValues(0.dp),
                     verticalArrangement = Arrangement.Center
@@ -91,14 +91,15 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
     }) {
 
 
-        Row (horizontalArrangement = Arrangement.SpaceBetween){
+        Row (horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxWidth()){
             Column(
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Bottom
             ){
 
-                Text(reminder.message)
-                Text(reminder.creation_date.format(formatter))
+                Text(reminder.message, style = MaterialTheme.typography.body1)
+                Text(reminder.creation_date.format(formatter), style = MaterialTheme.typography.body1)
 
 
             }

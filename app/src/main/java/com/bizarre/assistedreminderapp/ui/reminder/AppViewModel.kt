@@ -57,7 +57,8 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
 
     fun saveUser(user:User) {
         viewModelScope.launch {
-            userRepository.addUser(user)
+           val result =  userRepository.addUser(user)
+            Log.d("HHHHHHHHHHH","SAVE USER:::::: " + user.toString() + result.toString())
             loadUsers()
             // notifyUserOfReminder(reminder)
         }
@@ -104,7 +105,7 @@ private suspend fun loadUsers() {
         combine(
             userRepository.loadUsers()
                 .onEach { users ->
-                    if (users.isNotEmpty() && _selectedUser.value == null) {
+                    if (users.isNotEmpty()) {
                         Log.d("ZZZZZZZZZZZZZ:::: ", users.toString())
                         _selectedUser.value = users.first()
                     }

@@ -134,8 +134,8 @@ fun LoginScreen(
                         onClick = {
 
                             val user2 = viewModel.users.value[0]
-                            Log.d("000000000","RRRRRRR 1: " +
-                                    user2.toString())
+                            Log.d("66666666666","RRRRRRR 1: " +
+                                    viewModel.users.value.toString())
                             Log.d("XXXXXXX","RRRRRRR 1: " +
                                     user2.userName.toString() + " " + user2.password)
 

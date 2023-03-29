@@ -18,7 +18,7 @@ import com.bizarre.assistedreminderapp.ui.home.HomeScreen
 
 
 import com.bizarre.assistedreminderapp.ui.login.LoginScreen
-import com.bizarre.assistedreminderapp.ui.login.ProfileScreen
+import com.bizarre.assistedreminderapp.ui.profile.ProfileScreen
 
 
 @Composable

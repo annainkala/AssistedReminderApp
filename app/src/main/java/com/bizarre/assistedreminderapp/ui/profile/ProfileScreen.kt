@@ -61,8 +61,9 @@ fun ProfileScreen(
     when (viewState) {
         is UserState.Success -> {
             val user = (viewState as UserState.Success).selectedUser
+            val users =  (viewState as UserState.Success).data
 
-            Log.d(" ","USERRRRR::::: " +user.toString() )
+            Log.d(" ","USERRRRR::::: " +users.toString() )
 
             // val users = (viewState as UserState.Success).data
 
@@ -288,6 +289,8 @@ fun ProfileScreen(
 
 
                             )
+
+                        Log.d("XXXXXXX","XXXXXXXXX " + user.toString())
 
                         viewModel.saveUser(user)
 

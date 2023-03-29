@@ -16,9 +16,9 @@ class UserDataSourceImpl @Inject constructor(
     private val userDao: UserDao
 ) : UserDataSource {
 
-    override suspend fun addUser(user: User){
+    override suspend fun addUser(user: User):Long{
         Log.d("","INSERTTTTTTTT2222222222222::::: " + user.toString())
-        userDao.insertOrUpdate(user.toEntity())
+       return userDao.insertOrUpdate(user.toEntity())
     }
 
     override suspend fun deleteUser(user: User) {
