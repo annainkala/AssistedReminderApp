@@ -6,7 +6,7 @@ import com.bizarre.core_domain.entity.User
 import kotlinx.coroutines.flow.Flow
 
 interface ReminderDataSource {
-    suspend fun addReminder(reminder: Reminder)
+    suspend fun addReminder(reminder: Reminder): Long
 
     suspend fun deleteReminder(reminder: Reminder)
     suspend fun loadAllReminders(): List<Reminder>

@@ -19,8 +19,8 @@ import java.time.LocalDateTime
 class ReminderDataSourceImpl @Inject constructor(
     private val reminderDao: ReminderDao
 ) : ReminderDataSource {
-    override suspend fun addReminder(reminder: Reminder) {
-        reminderDao.insertOrUpdate(reminder.toEntity())
+    override suspend fun addReminder(reminder: Reminder):Long {
+      return  reminderDao.insertOrUpdate(reminder.toEntity())
 
 
     }

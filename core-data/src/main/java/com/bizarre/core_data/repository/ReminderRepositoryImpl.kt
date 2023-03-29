@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.Flow
 class ReminderRepositoryImpl @Inject constructor(
     private val reminderDataSource: ReminderDataSource
 ) : ReminderRepository {
-    override suspend fun addReminder(reminder: Reminder) {
-        reminderDataSource.addReminder(reminder)
-    }
+    override suspend fun addReminder(reminder: Reminder):Long   = reminderDataSource.addReminder(reminder)
 
     override suspend fun deleteReminder(reminder: Reminder) {
         reminderDataSource.deleteReminder(reminder)
