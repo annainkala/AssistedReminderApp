@@ -13,6 +13,10 @@ import kotlinx.coroutines.flow.Flow
 class UserRepositoryImpl @Inject constructor(
     private val dataSource: UserDataSource
 ) : UserRepository {
+    override suspend fun updateUser(user: User) {
+        dataSource.updateUser(user)
+    }
+
     override suspend fun addUser(user:User):Long   = dataSource.addUser(user)
 
 

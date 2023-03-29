@@ -292,7 +292,7 @@ fun ProfileScreen(
 
                         Log.d("XXXXXXX","XXXXXXXXX " + user.toString())
 
-                        viewModel.saveUser(user)
+                        viewModel.updateUser(user)
 
 
                         val encodedUrl = URLEncoder.encode(user.profilePic)

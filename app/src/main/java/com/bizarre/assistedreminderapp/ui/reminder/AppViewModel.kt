@@ -64,6 +64,15 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
         }
     }
 
+    fun updateUser(user:User) {
+        viewModelScope.launch {
+            userRepository.updateUser(user)
+            Log.d("HHHHHHHHHHH","SAVE USER:::::: " + user.toString() )
+            loadUsers()
+            // notifyUserOfReminder(reminder)
+        }
+    }
+
 
     fun onUserSelected(user: User) {
         _selectedUser.value = user

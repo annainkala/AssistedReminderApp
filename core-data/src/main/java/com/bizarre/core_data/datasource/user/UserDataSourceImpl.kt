@@ -15,10 +15,13 @@ import javax.inject.Inject
 class UserDataSourceImpl @Inject constructor(
     private val userDao: UserDao
 ) : UserDataSource {
+    override suspend fun updateUser(user: User) {
+        return userDao.update(user.toEntity())
+    }
 
     override suspend fun addUser(user: User):Long{
         Log.d("","INSERTTTTTTTT2222222222222::::: " + user.toString())
-       return userDao.insertOrUpdate(user.toEntity())
+       return userDao.insert(user.toEntity())
     }
 
     override suspend fun deleteUser(user: User) {

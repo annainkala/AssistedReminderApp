@@ -21,9 +21,13 @@ class ReminderDataSourceImpl @Inject constructor(
     private val reminderDao: ReminderDao
 ) : ReminderDataSource {
     override suspend fun addReminder(reminder: Reminder):Long {
-      return  reminderDao.insertOrUpdate(reminder.toEntity())
+      return  reminderDao.insert(reminder.toEntity())
 
 
+    }
+
+    override suspend fun updateReminder(reminder: Reminder) {
+        reminderDao.update(reminder.toEntity())
     }
 
     override suspend fun deleteReminder(reminder: Reminder){

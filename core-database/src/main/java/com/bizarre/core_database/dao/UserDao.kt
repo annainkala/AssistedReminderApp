@@ -1,10 +1,6 @@
 package com.bizarre.core_database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.bizarre.core_database.entity.ReminderEntity
 import com.bizarre.core_database.entity.UserEntity
 
@@ -14,7 +10,10 @@ import kotlinx.coroutines.flow.Flow
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrUpdate(user: UserEntity): Long
+    suspend fun insert(user: UserEntity): Long
+
+    @Update
+    suspend fun update(user: UserEntity)
 
     @Query("SELECT * FROM users WHERE userId LIKE :userId")
     fun findOne(userId: Long): Flow<UserEntity>

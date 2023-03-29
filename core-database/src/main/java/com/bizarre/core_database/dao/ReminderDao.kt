@@ -1,17 +1,16 @@
 package com.bizarre.core_database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.bizarre.core_database.entity.ReminderEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ReminderDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrUpdate(reminder: ReminderEntity): Long
+    suspend fun insert(reminder: ReminderEntity): Long
+
+    @Update
+    suspend fun update(reminder: ReminderEntity)
 
     @Query("SELECT * FROM reminders")
     suspend fun findAll(): List<ReminderEntity>
