@@ -1,4 +1,4 @@
-package com.bizarre.assistedreminderapp.ui.login
+package com.bizarre.assistedreminderapp.ui.profile
 
 import android.net.Uri
 import android.util.Log
@@ -61,6 +61,9 @@ fun ProfileScreen(
     when (viewState) {
         is UserState.Success -> {
             val user = (viewState as UserState.Success).selectedUser
+
+            Log.d(" ","USERRRRR::::: " +user.toString() )
+
             // val users = (viewState as UserState.Success).data
 
             val username = rememberSaveable { mutableStateOf(user?.userName) }
@@ -107,7 +110,7 @@ fun ProfileScreen(
                     ) {
 
                         if (imageUri == null) {
-                            ProfileImage(user?.profilePic.toString(), 100)
+                            ProfileImage(user?.profilePic.toString(), 200)
                         } else {
                             AsyncImage(
 
@@ -117,15 +120,18 @@ fun ProfileScreen(
                         }
 
                         if (imageUri == null) {
-                            Button(onClick = {
+                            OutlinedButton(
+                                modifier = Modifier.background(color=MaterialTheme.colors.background),
+                                onClick = {
 
-                                imageLauncher.launch(
-                                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)
-                                )
+                                    imageLauncher.launch(
+                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)
+                                    )
 
-                            }) {
+                                }) {
 
-                                Text(text = "Pick an Image")
+                                Text(text = stringResource(id = R.string.pick_image),
+                                    style = MaterialTheme.typography.body1)
 
                             }
                         }
@@ -134,7 +140,9 @@ fun ProfileScreen(
 
                     Column() {
                         Column(
-                            modifier = Modifier.fillMaxSize().padding(bottom = 70.dp)
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(bottom = 70.dp)
                                 .verticalScroll(rememberScrollState()),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Top
@@ -167,10 +175,10 @@ fun ProfileScreen(
                                 },
                                 modifier = Modifier.fillMaxWidth(),
                                 keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Password
+                                    keyboardType = KeyboardType.Text
                                 ),
-                                visualTransformation = PasswordVisualTransformation()
-                            )
+
+                                )
                             Spacer(modifier = Modifier.height(10.dp))
                             OutlinedTextField(
                                 value = username.value.toString(),
@@ -230,21 +238,52 @@ fun ProfileScreen(
                 }
             }
 
-            Box(modifier = Modifier.fillMaxSize().background(color = Color.Transparent)){
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.Transparent)){
 
 
                 OutlinedButton(
                     onClick = {
 
                         Log.d("","IMAGEURI::: " + imageUri1.value.toString())
+                        var firstName1 = user!!.firstName
+                        if(firstname.value != "") {
+                            firstName1 = firstname.value.toString()
+                        }
+                        var lastName1 = user!!.lastName
+                        if(lastName.value != "") {
+                            lastName1 = lastName.value.toString()
+                        }
+
+                        var userName1 = user!!.userName
+                        if(username.value != "") {
+                            userName1 = username.value.toString()
+                        }
+                        var password1 = user!!.password
+                        if(password.value != "") {
+                            password1= password.value.toString()
+                        }
+
+                        var email1 = user!!.userEmail
+                        if(userEmail.value != "") {
+                            email1= userEmail.value.toString()
+                        }
+
+                        var profilePic1 = user!!.profilePic
+                        if(imageUri1.value != "") {
+                            profilePic1= imageUri1.value.toString()
+                        }
+
+
 
                         val user =  User(
-                            firstName = firstname.value.toString(),
-                            lastName = lastName.value.toString(),
-                            password = password.value.toString(),
-                            userName = username.value.toString(),
-                            profilePic = imageUri1.value.toString(),
-                            userEmail = userEmail.value.toString(),
+                            firstName = firstName1,
+                            lastName = lastName1,
+                            password =password1,
+                            userName = userName1,
+                            profilePic = profilePic1,
+                            userEmail = email1,
                             userId = user?.userId!!,
 
 
@@ -269,15 +308,18 @@ fun ProfileScreen(
                     enabled = true,
                     modifier = Modifier
 
-                        .background(color = Color.Green)
+                        .background(color = MaterialTheme.colors.primary)
                         .fillMaxWidth()
-                        .padding(10.dp).height(70.dp).align(Alignment.BottomCenter),
+                        .padding(10.dp)
+                        .height(70.dp)
+                        .align(Alignment.BottomCenter),
                     shape = MaterialTheme.shapes.small,
                     colors = ButtonDefaults.outlinedButtonColors(backgroundColor =
-                    Color.Green),
+                    MaterialTheme.colors.background),
                     border = BorderStroke(1.dp, MaterialTheme.colors.secondary)
                 ) {
-                    Text(text =stringResource(id = R.string.login), style = Typography.body1, color = MaterialTheme.colors.secondary)
+                    Text(text =stringResource(id = R.string.save), style = Typography.body1,
+                        color = MaterialTheme.colors.secondary)
                 }
 
             }
