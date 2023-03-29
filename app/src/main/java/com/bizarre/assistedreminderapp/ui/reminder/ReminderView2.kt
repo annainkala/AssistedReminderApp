@@ -53,22 +53,29 @@ fun ReminderView3(
             val datePickerDialog = DatePickerDialog(
                 LocalContext.current,
                 { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                    reminderDate = mutableStateOf(LocalDateTime.of(year,month,day,0,0,0))
+                    reminderDate = mutableStateOf(LocalDateTime.of(year,month+1,dayOfMonth,0,0,0))
+                    Log.d("REMINDER DATE:::","EEEEEEEEEE " + reminderDate.value.toString())
 
                 },reminderDate.value.year,reminderDate.value.monthValue,reminderDate.value.dayOfMonth
             )
             Column(){
-                var formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss")
+                var formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
                 Spacer(modifier = Modifier.height(10.dp))
 
-                Row(){
-                    Text( LocalDateTime.now().format(formatter))
-                    Button(
+                Row(
+
+                ){
+                    Text( reminderDate.value.format(formatter))
+                    OutlinedButton(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(70.dp),
+
                         onClick = {
                             datePickerDialog.show()
                         }
                     ){
-                        Text("Pcik a day")
+                        Text(stringResource(id = R.string.pick_date), style = MaterialTheme.typography.body1)
                     }
                 }
                

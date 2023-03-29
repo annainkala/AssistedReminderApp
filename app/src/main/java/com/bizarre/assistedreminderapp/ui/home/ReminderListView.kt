@@ -86,71 +86,78 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
 
     val currentTime = LocalDateTime.now()
 
-    if(reminder.reminder_date <= currentTime)
-    OutlinedButton(modifier = Modifier .pointerInput(Unit){
-      /*  detectTapGestures(
-            onLongPress = {
-                openDialog.value = true
+    Log.d(""," TTIME 1:::::: " + reminder.reminder_date.toString() + " " + currentTime.toString())
+    if(reminder.reminder_date <= currentTime){
+
+
+
+
+        OutlinedButton(modifier = Modifier .pointerInput(Unit){
+            /*  detectTapGestures(
+                  onLongPress = {
+                      openDialog.value = true
+                  }
+              )*/
+        }, onClick = {
+
+            openDialog.value = true
+        }) {
+
+
+            Row (horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()){
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Bottom
+                ){
+
+                    Text(reminder.message, style = MaterialTheme.typography.body1)
+                    Text(reminder.reminder_date.format(formatter), style = MaterialTheme.typography.body1)
+
+
+                }
+                SimpleCheckbox(reminder,viewModel)
             }
-        )*/
-    }, onClick = {
+        }
 
-        openDialog.value = true
-    }) {
+        if (openDialog.value) {
 
+            AlertDialog(
+                onDismissRequest = {
+                    // Dismiss the dialog when the user clicks outside the dialog or on the back
+                    // button. If you want to disable that functionality, simply use an empty
+                    // onCloseRequest.
+                    openDialog.value = false
+                },
+                title = {
+                    Text(stringResource(id = R.string.delete_message)
+                        , style = MaterialTheme.typography.body1)
+                },
 
-        Row (horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth()){
-            Column(
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Bottom
-            ){
+                confirmButton = {
+                    OutlinedButton(
 
-                Text(reminder.message, style = MaterialTheme.typography.body1)
-                Text(reminder.reminder_date.format(formatter), style = MaterialTheme.typography.body1)
+                        onClick = {
+                            openDialog.value = false
+                            viewModel.deleteReminder(reminder)
+                        }) {
+                        Text(stringResource(id = R.string.ok)
+                            , style = MaterialTheme.typography.body1)
+                    }
+                },
+                /*   dismissButton = {
+                       Button(
 
-
-            }
-            SimpleCheckbox(reminder,viewModel)
+                           onClick = {
+                               openDialog.value = false
+                           }) {
+                           Text("This is the dismiss Button")
+                       }
+                   }*/
+            )
         }
     }
 
-    if (openDialog.value) {
-
-        AlertDialog(
-            onDismissRequest = {
-                // Dismiss the dialog when the user clicks outside the dialog or on the back
-                // button. If you want to disable that functionality, simply use an empty
-                // onCloseRequest.
-                openDialog.value = false
-            },
-            title = {
-                Text(stringResource(id = R.string.delete_message)
-                    , style = MaterialTheme.typography.body1)
-            },
-
-            confirmButton = {
-                OutlinedButton(
-
-                    onClick = {
-                        openDialog.value = false
-                        viewModel.deleteReminder(reminder)
-                    }) {
-                    Text(stringResource(id = R.string.ok)
-                    , style = MaterialTheme.typography.body1)
-                }
-            },
-         /*   dismissButton = {
-                Button(
-
-                    onClick = {
-                        openDialog.value = false
-                    }) {
-                    Text("This is the dismiss Button")
-                }
-            }*/
-        )
-    }
 
     }
 
