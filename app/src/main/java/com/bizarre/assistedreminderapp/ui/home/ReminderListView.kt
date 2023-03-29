@@ -20,6 +20,7 @@ import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 
 import com.bizarre.core_domain.entity.Reminder
 import com.bizarre.core_domain.entity.User
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
@@ -82,6 +83,10 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
 
     val formatter = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm:ss")
     val openDialog = remember { mutableStateOf(false)  }
+
+    val currentTime = LocalDateTime.now()
+
+    if(reminder.reminder_date <= currentTime)
     OutlinedButton(modifier = Modifier .pointerInput(Unit){
       /*  detectTapGestures(
             onLongPress = {

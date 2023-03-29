@@ -55,7 +55,7 @@ fun LoginScreen(
 
 ) {
     val viewState by viewModel.userState.collectAsState()
-    val userState2 = viewModel.userState2
+
 
     when (viewState) {
         is UserState.Success -> {

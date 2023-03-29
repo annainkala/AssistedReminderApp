@@ -10,9 +10,11 @@ import androidx.core.app.NotificationManagerCompat
 import com.bizarre.core_domain.entity.Reminder
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.*
 import com.bizarre.assistedreminderapp.Graph
 import com.bizarre.assistedreminderapp.R
 import com.bizarre.assistedreminderapp.ui.user.UserState
+import com.bizarre.assistedreminderapp.ui.utils.NotificationWorker
 import com.bizarre.core_domain.entity.User
 
 import com.bizarre.core_domain.repository.ReminderRepository
@@ -21,18 +23,20 @@ import com.bizarre.core_domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(private val reminderRepository: ReminderRepository,
                                        private val userRepository:UserRepository,):ViewModel() {
 
-    private val _userState2 = MutableStateFlow(UserPreferenceState())
 
-    val userState2 :StateFlow<UserPreferenceState>
-        get() = _userState2
+
+
 
     private val __reminderState = MutableStateFlow<ReminderState>(ReminderState.Loading)
     val reminderState: StateFlow<ReminderState> = __reminderState
@@ -49,7 +53,7 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
         viewModelScope.launch {
             Log.d("SAVE::::::: ", reminder.toString())
             reminderRepository.addReminder(reminder)
-            // notifyUserOfReminder(reminder)
+            setOneTimeNotification(reminder)
 
 
         }
@@ -91,10 +95,10 @@ fun deleteReminder(reminder:Reminder){
     fun loadRemindersFor(user: User?) {
         if (user != null) {
             viewModelScope.launch {
-                val reminders = reminderRepository.loadAllReminders()
+                val reminders = reminderRepository.loadRemindersByUser(user)
                 __reminderState.value =
                     ReminderState.Success(
-                        reminders
+                        data = reminders.first()
                     )
             }
         }
@@ -113,8 +117,6 @@ fun deleteReminder(reminder:Reminder){
 
 
     }
-
-
 
 
 
@@ -152,17 +154,7 @@ private fun createNotificationChannel(context: Context){
     }
 }
 
-private fun createSuccessNotification(){
-    val notificationId= 1
-    val builder = NotificationCompat.Builder(Graph.appContext,"CHANNEL_ID")
-        .setSmallIcon(R.drawable.ic_launcher_background)
-        .setContentTitle("WWWWWWW")
-        .setContentText("Successfully completed!")
-        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-    with(NotificationManagerCompat.from(Graph.appContext)){
-        notify(notificationId, builder.build())
-    }
-}
+
 private fun createReminderNotification(reminder: Reminder){
     val formatter = DateTimeFormatter.ofPattern("dd MM yyyy")
     val date1 = reminder.reminder_date.toLocalDate().format(formatter)
@@ -177,10 +169,38 @@ private fun createReminderNotification(reminder: Reminder){
     }
 
 }
+private fun setOneTimeNotification(reminder:Reminder) {
 
+    val duration = getDuration(reminder)
+    val workManager = WorkManager.getInstance(Graph.appContext)
+    val constraints = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.CONNECTED)
+        .build()
 
-data class UserPreferenceState(
-    val username:String = "",
-val password:String = "",
-val firstname:String = ""
-)
+    val notificationWorker = OneTimeWorkRequestBuilder<NotificationWorker>()
+        .setInitialDelay(duration, TimeUnit.SECONDS)
+        .setConstraints(constraints)
+        .build()
+
+    workManager.enqueue(notificationWorker)
+
+    //Monitoring for state of work
+    workManager.getWorkInfoByIdLiveData(notificationWorker.id)
+        .observeForever { workInfo ->
+            if (workInfo.state == WorkInfo.State.SUCCEEDED) {
+                createReminderNotification(reminder)
+            } else {
+                //  createErrorNotification()
+            }
+        }
+}
+
+fun getDuration(reminder:Reminder):Long{
+
+    val currentTime = LocalDateTime.now()
+
+    val duration = currentTime.toEpochSecond(ZoneOffset.UTC)-reminder.reminder_date.toEpochSecond(ZoneOffset.UTC)
+    Log.d("DURATION_____" , "DDDDDDDDD ")
+
+    return duration
+}
