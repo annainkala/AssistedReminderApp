@@ -8,9 +8,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.bizarre.assistedreminderapp.R
 import com.bizarre.assistedreminderapp.ui.reminder.AppViewModel
 
 
@@ -87,6 +89,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
             }
         )*/
     }, onClick = {
+
         openDialog.value = true
     }) {
 
@@ -99,7 +102,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
             ){
 
                 Text(reminder.message, style = MaterialTheme.typography.body1)
-                Text(reminder.creation_date.format(formatter), style = MaterialTheme.typography.body1)
+                Text(reminder.reminder_date.format(formatter), style = MaterialTheme.typography.body1)
 
 
             }
@@ -117,21 +120,22 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
                 openDialog.value = false
             },
             title = {
-                Text(text = "Dialog Title")
+                Text(stringResource(id = R.string.delete_message)
+                    , style = MaterialTheme.typography.body1)
             },
-            text = {
-                Text("Here is a text ")
-            },
+
             confirmButton = {
                 OutlinedButton(
 
                     onClick = {
                         openDialog.value = false
+                        viewModel.deleteReminder(reminder)
                     }) {
-                    Text("This is the Confirm Button")
+                    Text(stringResource(id = R.string.ok)
+                    , style = MaterialTheme.typography.body1)
                 }
             },
-            dismissButton = {
+         /*   dismissButton = {
                 Button(
 
                     onClick = {
@@ -139,7 +143,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
                     }) {
                     Text("This is the dismiss Button")
                 }
-            }
+            }*/
         )
     }
 

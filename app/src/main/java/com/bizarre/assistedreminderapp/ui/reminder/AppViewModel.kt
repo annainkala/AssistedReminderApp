@@ -69,7 +69,15 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
         _selectedUser.value = user
     }
 
+fun deleteReminder(reminder:Reminder){
+    viewModelScope.launch {
+         reminderRepository.deleteReminder(reminder)
+        loadRemindersFor(_selectedUser.value!!)
+        //Log.d("DDDDDDDD","DELETE:::::: ")
 
+        // notifyUserOfReminder(reminder)
+    }
+}
 
     fun loadRemindersFor(user: User?) {
         if (user != null) {

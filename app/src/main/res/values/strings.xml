@@ -15,4 +15,6 @@
     <string name="date_created">Date Created: </string>
     <string name="email">Email: </string>
     <string name="save">Save message</string>
+    <string name="delete_message">Delete message?</string>
+    <string name="ok">OK</string>
 </resources>

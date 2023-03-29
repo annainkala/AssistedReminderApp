@@ -1,5 +1,6 @@
 package com.bizarre.core_data.datasource.reminder
 
+import android.util.Log
 import com.bizarre.core_database.dao.ReminderDao
 import com.bizarre.core_database.entity.ReminderEntity
 
@@ -25,7 +26,9 @@ class ReminderDataSourceImpl @Inject constructor(
 
     }
 
-    override suspend fun deleteReminder(reminder: Reminder) {
+    override suspend fun deleteReminder(reminder: Reminder){
+
+        Log.d ("DELETE ::: " , " " + reminder.toString())
         reminderDao.delete(reminder.toEntity())
     }
     override suspend fun loadAllReminders(): List<Reminder> {
