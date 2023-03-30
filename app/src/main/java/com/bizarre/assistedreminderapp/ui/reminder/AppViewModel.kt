@@ -35,19 +35,23 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
                                        private val userRepository:UserRepository,):ViewModel() {
 
 
-
-
-
     private val __reminderState = MutableStateFlow<ReminderState>(ReminderState.Loading)
     val reminderState: StateFlow<ReminderState> = __reminderState
 
     private val _userList: MutableStateFlow<List<User>> = MutableStateFlow(mutableListOf())
     val users: StateFlow<List<User>> = _userList
 
+
+    private val _remindeList: MutableStateFlow<List<Reminder>> = MutableStateFlow(mutableListOf())
+    val reminders: StateFlow<List<Reminder>> = _remindeList
     private val _userViewState = MutableStateFlow<UserState>(UserState.Loading)
     val userState: StateFlow<UserState> = _userViewState
 
     private val _selectedUser = MutableStateFlow<User?>(null)
+    val user: StateFlow<User?> = _selectedUser
+    private val _selectedReminder = MutableStateFlow<Reminder?>(null)
+    val reminder: StateFlow<Reminder?> = _selectedReminder
+
 
     fun saveReminder(reminder: Reminder) {
         viewModelScope.launch {
@@ -59,19 +63,31 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
         }
     }
 
-    fun saveUser(user:User) {
+
+
+    fun updateReminder(reminder: Reminder) {
         viewModelScope.launch {
-           val result =  userRepository.addUser(user)
-            Log.d("HHHHHHHHHHH","SAVE USER:::::: " + user.toString() + result.toString())
+            Log.d("SAVE::::::: ", reminder.toString())
+            reminderRepository.updateReminder(reminder)
+            setOneTimeNotification(reminder)
+
+
+        }
+    }
+
+    fun saveUser(user: User) {
+        viewModelScope.launch {
+            val result = userRepository.addUser(user)
+            Log.d("HHHHHHHHHHH", "SAVE USER:::::: " + user.toString() + result.toString())
             loadUsers()
             // notifyUserOfReminder(reminder)
         }
     }
 
-    fun updateUser(user:User) {
+    fun updateUser(user: User) {
         viewModelScope.launch {
             userRepository.updateUser(user)
-            Log.d("HHHHHHHHHHH","SAVE USER:::::: " + user.toString() )
+            Log.d("HHHHHHHHHHH", "SAVE USER:::::: " + user.toString())
             loadUsers()
             // notifyUserOfReminder(reminder)
         }
@@ -81,52 +97,62 @@ class AppViewModel @Inject constructor(private val reminderRepository: ReminderR
     fun onUserSelected(user: User) {
         _selectedUser.value = user
     }
+/*
+  fun getReminderById(id:Long){
 
-fun deleteReminder(reminder:Reminder){
-    viewModelScope.launch {
-         reminderRepository.deleteReminder(reminder)
-        loadRemindersFor(_selectedUser.value!!)
-        //Log.d("DDDDDDDD","DELETE:::::: ")
 
-        // notifyUserOfReminder(reminder)
-    }
-}
+      viewModelScope.launch {
+          val reminder = reminderRepository.findReminderById(id)
+          _selectedReminder = MutableStateFlow(ReminderState.Success(
+              reminder = reminder,
+              data = emptyList()
+          ).reminder)
 
-    fun loadRemindersFor(user: User?) {
-        if (user != null) {
-            viewModelScope.launch {
-                val reminders = reminderRepository.loadRemindersByUser(user)
-                __reminderState.value =
-                    ReminderState.Success(
-                        data = reminders.first()
-                    )
-            }
+      }
+
+
+    }*/
+
+    fun deleteReminder(reminder: Reminder) {
+
+
+        viewModelScope.launch {
+
+            reminderRepository.deleteReminder(reminder)
+            loadReminders(_selectedUser.value!!)
+            //Log.d("DDDDDDDD","DELETE:::::: ")
+
+            // notifyUserOfReminder(reminder)
         }
     }
 
+
+
     init {
-       // createNotificationChannel()
+        // createNotificationChannel()
 
 
         viewModelScope.launch {
             loadUsers()
 
 
-        }
 
+        }
 
 
     }
 
 
 
-private suspend fun loadUsers() {
+
+    private suspend fun loadUsers() {
         combine(
             userRepository.loadUsers()
-                .onEach { users ->
-                    if (users.isNotEmpty()) {
+                .onEach { users1 ->
+                    if (users1.isNotEmpty()) {
                         Log.d("ZZZZZZZZZZZZZ:::: ", users.toString())
-                        _selectedUser.value = users.first()
+                        _selectedUser.value = users1.first()
+                        loadReminders(_selectedUser.value!!)
                     }
                 },
             _selectedUser
@@ -137,7 +163,31 @@ private suspend fun loadUsers() {
             .catch { error -> UserState.Error(error) }
             .launchIn(viewModelScope)
     }
+
+
+
+    private suspend fun loadReminders(user:User) {
+        combine(
+            reminderRepository.loadRemindersByUser(user)
+                .onEach { reminders1 ->
+                    if (reminders1.isNotEmpty()) {
+                        Log.d("ZZZZZZZZZZZZZ:::: ", reminders1.toString())
+                        _selectedReminder.value = reminders1.first()
+
+                    }
+                },
+            _selectedReminder
+        ) { reminders, selectedReminder ->
+            __reminderState.value = ReminderState.Success(selectedReminder, reminders)
+            _remindeList.value = reminders
+        }
+            .catch { error ->ReminderState.Error(error) }
+            .launchIn(viewModelScope)
+    }
+
 }
+
+
 
 
 private fun createNotificationChannel(context: Context){

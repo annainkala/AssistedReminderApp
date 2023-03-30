@@ -20,6 +20,7 @@ import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 
 import com.bizarre.core_domain.entity.Reminder
 import com.bizarre.core_domain.entity.User
+import java.net.URLEncoder
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -31,7 +32,10 @@ fun ReminderListView(
     viewModel: AppViewModel = hiltViewModel(),
 ){
 
-    viewModel.loadRemindersFor(user)
+    //viewModel.loadRemindersFor(user)
+
+
+
 
         val reminderViewState by viewModel.reminderState.collectAsState()
         when (reminderViewState) {
@@ -44,7 +48,7 @@ fun ReminderListView(
                     verticalArrangement = Arrangement.Center
                 ) {
                     items(reminderList) { item ->
-                       ReminderListItem(reminder = item,viewModel)
+                       ReminderListItem(reminder = item,viewModel,navController)
                     }
                 }
             }
@@ -54,7 +58,7 @@ fun ReminderListView(
 
 }
 
-
+/*
 
 @Composable
 fun SimpleCheckbox(reminder:Reminder,viewModel: AppViewModel) {
@@ -77,13 +81,15 @@ fun SimpleCheckbox(reminder:Reminder,viewModel: AppViewModel) {
     })
 
 }
-
+*/
 @Composable
-fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
+fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: NavController){
 
     val formatter = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm:ss")
     val openDialog = remember { mutableStateOf(false)  }
-
+    val isChecked = remember {
+        mutableStateOf(false)
+    }
     val currentTime = LocalDateTime.now()
 
     Log.d(""," TTIME 1:::::: " + reminder.reminder_date.toString() + " " + currentTime.toString())
@@ -100,7 +106,28 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
               )*/
         }, onClick = {
 
-            openDialog.value = true
+
+            if(isChecked.value){
+                viewModel.deleteReminder(reminder)
+            }
+            else{
+
+
+
+
+                var update = true.toString()
+                "reminder".replace("{update}", update)
+                navController.navigate("reminder/$update")
+
+
+
+
+            }
+
+
+
+
+          //  openDialog.value = true
         }) {
 
 
@@ -116,48 +143,56 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel){
 
 
                 }
-                SimpleCheckbox(reminder,viewModel)
+               // SimpleCheckbox(reminder,viewModel)
             }
         }
 
-        if (openDialog.value) {
-
-            AlertDialog(
-                onDismissRequest = {
-                    // Dismiss the dialog when the user clicks outside the dialog or on the back
-                    // button. If you want to disable that functionality, simply use an empty
-                    // onCloseRequest.
-                    openDialog.value = false
-                },
-                title = {
-                    Text(stringResource(id = R.string.delete_message)
-                        , style = MaterialTheme.typography.body1)
-                },
-
-                confirmButton = {
-                    OutlinedButton(
-
-                        onClick = {
-                            openDialog.value = false
-                            viewModel.deleteReminder(reminder)
-                        }) {
-                        Text(stringResource(id = R.string.ok)
-                            , style = MaterialTheme.typography.body1)
-                    }
-                },
-                /*   dismissButton = {
-                       Button(
-
-                           onClick = {
-                               openDialog.value = false
-                           }) {
-                           Text("This is the dismiss Button")
-                       }
-                   }*/
-            )
-        }
     }
 
+
+    @Composable
+    fun SimpleCheckbox(reminder:Reminder,viewModel: AppViewModel) {
+        val isChecked = remember { mutableStateOf(reminder.is_seen) }
+
+        Checkbox(checked = isChecked.value, onCheckedChange = { isChecked.value = it
+
+
+        })
+
+    }
+
+    if (openDialog.value) {
+
+        AlertDialog(
+            onDismissRequest = {
+                // Dismiss the dialog when the user clicks outside the dialog or on the back
+                // button. If you want to disable that functionality, simply use an empty
+                // onCloseRequest.
+                openDialog.value = false
+            },
+            /*title = {
+                Text(stringResource(id = R.string.delete_message)
+                    , style = MaterialTheme.typography.body1)
+            },*/
+
+            confirmButton = {
+                OutlinedButton(
+
+                    onClick = {
+                        openDialog.value = false
+                        viewModel.deleteReminder(reminder)
+                        navController.popBackStack()
+                    }) {
+                    Text(stringResource(id = R.string.delete_message)
+                        , style = MaterialTheme.typography.body1)
+                }
+
+            },
+
+
+
+        )
+    }
 
     }
 

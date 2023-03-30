@@ -16,7 +16,7 @@ interface UserDao {
     suspend fun update(user: UserEntity)
 
     @Query("SELECT * FROM users WHERE userId LIKE :userId")
-    fun findOne(userId: Long): Flow<UserEntity>
+    fun findReminderById(userId: Long): Flow<UserEntity>
 
     @Query("SELECT * FROM users")
     suspend fun findAll(): List<UserEntity>

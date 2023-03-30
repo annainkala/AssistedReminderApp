@@ -20,6 +20,10 @@ import java.time.LocalDateTime
 class ReminderDataSourceImpl @Inject constructor(
     private val reminderDao: ReminderDao
 ) : ReminderDataSource {
+    override suspend fun findReminderById(id: Long):Reminder{
+        return  reminderDao.findReminderById(id).fromEntity()
+    }
+
     override suspend fun addReminder(reminder: Reminder):Long {
       return  reminderDao.insert(reminder.toEntity())
 
@@ -35,9 +39,11 @@ class ReminderDataSourceImpl @Inject constructor(
         Log.d ("DELETE ::: " , " " + reminder.toString())
         reminderDao.delete(reminder.toEntity())
     }
-    override suspend fun loadAllReminders(): List<Reminder> {
-        return reminderDao.findAll().map {
-            it.fromEntity()
+    override suspend fun loadAllReminders(): Flow<List<Reminder>> {
+        return reminderDao.findAll().map { list ->
+            list.map {
+                it.fromEntity()
+            }
         }
     }
     override suspend fun loadRemindersByUser(user:User): Flow<List<Reminder>> {

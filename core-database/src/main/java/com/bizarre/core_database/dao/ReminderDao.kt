@@ -13,10 +13,10 @@ interface ReminderDao {
     suspend fun update(reminder: ReminderEntity)
 
     @Query("SELECT * FROM reminders")
-    suspend fun findAll(): List<ReminderEntity>
+    fun findAll(): Flow<List<ReminderEntity>>
 
     @Query("SELECT * FROM reminders WHERE reminderId LIKE :reminderId")
-    fun findOne(reminderId: Long): Flow<ReminderEntity>
+    fun findReminderById(reminderId: Long): ReminderEntity
 
     @Query("SELECT * FROM reminders WHERE user_id LIKE :userId")
     fun findRemindersByUser(userId: Long): Flow<List<ReminderEntity>>

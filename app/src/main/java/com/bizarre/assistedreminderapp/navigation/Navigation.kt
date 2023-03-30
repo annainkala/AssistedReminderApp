@@ -19,6 +19,7 @@ import com.bizarre.assistedreminderapp.ui.home.HomeScreen
 
 import com.bizarre.assistedreminderapp.ui.login.LoginScreen
 import com.bizarre.assistedreminderapp.ui.profile.ProfileScreen
+import com.bizarre.core_domain.entity.Reminder
 
 
 @Composable
@@ -35,12 +36,15 @@ fun Navigation() {
 
         composable(
             "home/{user}",
-              // Fetching the argument which has been passed
+            // Fetching the argument which has been passed
         ) {
             val user = it.arguments?.getString("user")
 
 
-            HomeScreen(user.toString(),navController)    // Using that argument in the destination Composabel
+            HomeScreen(
+                user.toString(),
+                navController
+            )    // Using that argument in the destination Composabel
         }
 
 
@@ -55,10 +59,18 @@ fun Navigation() {
             ProfileScreen(navController = navController)
         }
 
+        composable(
+            "reminder/{update}",
+            // Fetching the argument which has been passed
+        ) {
+            val update = it.arguments?.getString("update")
 
 
-        composable("reminder") {
-           ReminderView3(navController = navController,)
+            ReminderView3(
+                update!!,
+                navController
+
+            )    // Using that argument in the destination Composabel
         }
     }
 }

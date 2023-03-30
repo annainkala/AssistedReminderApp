@@ -11,11 +11,16 @@ import kotlinx.coroutines.flow.Flow
 class ReminderRepositoryImpl @Inject constructor(
     private val reminderDataSource: ReminderDataSource
 ) : ReminderRepository {
+    override suspend fun findReminderById(id: Long) : Reminder{
+      return reminderDataSource.findReminderById(id)
+    }
+
     override suspend fun updateReminder(reminder: Reminder) {
         reminderDataSource.updateReminder(reminder)
     }
 
     override suspend fun addReminder(reminder: Reminder):Long   = reminderDataSource.addReminder(reminder)
+
 
     override suspend fun deleteReminder(reminder: Reminder) {
         reminderDataSource.deleteReminder(reminder)
@@ -26,7 +31,7 @@ class ReminderRepositoryImpl @Inject constructor(
         return reminderDataSource.loadRemindersByUser(user)
     }
 
-    override suspend fun loadAllReminders(): List<Reminder> {
+    override suspend fun loadAllReminders():Flow< List<Reminder>>{
         return reminderDataSource.loadAllReminders()
     }
 }

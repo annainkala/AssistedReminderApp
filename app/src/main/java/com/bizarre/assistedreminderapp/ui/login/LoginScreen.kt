@@ -144,7 +144,7 @@ fun LoginScreen(
                                 if (user2.userName == username.value &&
                                     user2.password == password.value) {
 
-                                    Log.d("XXXXXXX","AAAAAAAAAAA " + user2.toString())
+
                                     val encodedUrl = URLEncoder.encode(user!!.profilePic)
                                     var username1 = user?.firstName + "_" + encodedUrl
                                     "home".replace("{user}", username1)
