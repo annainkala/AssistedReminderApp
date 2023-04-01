@@ -23,6 +23,7 @@ import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 import com.bizarre.assistedreminderapp.ui.theme.Typography
 import com.bizarre.assistedreminderapp.ui.utils.ReminderTopAppBar
 import com.bizarre.core_domain.entity.Reminder
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.first
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -67,6 +68,9 @@ val update1=remember{ mutableStateOf(false)}
                 var message = rememberSaveable { mutableStateOf(reminder!!.message) }
                 var reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
                 var creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
+                var latlng = navController.currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>(
+                    "location_data"
+                ) ?.value
 
 
                 val year = reminderDate.value.year
@@ -94,7 +98,8 @@ val update1=remember{ mutableStateOf(false)}
                         )
                         OutlinedButton(
                             modifier = Modifier
-                                .fillMaxWidth().weight(1f)
+                                .fillMaxWidth()
+                                .weight(1f)
                             ,
 
                             onClick = {
@@ -106,7 +111,8 @@ val update1=remember{ mutableStateOf(false)}
 
                         OutlinedButton(
                             modifier = Modifier
-                                .fillMaxWidth().weight(1f)
+                                .fillMaxWidth()
+                                .weight(1f)
                             ,
 
                             onClick = {
@@ -117,9 +123,18 @@ val update1=remember{ mutableStateOf(false)}
                         }
 
                     }
+                    Text("Date: " + reminderDate.value.format(formatter))
+                    Spacer(modifier = Modifier.height(10.dp))
+                    var text = ""
+                    if(latlng != null){
+                        text = latlng.latitude.toString() + " " + latlng.longitude.toString()
+                    }
+                    Text("Location: " + text)
+                    Spacer(modifier = Modifier.height(50.dp))
+                    Card(modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(fraction = 0.5f)) {
 
-
-                    Card(modifier = Modifier.fillMaxWidth().fillMaxHeight(fraction = 0.5f)) {
 
 
 
@@ -136,6 +151,8 @@ val update1=remember{ mutableStateOf(false)}
 
 
                                 )
+
+
 
 
 
