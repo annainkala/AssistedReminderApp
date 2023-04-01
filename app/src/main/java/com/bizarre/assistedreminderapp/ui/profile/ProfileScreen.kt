@@ -52,6 +52,7 @@ import java.net.URLEncoder
 @Composable
 fun ProfileScreen(
 
+
     navController: NavController,
     viewModel: AppViewModel = hiltViewModel(),
 
@@ -81,7 +82,7 @@ fun ProfileScreen(
 
 
 
-
+                Log.d("PIC::::: ", "PPPP " + imageUri1.value)
 
 
                 Column(
@@ -110,18 +111,16 @@ fun ProfileScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
-                        if (imageUri == null) {
-                            ProfileImage(user?.profilePic.toString(), 200)
-                        } else {
-                            AsyncImage(
+                        AsyncImage(
+                            modifier = Modifier.clip(CircleShape).size(200.dp),
 
-                                model = imageUri,
-                                contentDescription = "image"
-                            )
-                        }
+                            model = imageUri1.value,
+                            contentDescription = "image"
+                        )
 
-                        if (imageUri == null) {
+
                             OutlinedButton(
+
                                 modifier = Modifier.background(color=MaterialTheme.colors.background),
                                 onClick = {
 
@@ -135,7 +134,7 @@ fun ProfileScreen(
                                     style = MaterialTheme.typography.body1)
 
                             }
-                        }
+
 
                     }
 

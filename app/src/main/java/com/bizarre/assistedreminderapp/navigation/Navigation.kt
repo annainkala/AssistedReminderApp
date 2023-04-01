@@ -18,6 +18,7 @@ import com.bizarre.assistedreminderapp.ui.home.HomeScreen
 
 
 import com.bizarre.assistedreminderapp.ui.login.LoginScreen
+import com.bizarre.assistedreminderapp.ui.map.MapScreen
 import com.bizarre.assistedreminderapp.ui.profile.ProfileScreen
 import com.bizarre.core_domain.entity.Reminder
 
@@ -57,6 +58,10 @@ fun Navigation() {
 
         composable("profile") {
             ProfileScreen(navController = navController)
+        }
+
+        composable("map") {
+            MapScreen(navController = navController)
         }
 
         composable(
