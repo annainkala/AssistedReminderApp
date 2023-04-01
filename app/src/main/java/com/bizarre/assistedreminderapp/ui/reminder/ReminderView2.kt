@@ -78,9 +78,12 @@ val update1=remember{ mutableStateOf(false)}
                     ReminderTopAppBar(navController)
                     val formatter = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm:ss")
 
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
 
-                    Card() {
-
+                    ){
+                        // Text( reminderDate.value.format(formatter))
                         val datePickerDialog = DatePickerDialog(
                             LocalContext.current,
                             { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
@@ -89,26 +92,35 @@ val update1=remember{ mutableStateOf(false)}
 
                             },reminderDate.value.year,reminderDate.value.monthValue,reminderDate.value.dayOfMonth
                         )
-                        Column(){
-                            var formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
-                            Spacer(modifier = Modifier.height(10.dp))
+                        OutlinedButton(
+                            modifier = Modifier
+                                .fillMaxWidth().weight(1f)
+                            ,
 
-                            Row(
-
-                            ){
-                                Text( reminderDate.value.format(formatter))
-                                OutlinedButton(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(70.dp),
-
-                                    onClick = {
-                                        datePickerDialog.show()
-                                    }
-                                ){
-                                    Text(stringResource(id = R.string.pick_date), style = MaterialTheme.typography.body1)
-                                }
+                            onClick = {
+                                datePickerDialog.show()
                             }
+                        ){
+                            Text(stringResource(id = R.string.pick_date), style = MaterialTheme.typography.body1)
+                        }
+
+                        OutlinedButton(
+                            modifier = Modifier
+                                .fillMaxWidth().weight(1f)
+                            ,
+
+                            onClick = {
+                                navController.navigate("map")
+                            }
+                        ){
+                            Text(stringResource(id = R.string.map), style = MaterialTheme.typography.body1)
+                        }
+
+                    }
+
+
+                    Card(modifier = Modifier.fillMaxWidth().fillMaxHeight(fraction = 0.5f)) {
+
 
 
                             OutlinedTextField(
@@ -116,8 +128,7 @@ val update1=remember{ mutableStateOf(false)}
                                 onValueChange = { data -> message.value = data },
                                 label = { Text(text = stringResource(id = R.string.message), style = Typography.body1) },
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(100.dp),
+                                    .fillMaxSize(),
                                 keyboardOptions = KeyboardOptions(
                                     keyboardType = KeyboardType.Text
                                 ),
@@ -126,7 +137,7 @@ val update1=remember{ mutableStateOf(false)}
 
                                 )
 
-                        }
+
 
 
 

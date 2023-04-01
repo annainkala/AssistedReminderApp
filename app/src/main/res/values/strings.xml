@@ -18,4 +18,5 @@
     <string name="delete_message">Delete message?</string>
     <string name="ok">OK</string>
     <string name="pick_date">Pick date</string>
+    <string name="map">Map</string>
 </resources>
