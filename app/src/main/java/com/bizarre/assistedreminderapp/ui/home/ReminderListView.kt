@@ -108,18 +108,11 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
 
 
             if(isChecked.value){
-                viewModel.deleteReminder(reminder)
+               openDialog.value = true
             }
             else{
 
-
-
-
-                var update = true.toString()
-                "reminder".replace("{update}", update)
                 navController.navigate("reminder")
-
-
 
 
             }
@@ -143,21 +136,9 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
 
 
                 }
-               // SimpleCheckbox(reminder,viewModel)
+               isChecked.value =  SimpleCheckbox(reminder,viewModel,isChecked)
             }
         }
-
-    }
-
-
-    @Composable
-    fun SimpleCheckbox(reminder:Reminder,viewModel: AppViewModel) {
-        val isChecked = remember { mutableStateOf(reminder.is_seen) }
-
-        Checkbox(checked = isChecked.value, onCheckedChange = { isChecked.value = it
-
-
-        })
 
     }
 
@@ -181,7 +162,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
                     onClick = {
                         openDialog.value = false
                         viewModel.deleteReminder(reminder)
-                        navController.popBackStack()
+
                     }) {
                     Text(stringResource(id = R.string.delete_message)
                         , style = MaterialTheme.typography.body1)
@@ -191,10 +172,25 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
 
 
 
-        )
+            )
     }
 
-    }
+}
+
+
+@Composable
+fun SimpleCheckbox(reminder:Reminder,viewModel: AppViewModel,isChecked:MutableState<Boolean>):Boolean {
+
+
+    Checkbox(checked = isChecked.value, onCheckedChange = { isChecked.value = it
+
+
+    })
+return isChecked.value
+}
+
+
+
 
 
 
