@@ -80,9 +80,13 @@ val update1=remember{ mutableStateOf(false)}
                 val message = rememberSaveable { mutableStateOf(reminder!!.message) }
                 val reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
                 val creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
-                val latlng = navController.currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>(
+                val latlng1 = navController.currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>(
                     "location_data"
                 ) ?.value
+                var latlng = LatLng(0.0,.0)
+                if(latlng1 != null){
+                    latlng = latlng1
+                }
 
 
 
@@ -197,15 +201,15 @@ val update1=remember{ mutableStateOf(false)}
                     OutlinedButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                                    val lat =
+
 
 
                                 viewModel.saveReminder(Reminder(
                                     message = message.value,
                                     creation_date = creationDate.value,
                                     reminder_date = reminderDate.value,
-                                    location_y = latlng?.longitude!!,
-                                    location_x = latlng?.latitude!!,
+                                    location_y = latlng.longitude,
+                                    location_x = latlng.latitude,
                                     userId = viewModel.user.value!!.userId,
                                     is_seen = false,
 
