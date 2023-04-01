@@ -117,7 +117,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
 
                 var update = true.toString()
                 "reminder".replace("{update}", update)
-                navController.navigate("reminder/$update")
+                navController.navigate("reminder")
 
 
 

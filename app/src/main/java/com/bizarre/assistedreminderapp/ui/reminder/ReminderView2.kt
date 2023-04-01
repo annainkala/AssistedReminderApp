@@ -27,11 +27,12 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.first
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
 fun ReminderView3(
 
-    update:String,
+
     navController: NavController,
     viewModel: AppViewModel = hiltViewModel(),
 
@@ -40,17 +41,28 @@ fun ReminderView3(
 
 val update1=remember{ mutableStateOf(false)}
 
-    update1.value = update.toBoolean()
 
 
     val reminderViewState by viewModel.reminderState.collectAsState()
     when (reminderViewState) {
         is ReminderState.Loading -> {}
         is  ReminderState.Success -> {
-            val reminder = (reminderViewState as ReminderState.Success).selectedReminder
+            var reminder = (reminderViewState as ReminderState.Success).selectedReminder
 
             val update = remember{ mutableStateOf(true)}
             if(reminder == null){
+
+                reminder = Reminder(
+                    message = "",
+                    location_x = 0.0,
+                    location_y = 0.0,
+                    userId = 0,
+                    reminder_date = LocalDateTime.now(),
+                    creation_date = LocalDateTime.now(),
+                    is_seen = false
+
+
+                )
                 update.value = false
 
             }
@@ -65,37 +77,44 @@ val update1=remember{ mutableStateOf(false)}
 
 
 
-                var message = rememberSaveable { mutableStateOf(reminder!!.message) }
-                var reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
-                var creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
-                var latlng = navController.currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>(
+                val message = rememberSaveable { mutableStateOf(reminder!!.message) }
+                val reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
+                val creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
+                val latlng = navController.currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>(
                     "location_data"
                 ) ?.value
 
 
-                val year = reminderDate.value.year
-                val month = reminderDate.value.month
-                val day = reminderDate.value.dayOfMonth;
 
+                val context = LocalContext.current
+                val calendar = Calendar.getInstance()
+
+                val year = calendar[Calendar.YEAR]
+                val month = calendar[Calendar.MONTH]
+                val dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
+
+
+                val datePicker = DatePickerDialog(
+                    context,
+                    { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
+
+                        reminderDate.value = LocalDateTime.of(selectedYear,selectedMonth,selectedDayOfMonth,0,0,0)
+
+                    }, year, month, dayOfMonth
+                )
 
                 Column(){
                     ReminderTopAppBar(navController)
-                    val formatter = DateTimeFormatter.ofPattern("dd MM yyyy HH:mm:ss")
+                    val formatter = DateTimeFormatter.ofPattern("dd MM yyyy")
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
 
                     ){
-                        // Text( reminderDate.value.format(formatter))
-                        val datePickerDialog = DatePickerDialog(
-                            LocalContext.current,
-                            { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-                                reminderDate = mutableStateOf(LocalDateTime.of(year,month+1,dayOfMonth,0,0,0))
-                                Log.d("REMINDER DATE:::","EEEEEEEEEE " + reminderDate.value.toString())
 
-                            },reminderDate.value.year,reminderDate.value.monthValue,reminderDate.value.dayOfMonth
-                        )
+                        // Text( reminderDate.value.format(formatter))
+
                         OutlinedButton(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -103,7 +122,7 @@ val update1=remember{ mutableStateOf(false)}
                             ,
 
                             onClick = {
-                                datePickerDialog.show()
+                                datePicker.show()
                             }
                         ){
                             Text(stringResource(id = R.string.pick_date), style = MaterialTheme.typography.body1)
@@ -123,7 +142,11 @@ val update1=remember{ mutableStateOf(false)}
                         }
 
                     }
-                    Text("Date: " + reminderDate.value.format(formatter))
+                    Text(
+
+                            "Date: ${reminderDate.value.format(formatter).toString()}"
+
+                    )
                     Spacer(modifier = Modifier.height(10.dp))
                     var text = ""
                     if(latlng != null){
@@ -174,26 +197,18 @@ val update1=remember{ mutableStateOf(false)}
                     OutlinedButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
+                                    val lat =
 
-                            if (update.value){
-
-                                reminder!!.reminder_date = reminderDate.value
-                                reminder!!.creation_date = creationDate.value
-                                reminder!!.message = message.value
-                                viewModel.updateReminder(reminder!!)
-
-                            }
-
-                            else{
 
                                 viewModel.saveReminder(Reminder(
                                     message = message.value,
                                     creation_date = creationDate.value,
                                     reminder_date = reminderDate.value,
-                                    location_y = 0.0,
-                                    location_x = 0.0,
+                                    location_y = latlng?.longitude!!,
+                                    location_x = latlng?.latitude!!,
                                     userId = viewModel.user.value!!.userId,
-                                    is_seen = false
+                                    is_seen = false,
+
 
 
 
@@ -201,7 +216,7 @@ val update1=remember{ mutableStateOf(false)}
 
 
 
-                            }
+
 
                             navController.popBackStack()
 
