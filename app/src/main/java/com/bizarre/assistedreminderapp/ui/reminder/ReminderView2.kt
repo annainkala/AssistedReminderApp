@@ -102,7 +102,7 @@ val update1=remember{ mutableStateOf(false)}
                     context,
                     { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
 
-                        reminderDate.value = LocalDateTime.of(selectedYear,selectedMonth,selectedDayOfMonth,0,0,0)
+                        reminderDate.value = LocalDateTime.of(selectedYear,selectedMonth+1,selectedDayOfMonth,0,0,0)
 
                     }, year, month, dayOfMonth
                 )
@@ -178,18 +178,6 @@ val update1=remember{ mutableStateOf(false)}
 
 
                                 )
-
-
-
-
-
-
-
-
-
-
-
-
 
                     }
 

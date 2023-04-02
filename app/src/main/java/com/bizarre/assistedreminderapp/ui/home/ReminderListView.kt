@@ -32,9 +32,6 @@ fun ReminderListView(
     viewModel: AppViewModel = hiltViewModel(),
 ){
 
-    //viewModel.loadRemindersFor(user)
-
-
 
 
         val reminderViewState by viewModel.reminderState.collectAsState()
@@ -58,30 +55,6 @@ fun ReminderListView(
 
 }
 
-/*
-
-@Composable
-fun SimpleCheckbox(reminder:Reminder,viewModel: AppViewModel) {
-    val isChecked = remember { mutableStateOf(reminder.is_seen) }
-
-    Checkbox(checked = isChecked.value, onCheckedChange = { isChecked.value = it
-        viewModel.saveReminder(
-            Reminder(
-                reminderId = reminder.reminderId,
-                userId = reminder.userId,
-                message = reminder.message,
-                location_x = reminder.location_x,
-                location_y = reminder.location_y,
-                creation_date = reminder.creation_date,
-                reminder_date = reminder.reminder_date,
-                is_seen = isChecked.value
-            )
-
-        )
-    })
-
-}
-*/
 @Composable
 fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: NavController){
 
@@ -93,9 +66,12 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
     val currentTime = LocalDateTime.now()
 
     Log.d(""," TTIME 1:::::: " + reminder.reminder_date.toString() + " " + currentTime.toString())
-    if(reminder.reminder_date <= currentTime){
+
+    val comp = reminder.reminder_date.compareTo(currentTime)
+    if(comp <= 0){
 
 
+        Log.d(""," TTIME 2:::::: " + reminder.reminder_date.toString() + " " + currentTime.toString())
 
 
         OutlinedButton(modifier = Modifier .pointerInput(Unit){
