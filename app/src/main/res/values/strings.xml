@@ -19,4 +19,11 @@
     <string name="ok">OK</string>
     <string name="pick_date">Pick date</string>
     <string name="map">Map</string>
+    <string name="geofence_entered">geofence entered</string>
+    <string name="geofence_not_available">not available</string>
+    <string name="geofence_too_many_geofences">too many geofences</string>
+    <string name="geofence_too_many_pending_intents">too many perniden intents</string>
+    <string name="unknown_geofence_error">inknown error</string>
+    <string name="location1">location1</string>
+    <string name="location2">location2</string>
 </resources>

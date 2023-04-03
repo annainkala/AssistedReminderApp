@@ -1,9 +1,12 @@
 package com.bizarre.assistedreminderapp
 
 
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -12,23 +15,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.bizarre.assistedreminderapp.navigation.Navigation
 
-
+import android.Manifest
+import androidx.appcompat.app.AppCompatActivity
 import com.bizarre.assistedreminderapp.ui.theme.AssistedReminderAppTheme
-import com.bizarre.core_domain.entity.User
 import com.bizarre.core_domain.repository.UserRepository
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+
+
+
+
+
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
 
             AssistedReminderAppTheme() {
 
-             //   UserRepository(this).addUser(User("Lois","Griffin", password = "pw", userName = "Un", profilePic = "", userEmail = ""))
+                //   UserRepository(this).addUser(User("Lois","Griffin", password = "pw", userName = "Un", profilePic = "", userEmail = ""))
 
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize() ) {
@@ -36,8 +54,37 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        locationPermissionRequest.launch(arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION))
     }
+    val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                // Precise location access granted.
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+            } else -> {
+            // No location access granted.
+        }
+        }
+    }
+
+    companion object {
+        internal const val ACTION_GEOFENCE_EVENT =
+            "HuntMainActivity.treasureHunt.action.ACTION_GEOFENCE_EVENT"
+    }
+
+// Before you perform the actual permission request, check whether your app
+// already has the permissions, and whether your app needs to show a permission
+// rationale dialog. For more details, see Request permissions.
+
 }
+
+
 
 @Composable
 fun Greeting(name: String) {
@@ -47,7 +94,16 @@ fun Greeting(name: String) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-   AssistedReminderAppTheme() {
+    AssistedReminderAppTheme() {
         Greeting("Android")
     }
 }
+
+
+
+const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 33
+const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 34
+const val REQUEST_TURN_DEVICE_LOCATION_ON = 29
+ const val TAG = "HuntMainActivity"
+const val LOCATION_PERMISSION_INDEX = 0
+const val BACKGROUND_LOCATION_PERMISSION_INDEX = 1
