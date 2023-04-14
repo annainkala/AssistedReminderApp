@@ -23,6 +23,7 @@ fun start(context1:Context){
 companion object{
 
     var loc = LatLng(0.00,0.00)
+    var reminder:Reminder? = null
     var reminders = emptyList<Reminder>()
     fun setReminderList(reminders1:List<Reminder>) {
 
@@ -37,6 +38,20 @@ companion object{
 
     }
 
+    fun setCurrentReminder(reminder1:Reminder){
+
+        reminder = reminder1
+        Log.d("","SET CURRENT REMINDER:::: "  + reminder.toString())
+
+    }
+
+
+    fun getCurrentReminder():Reminder?{
+
+
+        Log.d("","GET CURRENT REMINDER:::: " + reminder.toString() )
+        return  reminder
+    }
 
     fun getLocation2():LatLng{
 
