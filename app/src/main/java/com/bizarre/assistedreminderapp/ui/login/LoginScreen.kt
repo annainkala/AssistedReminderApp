@@ -36,7 +36,7 @@ import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.Graph
 
 import com.bizarre.assistedreminderapp.R
-import com.bizarre.assistedreminderapp.ui.reminder.AppViewModel
+import com.bizarre.assistedreminderapp.ui.home.AppViewModel
 
 
 import com.bizarre.assistedreminderapp.ui.theme.Typography
@@ -53,7 +53,7 @@ fun LoginScreen(
     navController: NavController,
     viewModel: AppViewModel = hiltViewModel(),
 
-) {
+    ) {
     val viewState by viewModel.userState.collectAsState()
 
 

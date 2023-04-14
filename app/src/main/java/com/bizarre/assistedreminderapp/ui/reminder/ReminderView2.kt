@@ -16,7 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.R
-import com.bizarre.assistedreminderapp.ui.reminder.AppViewModel
+import com.bizarre.assistedreminderapp.ui.home.AppViewModel
+
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 
 

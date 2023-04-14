@@ -2,7 +2,6 @@
   <library name="Gradle: io.coil-kt:coil-compose:2.2.2@aar">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/b2343a741a0e2a5f8bfce651cae26713/transformed/coil-compose-2.2.2/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/b2343a741a0e2a5f8bfce651cae26713/transformed/coil-compose-2.2.2/res" />
       <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/b2343a741a0e2a5f8bfce651cae26713/transformed/coil-compose-2.2.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>

@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.R
-import com.bizarre.assistedreminderapp.ui.reminder.AppViewModel
+import com.bizarre.assistedreminderapp.ui.home.AppViewModel
 
 
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
@@ -155,7 +155,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
 
 
 @Composable
-fun SimpleCheckbox(reminder:Reminder,viewModel: AppViewModel,isChecked:MutableState<Boolean>):Boolean {
+fun SimpleCheckbox(reminder:Reminder, viewModel: AppViewModel, isChecked:MutableState<Boolean>):Boolean {
 
 
     Checkbox(checked = isChecked.value, onCheckedChange = { isChecked.value = it

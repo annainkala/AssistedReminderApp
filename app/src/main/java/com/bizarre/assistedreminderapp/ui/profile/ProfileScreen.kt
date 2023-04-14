@@ -37,7 +37,7 @@ import com.bizarre.assistedreminderapp.Graph
 
 import com.bizarre.assistedreminderapp.R
 import com.bizarre.assistedreminderapp.ui.ProfileImage
-import com.bizarre.assistedreminderapp.ui.reminder.AppViewModel
+import com.bizarre.assistedreminderapp.ui.home.AppViewModel
 
 
 import com.bizarre.assistedreminderapp.ui.theme.Typography

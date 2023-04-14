@@ -85,10 +85,11 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 //For rememberLauncherForActivityResult()
     implementation ("androidx.activity:activity-compose:1.6.1")
-
+    implementation ("androidx.appcompat:appcompat:1.1.0-alpha04")
 //For PickVisualMedia contract
     implementation ("androidx.activity:activity-ktx:1.6.1")
     implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation ("androidx.hilt:hilt-work:1.0.0")
 
     implementation("androidx.work:work-runtime-ktx:2.5.0")
     implementation ("androidx.work:work-runtime:2.3.1")
@@ -97,7 +98,16 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")
     debugImplementation("androidx.compose.ui:ui-tooling:1.1.1")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.1.1")
+    //implementation ("androidx.core:core:$core_version")
+    implementation ("androidx.work:work-runtime-ktx:2.7.0")
+    implementation ("androidx.hilt:hilt-work:1.0.0")
+
+    // When using Kotlin.
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    // When using Java.
+    annotationProcessor("androidx.hilt:hilt-compiler:1.0.0")
     testImplementation("junit:junit:4.13.2")
+
 
 }
 

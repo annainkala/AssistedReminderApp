@@ -2,7 +2,6 @@
   <library name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/fabf387a917d2e57c37b4f650bdf0051/transformed/lifecycle-livedata-2.0.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/fabf387a917d2e57c37b4f650bdf0051/transformed/lifecycle-livedata-2.0.0/res" />
       <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/fabf387a917d2e57c37b4f650bdf0051/transformed/lifecycle-livedata-2.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />

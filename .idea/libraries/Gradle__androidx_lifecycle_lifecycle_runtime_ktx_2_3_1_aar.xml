@@ -2,7 +2,6 @@
   <library name="Gradle: androidx.lifecycle:lifecycle-runtime-ktx:2.3.1@aar">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/2128a7985ed65a746e0424dbda78b6f2/transformed/lifecycle-runtime-ktx-2.3.1/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/2128a7985ed65a746e0424dbda78b6f2/transformed/lifecycle-runtime-ktx-2.3.1/res" />
       <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/2128a7985ed65a746e0424dbda78b6f2/transformed/lifecycle-runtime-ktx-2.3.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />

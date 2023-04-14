@@ -28,7 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 import com.bizarre.assistedreminderapp.R
 import com.bizarre.assistedreminderapp.ui.ProfileImage
-import com.bizarre.assistedreminderapp.ui.reminder.AppViewModel
+
 
 
 import com.bizarre.assistedreminderapp.ui.theme.Typography

@@ -53,6 +53,7 @@
             <stringArg name="languageVersion" arg="1.4" />
           </stringArguments>
           <arrayArguments>
+            <arrayArg name="friendPaths" />
             <arrayArg name="pluginClasspaths">
               <args>
                 <arg>$MODULE_DIR$/../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.5.31/d854edda951feb05387ada385f8f3462ec01a885/kotlin-scripting-jvm-1.5.31.jar</arg>
@@ -69,7 +70,7 @@
                 <arg>$MODULE_DIR$/../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-project-model/1.5.31/3a6adaf7f626af7ce62a3734975eb2154ae12e58/kotlin-project-model-1.5.31.jar</arg>
                 <arg>$MODULE_DIR$/../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.5.31/aaea854be2cfc06373dfc11be5a6ba9ca5ca84a6/kotlin-script-runtime-1.5.31.jar</arg>
                 <arg>$MODULE_DIR$/../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-util-io/1.5.31/61c784021068d1ddd347eeba86384dbf92c725ca/kotlin-util-io-1.5.31.jar</arg>
-                <arg>$KOTLIN_BUNDLED$/lib/sam-with-receiver-compiler-plugin.jar</arg>
+                <arg>$APPLICATION_HOME_DIR$/plugins/Kotlin/kotlinc/lib/sam-with-receiver-compiler-plugin.jar</arg>
               </args>
             </arrayArg>
             <arrayArg name="pluginOptions">
@@ -80,8 +81,8 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../../buildSrc/build/classes/java/main" />
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_18">
+    <output url="file://$MODULE_DIR$/../../buildSrc/build/classes/kotlin/main" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../buildSrc/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../buildSrc/src/main/kotlin" isTestSource="false" />

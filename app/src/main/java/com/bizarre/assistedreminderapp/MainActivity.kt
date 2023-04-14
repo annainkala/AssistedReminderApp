@@ -17,6 +17,7 @@ import com.bizarre.assistedreminderapp.navigation.Navigation
 
 import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.bizarre.assistedreminderapp.ui.theme.AssistedReminderAppTheme
 import com.bizarre.core_domain.repository.UserRepository
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -45,7 +46,15 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             AssistedReminderAppTheme() {
-
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                    ),
+                    0
+                )
                 //   UserRepository(this).addUser(User("Lois","Griffin", password = "pw", userName = "Un", profilePic = "", userEmail = ""))
 
                 // A surface container using the 'background' color from the theme
@@ -54,24 +63,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        locationPermissionRequest.launch(arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION))
+
     }
-    val locationPermissionRequest = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        when {
-            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                // Precise location access granted.
-            }
-            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                // Only approximate location access granted.
-            } else -> {
-            // No location access granted.
-        }
-        }
-    }
+
 
     companion object {
         internal const val ACTION_GEOFENCE_EVENT =
@@ -100,10 +94,3 @@ fun DefaultPreview() {
 }
 
 
-
-const val REQUEST_FOREGROUND_AND_BACKGROUND_PERMISSION_RESULT_CODE = 33
-const val REQUEST_FOREGROUND_ONLY_PERMISSIONS_REQUEST_CODE = 34
-const val REQUEST_TURN_DEVICE_LOCATION_ON = 29
- const val TAG = "HuntMainActivity"
-const val LOCATION_PERMISSION_INDEX = 0
-const val BACKGROUND_LOCATION_PERMISSION_INDEX = 1

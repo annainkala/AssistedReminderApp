@@ -2,7 +2,6 @@
   <library name="Gradle: androidx.constraintlayout:constraintlayout-compose:1.0.1@aar">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/05b8b9ec771bff02982dbf4e92f7e244/transformed/constraintlayout-compose-1.0.1/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/05b8b9ec771bff02982dbf4e92f7e244/transformed/constraintlayout-compose-1.0.1/res" />
       <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/05b8b9ec771bff02982dbf4e92f7e244/transformed/constraintlayout-compose-1.0.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />

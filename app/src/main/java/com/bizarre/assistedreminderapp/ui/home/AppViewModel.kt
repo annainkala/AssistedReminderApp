@@ -1,26 +1,37 @@
-package com.bizarre.assistedreminderapp.ui.reminder
+package com.bizarre.assistedreminderapp.ui.home
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.*
 import com.bizarre.core_domain.entity.Reminder
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.work.*
 import com.bizarre.assistedreminderapp.Graph
 import com.bizarre.assistedreminderapp.R
+import com.bizarre.assistedreminderapp.location.LocationRepository
+import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
+
 import com.bizarre.assistedreminderapp.ui.user.UserState
-import com.bizarre.assistedreminderapp.ui.utils.NotificationWorker
+
+import com.bizarre.assistedreminderapp.ui.utils.NotificationWorker2
 import com.bizarre.core_domain.entity.User
 
 import com.bizarre.core_domain.repository.ReminderRepository
 
 import com.bizarre.core_domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -34,7 +45,9 @@ import javax.inject.Inject
 class AppViewModel @Inject constructor(
     private val reminderRepository: ReminderRepository,
     private val userRepository: UserRepository,
+
 ) : ViewModel() {
+
 
 
     private val __reminderState = MutableStateFlow<ReminderState>(ReminderState.Loading)
@@ -60,7 +73,7 @@ class AppViewModel @Inject constructor(
             Log.d("SAVE::::::: ", reminder.toString())
             reminderRepository.addReminder(reminder)
             if (reminder.reminder_date.isAfter(LocalDateTime.now())) {
-                setOneTimeNotification(reminder)
+                //setOneTimeNotification(reminder)
             }
             if (reminder.location_x != 0.0 && reminder.location_y != 0.0) {
 
@@ -75,7 +88,8 @@ class AppViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d("SAVE::::::: ", reminder.toString())
             reminderRepository.updateReminder(reminder)
-            setOneTimeNotification(reminder)
+            loadReminders(_selectedUser.value!!)
+            //setOneTimeNotification(reminder)
 
 
         }
@@ -126,6 +140,8 @@ class AppViewModel @Inject constructor(
 
             reminderRepository.deleteReminder(reminder)
             loadReminders(_selectedUser.value!!)
+
+
             //Log.d("DDDDDDDD","DELETE:::::: ")
 
             // notifyUserOfReminder(reminder)
@@ -134,9 +150,12 @@ class AppViewModel @Inject constructor(
 
 
     init {
+
+
+
         // createNotificationChannel()
-
-
+      //  setPeriodicNotification()
+        setOneTimeNotification()
         viewModelScope.launch {
             loadUsers()
 
@@ -178,6 +197,7 @@ class AppViewModel @Inject constructor(
         ) { reminders, selectedReminder ->
             __reminderState.value = ReminderState.Success(selectedReminder, reminders)
             _remindeList.value = reminders
+            LocationRepository.setReminderList(_remindeList.value)
         }
             .catch { error -> ReminderState.Error(error) }
             .launchIn(viewModelScope)
@@ -212,36 +232,59 @@ private fun createReminderNotification(reminder: Reminder) {
         .setContentText(reminder.message)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
     with(NotificationManagerCompat.from(Graph.appContext)) {
+        if (ActivityCompat.checkSelfPermission(
+                Graph.appContext,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
         notify(notificationId, builder.build())
     }
 
 }
+@SuppressLint("RestrictedApi")
+private fun setOneTimeNotification() {
 
-private fun setOneTimeNotification(reminder: Reminder) {
-
-    val duration = getDuration(reminder)
+    val duration = 15L;//getDuration(reminder)
     val workManager = WorkManager.getInstance(Graph.appContext)
     val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .build()
 
-    val notificationWorker = OneTimeWorkRequestBuilder<NotificationWorker>()
+   val notificationWorker =  PeriodicWorkRequestBuilder<NotificationWorker2>(15, TimeUnit.MINUTES)
         .setInitialDelay(duration, TimeUnit.SECONDS)
-        .setConstraints(constraints)
+        .setConstraints(constraints).addTag("AAA")
+
         .build()
 
-    workManager.enqueue(notificationWorker)
+    workManager
+        .enqueueUniquePeriodicWork("AAA", ExistingPeriodicWorkPolicy.REPLACE, notificationWorker)
 
     //Monitoring for state of work
-    workManager.getWorkInfoByIdLiveData(notificationWorker.id)
-        .observeForever { workInfo ->
-            if (workInfo.state == WorkInfo.State.SUCCEEDED) {
-                createReminderNotification(reminder)
-            } else {
-                //  createErrorNotification()
-            }
+
+    LocationRepository().start(Graph.appContext)
+workManager.getWorkInfoByIdLiveData(notificationWorker.id)
+    .observeForever { workInfo ->
+        if ((workInfo != null) &&
+            (workInfo.state == WorkInfo.State.ENQUEUED)) {
+
+            Log.d(" ","AAAAAAAAAAAAAAAA___AAAAAAAAAAAAAAAA")
+
+           // val myOutputData = workInfo.outputData.getString("KEY_MY_DATA")
         }
-}
+    }
+ }
+
+
+
 
 fun getDuration(reminder: Reminder): Long {
 
@@ -252,4 +295,35 @@ fun getDuration(reminder: Reminder): Long {
     Log.d("DURATION_____", "DDDDDDDDD ")
 
     return duration
+}
+
+
+
+@SuppressLint("SuspiciousIndentation")
+fun setPeriodicNotification(){
+
+    val workManager = WorkManager.getInstance(Graph.appContext)
+    val constraints = Constraints.Builder()
+        .setRequiresCharging(true)
+        .setRequiredNetworkType(NetworkType.CONNECTED)
+        .build()
+    val notificationWorker = PeriodicWorkRequestBuilder<NotificationWorker2>(15, TimeUnit.MINUTES)
+        .addTag("").build()
+
+       workManager .enqueueUniquePeriodicWork("", ExistingPeriodicWorkPolicy.REPLACE, notificationWorker)
+
+
+    workManager.enqueue(notificationWorker)
+
+    GlobalScope.launch(Dispatchers.Main){
+        workManager.getWorkInfoByIdLiveData(notificationWorker.id)
+            .observeForever { workInfo ->
+                if (workInfo.state == WorkInfo.State.SUCCEEDED) {
+                    Log.d("","AAAAAAAAAA________________")
+                } else {
+                    //  createErrorNotification()
+                }
+            }
+    }
+
 }

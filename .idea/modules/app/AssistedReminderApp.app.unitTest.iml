@@ -18,6 +18,7 @@
                 <arg>$MODULE_DIR$/../../../core-data/build/intermediates/compile_library_classes_jar/debug/classes.jar</arg>
                 <arg>$MODULE_DIR$/../../../core-domain/build/intermediates/compile_library_classes_jar/debug/classes.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/dc737429a7c88b1ca37f88994b9f7ea8/transformed/constraintlayout-compose-1.0.1-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/6fc572ca4d6bd27565fc5485fc9a4bb3/transformed/work-runtime-ktx-2.7.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/6442f6ba97ee2c7ba35c1b1c03e3c804/transformed/hilt-navigation-compose-1.0.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/35dbbd9f64979373f0c2eb5a7f1bb21b/transformed/navigation-compose-2.5.3-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/47ba82f40efb11df4bb138ced3d8cc07/transformed/activity-compose-1.6.1-api.jar</arg>
@@ -28,7 +29,6 @@
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/7646d034c06065d2691c6679d906b7d0/transformed/navigation-common-ktx-2.5.3-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/fdc259699bf60dc70e8bd6558e5d8c58/transformed/navigation-common-2.5.3-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/6540c29eb42447f2dcd17be6c361a270/transformed/lifecycle-runtime-ktx-2.5.1-api.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/0d311706861715dff65c2d492bb1863f/transformed/work-runtime-ktx-2.5.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/2723d01795ca1913c9a82ea46d5e8bba/transformed/ui-tooling-1.1.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/ae61e2646ec827e78eef25d041dec66c/transformed/material-1.1.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/9f2d0852e3592c10ac142c6b2181bf02/transformed/ui-tooling-preview-1.1.1-api.jar</arg>
@@ -46,6 +46,7 @@
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/330cfd08b668513cf60b1c169889f3d0/transformed/runtime-saveable-1.2.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/ecf0a69aeda5520131deb9feb9838d10/transformed/runtime-1.2.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/ac7e78e26de34cbe6a8b081b7c02f1cc/transformed/lifecycle-viewmodel-ktx-2.5.1-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/1422a520b43e9287653920641df2a3d6/transformed/hilt-work-1.0.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/400795f726f35ad230e419a3946419b4/transformed/hilt-android-2.44.2-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/605a995f3ed91746a2339c0937042f7a/transformed/ui-test-manifest-1.1.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/684877131f53c7235e463173cf94210b/transformed/appcompat-1.4.0-api.jar</arg>
@@ -80,24 +81,24 @@
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/b9e1e31e6547c145a51310b01615633b/transformed/vectordrawable-1.1.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/a847ae1ec56ea4809e8ce94e8234cfb4/transformed/customview-1.0.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/f7230ad1667cddfd4afc80a4547ada24/transformed/core-1.9.0-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/a2408cb28e683ae38b91514e85f89f46/transformed/cursoradapter-1.0.0-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/b384c6ecfd4e446c56139b66ad93190f/transformed/savedstate-ktx-1.2.0-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/1343fdfb2036dae56b2033696ed054f9/transformed/savedstate-1.2.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/06f2a67d2d8426c599625e282f25d890/transformed/ui-text-1.2.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/b60608b3f7bb2ba35c028811497fc11a/transformed/ui-graphics-1.2.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/e583b39da5a632b8a18de5fee698ae33/transformed/ui-unit-1.2.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/367a12f3a814ec7a308438fb183502af/transformed/ui-geometry-1.2.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common-java8/2.5.1/5b8f86fea035328fc9e8c660773037a3401ce25f/lifecycle-common-java8-2.5.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/0f9a0b7810182c8561b03240823a9d50/transformed/lifecycle-runtime-2.5.1-api.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/a2408cb28e683ae38b91514e85f89f46/transformed/cursoradapter-1.0.0-api.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/b384c6ecfd4e446c56139b66ad93190f/transformed/savedstate-ktx-1.2.0-api.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/1343fdfb2036dae56b2033696ed054f9/transformed/savedstate-1.2.0-api.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/9ed1886b976517e4adea668cf26f6d30/transformed/work-runtime-2.5.0-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/e22cb598a761209bcb5f891c197edad1/transformed/work-runtime-2.7.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/319bdd7618348fc291b769a258d1bdb2/transformed/lifecycle-livedata-2.1.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/ff5077cef1e11a118bd521fa634ae193/transformed/lifecycle-livedata-core-2.5.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.5.1/1fdb7349701e9cf2f0a69fc10642b6fef6bb3e12/lifecycle-common-2.5.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/5f2168f88bbce28c509b1f89027ab7a1/transformed/lifecycle-viewmodel-2.5.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/dd9ab937c3522bcdd9c16410951cd258/transformed/versionedparcelable-1.1.1-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.collection/collection/1.2.0/34dbc21d203cc4d4d623ac572a21acd4ccd716af/collection-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/fa4aa9ad34705305986ccccc2c89a329/transformed/core-runtime-2.1.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.1.0/b3152fc64428c9354344bd89848ecddc09b6f07e/core-common-2.1.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.collection/collection/1.2.0/34dbc21d203cc4d4d623ac572a21acd4ccd716af/collection-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/28c93792e1948df4e78096dfcea818bb/transformed/interpolator-1.0.0-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.annotation/annotation/1.5.0/857678d6b4ca7b28571ef7935c668bdb57e15027/annotation-1.5.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/56341777d8eec810fa68b54450fe0cf3/transformed/annotation-experimental-1.3.0-api.jar</arg>
@@ -105,12 +106,14 @@
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.7.10/bac80c520d0a9e3f3673bc2658c6ed02ef45a76a/kotlin-stdlib-common-1.7.10.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/com.google.guava/listenablefuture/1.0/c949a840a6acbc5268d088e47b04177bf90b3cad/listenablefuture-1.0.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/fe91741f13696f373b02df43365e8850/transformed/startup-runtime-1.1.1-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/com.google.dagger/hilt-core/2.44.2/92996b5a78973b3e6813a7a07bbeee097b65a95c/hilt-core-2.44.2.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/com.google.dagger/dagger/2.44.2/5c4265ab0e8e6beca4391afd9cf7c432df6d5243/dagger-2.44.2.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/2ff24943b3e471f428bfed5e26e70528/transformed/dagger-lint-aar-2.44.2-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/1716a2faf54e13c61600b0d279eceead/transformed/android-maps-utils-2.2.3-api.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.hilt/hilt-common/1.0.0/3c8727e21f194dd46aa78e44acbdf937ab045ebb/hilt-common-1.0.0.jar</arg>
                 <arg>$USER_HOME$/Library/Android/sdk/platforms/android-33/android.jar</arg>
                 <arg>$USER_HOME$/Library/Android/sdk/build-tools/30.0.3/core-lambda-stubs.jar</arg>
               </args>
@@ -151,11 +154,6 @@
     <facet type="android" name="Android">
       <configuration>
         <option name="SELECTED_BUILD_VARIANT" value="debug" />
-        <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
-        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
-        <afterSyncTasks>
-          <task>generateDebugSources</task>
-        </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
@@ -165,7 +163,9 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/../../../app/build/intermediates/javac/debug/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../app/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../app/build/generated/ap_generated_sources/debugUnitTest/out" />
     <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/debugUnitTest">
@@ -181,6 +181,15 @@
     <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="AssistedReminderApp.app.main" scope="TEST" />
+    <orderEntry type="module-library" scope="TEST">
+      <library name="Gradle: kaptGeneratedClasses">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../../app/build/tmp/kapt3/classes/debugUnitTest" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="module" module-name="AssistedReminderApp.core-database.main" scope="TEST" />
     <orderEntry type="module" module-name="AssistedReminderApp.core-data.main" scope="TEST" />
     <orderEntry type="module" module-name="AssistedReminderApp.core-domain.main" scope="TEST" />
@@ -202,6 +211,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:4.10.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio-jvm:3.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.hilt:hilt-common:1.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:listenablefuture:1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.13.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
@@ -276,8 +286,10 @@
     <orderEntry type="library" scope="TEST" name="Gradle: io.coil-kt:coil-compose-base:2.2.2@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.coil-kt:coil-base:2.2.2@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.coil-kt:coil:2.2.2@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: androidx.work:work-runtime-ktx:2.5.0@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: androidx.work:work-runtime:2.5.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.hilt:hilt-work:1.0.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.work:work-runtime:2.7.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.startup:startup-runtime:1.1.1@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.work:work-runtime-ktx:2.7.0@aar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="AssistedReminderApp.app.main" />
 </module>
