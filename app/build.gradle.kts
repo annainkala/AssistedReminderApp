@@ -70,13 +70,15 @@ dependencies {
     implementation(androidx.navigation.hilt.compose)
 
 
+
     // Maps dependencies
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.0")
     implementation("com.google.maps.android:maps-ktx:3.3.0")
     implementation("com.google.maps.android:maps-utils-ktx:3.3.0")
-    implementation("com.google.android.gms:play-services-maps:18.0.0")
+
     implementation("com.google.maps.android:android-maps-utils:2.2.3")
     implementation ("androidx.appcompat:appcompat:1.4.0")
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.gms:play-services-location:18.0.0")
     implementation("io.coil-kt:coil-compose:2.2.0")
     implementation("androidx.activity:activity-ktx:$1.7.0")

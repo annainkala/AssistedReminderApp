@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.R
+import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.home.AppViewModel
 
 
@@ -87,7 +88,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
                openDialog.value = true
             }
             else{
-
+                LocationRepository.reminder = viewModel.reminder.value
                 navController.navigate("reminder")
 
 

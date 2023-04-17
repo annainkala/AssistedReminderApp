@@ -14,7 +14,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.bizarre.assistedreminderapp.Graph
 import com.bizarre.assistedreminderapp.R
-import com.bizarre.assistedreminderapp.location.LocationClient
+import com.bizarre.assistedreminderapp.location.LocationManager
 import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.home.AppViewModel
 import com.bizarre.core_domain.entity.Reminder

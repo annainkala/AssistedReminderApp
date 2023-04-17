@@ -6,9 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Looper
 import android.util.Log
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -18,12 +16,12 @@ import com.google.android.gms.maps.model.LatLng
 import java.util.concurrent.TimeUnit
 
 
-class LocationClient(){
+class LocationManager(){
     private var currentLocation: Location? = null
     fun getLocation(context: Context):LatLng{
         val loc = mutableStateOf(LatLng(0.00,0.00))
 
-        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+        val fusedLocationManager = LocationServices.getFusedLocationProviderClient(context)
 
 
         if (ActivityCompat.checkSelfPermission(
@@ -60,8 +58,8 @@ class LocationClient(){
 
             }
         }
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+        fusedLocationManager.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+        fusedLocationManager.lastLocation.addOnSuccessListener { location ->
             location.also {
                 loc.value = LatLng(
                     it.latitude, it.longitude

@@ -2,9 +2,6 @@ package com.bizarre.assistedreminderapp.location
 
 import android.content.Context
 import android.util.Log
-import com.bizarre.assistedreminderapp.Graph
-import com.bizarre.assistedreminderapp.ui.home.AppViewModel
-import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 import com.bizarre.core_domain.entity.Reminder
 import com.google.android.gms.maps.model.LatLng
 
@@ -14,7 +11,7 @@ class LocationRepository(){
 
 fun start(context1:Context){
 
-    LocationClient().getLocation(context1)
+    LocationManager().getLocation(context1)
 }
 
 

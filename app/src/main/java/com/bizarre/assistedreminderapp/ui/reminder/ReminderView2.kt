@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.R
+import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.home.AppViewModel
 
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
@@ -41,6 +42,10 @@ fun ReminderView3(
     ){
 
 val update1=remember{ mutableStateOf(false)}
+
+Log.d("REMINDER______SCREEENNNNN","GGGGGGGGGGGGGGGGGGGGGG")
+
+
 
 
 
@@ -81,9 +86,9 @@ val update1=remember{ mutableStateOf(false)}
                 val message = rememberSaveable { mutableStateOf(reminder!!.message) }
                 val reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
                 val creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
-                val latlng1 = navController.currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>(
+                val latlng1 = LocationRepository.getLocation2()/*navController.currentBackStackEntry?.savedStateHandle?.getLiveData<LatLng>(
                     "location_data"
-                ) ?.value
+                ) ?.value*/
                 var latlng = LatLng(0.0,.0)
                 if(latlng1 != null){
                     latlng = latlng1
@@ -191,7 +196,7 @@ val update1=remember{ mutableStateOf(false)}
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
 
-
+                                 latlng = LocationRepository.getLocation2()
 
                                 viewModel.saveReminder(Reminder(
                                     message = message.value,

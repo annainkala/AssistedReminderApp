@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
+import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.utils.rememberMapViewWithLifecycle
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -29,6 +30,8 @@ fun MapScreen(navController: NavController) {
     val mapView = rememberMapViewWithLifecycle()
     val  coroutineScope = rememberCoroutineScope()
 
+    val latlng = LocationRepository.getLocation2()
+
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -40,7 +43,7 @@ fun MapScreen(navController: NavController) {
             coroutineScope.launch {
                 val map = mapView.awaitMap()
                 map.uiSettings.isZoomControlsEnabled = true
-                val location = LatLng(65.000, 25.00)
+                val location = latlng
                 map.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(location,15f)
                 )
@@ -71,6 +74,8 @@ private fun setMapLongCLick(
             latlng.longitude
 
         )
+
+        LocationRepository.setLocation2(latlng)
         map.addMarker(
             MarkerOptions().position(latlng).title("Reminder location").snippet(snippet)
         ).apply {

@@ -19,8 +19,8 @@
         android:theme="@style/Theme.AssistedReminderApp"
         tools:targetApi="s">
 
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDypgutIpdmaK6ce9q_xnntNPrhBIK2O90" />
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDmP24de46S6BFhGW8QJjOQlu-Esic9yw8" />
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".MainActivity"
