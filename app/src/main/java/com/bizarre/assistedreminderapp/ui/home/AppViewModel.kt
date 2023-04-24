@@ -48,8 +48,6 @@ class AppViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-
-
     private val __reminderState = MutableStateFlow<ReminderState>(ReminderState.Loading)
     val reminderState: StateFlow<ReminderState> = __reminderState
 
@@ -161,9 +159,51 @@ class AppViewModel @Inject constructor(
             loadUsers()
 
         }
+
+
+
+
+
+
+
     }
 
 
+    fun setNotification(id:Long, isLocation:Boolean) {
+
+
+        val formatter = DateTimeFormatter.ofPattern("dd MM yyyy")
+
+        val reminder = getReminder(id,reminders.value);
+
+        val date1 = reminder?.reminder_date?.toLocalDate()?.format(formatter)
+        val notificationId = 2;
+        val builder = NotificationCompat.Builder(Graph.appContext, "CHANNEL_id")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("New reminder!!!")
+            .setContentText(reminder?.message)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+        with(NotificationManagerCompat.from(Graph.appContext)) {
+            if (ActivityCompat.checkSelfPermission(
+                    Graph.appContext,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                Log.d("","NOTIFYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return
+            }
+            Log.d("","NOTIFYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+            notify(notificationId, builder.build())
+        }
+
+    }
     private suspend fun loadUsers() {
         combine(
             userRepository.loadUsers()
@@ -222,36 +262,7 @@ private fun createNotificationChannel(context: Context) {
 }
 
 
-fun createReminderNotification(reminder: Reminder) {
-    val formatter = DateTimeFormatter.ofPattern("dd MM yyyy")
-    val date1 = reminder.reminder_date.toLocalDate().format(formatter)
-    val notificationId = 2;
-    val builder = NotificationCompat.Builder(Graph.appContext, "CHANNEL_id")
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentTitle("New reminder!!!")
-        .setContentText(reminder.message)
-        .setPriority(NotificationCompat.PRIORITY_HIGH)
-    with(NotificationManagerCompat.from(Graph.appContext)) {
-        if (ActivityCompat.checkSelfPermission(
-                Graph.appContext,
-                Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.d("","NOTIFYYYYYYYYYYYYYYYYYYYYYYYYYYY")
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        Log.d("","NOTIFYYYYYYYYYYYYYYYYYYYYYYYYYYY")
-        notify(notificationId, builder.build())
-    }
 
-}
 @SuppressLint("RestrictedApi")
 fun setLocationBackgroundWorker() {
 
@@ -286,7 +297,15 @@ fun setLocationBackgroundWorker() {
 }
 
 
+private fun getReminder(id:Long, reminders:List<Reminder>):Reminder?{
 
+    for(reminder in reminders ){
+        if(reminder.reminderId == id){
+            return reminder
+        }
+    }
+    return null
+}
 
 private fun getDuration(reminder: Reminder): Long {
 

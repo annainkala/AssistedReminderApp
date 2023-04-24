@@ -145,7 +145,7 @@ Log.d("REMINDER______SCREEENNNNN","GGGGGGGGGGGGGGGGGGGGGG")
                             ,
 
                             onClick = {
-                                navController.navigate("map")
+                                navController.navigate("map/{id}")
                             }
                         ){
                             Text(stringResource(id = R.string.map), style = MaterialTheme.typography.body1)

@@ -60,9 +60,24 @@ fun Navigation() {
             ProfileScreen(navController = navController)
         }
 
-        composable("map") {
-            MapScreen(navController = navController)
+
+
+        composable(
+            "map/{id}",
+            // Fetching the argument which has been passed
+        ) {
+            val id = it.arguments?.getLong("id")!!
+
+
+            MapScreen(
+                navController,
+                id
+
+            )    // Using that argument in the destination Composabel
         }
+
+
+
 
         composable(
             "reminder",
