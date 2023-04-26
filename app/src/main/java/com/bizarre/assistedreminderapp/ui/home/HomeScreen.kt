@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -71,9 +69,9 @@ fun HomeScreen(
             ) {
 
 
-                Icon(  imageVector = Icons.Default.Add,
+               /* Icon(  imageVector = Icons.Default.Add,
                     contentDescription = null,
-                    modifier = Modifier.size(50.dp))
+                    modifier = Modifier.size(50.dp))*/
                 Column {
                     TopAppBar(
                         title = {
@@ -92,7 +90,12 @@ fun HomeScreen(
                         backgroundColor = backgroundColor,
                         actions = {
 
+                            IconButton(onClick = {
 
+                                navController.navigate("login")
+                            }) {
+                                Icon(Icons.Filled.ExitToApp, null)
+                            }
                             Box(modifier = Modifier
                                 .size(70.dp)
                                 .clickable {
@@ -125,6 +128,8 @@ fun HomeScreen(
 
         }
     }
+
+
 
 }
 

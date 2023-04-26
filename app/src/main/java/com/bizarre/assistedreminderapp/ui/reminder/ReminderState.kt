@@ -5,9 +5,16 @@ import com.bizarre.core_domain.entity.User
 
 sealed interface ReminderState {
     object Loading : ReminderState
+
+
     data class Error(val throwable: Throwable) : ReminderState
     data class Success(
         val selectedReminder: Reminder?,
         val data: List<Reminder>
     ) : ReminderState
+    data class Updated(
+        val selectedReminder: Reminder?,
+        val data: List<Reminder>
+    ) : ReminderState
+
 }

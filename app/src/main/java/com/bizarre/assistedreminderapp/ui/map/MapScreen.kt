@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.*
 import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.map.geofence.GeofenceReceiver
+
 import com.bizarre.assistedreminderapp.ui.utils.rememberMapViewWithLifecycle
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
@@ -43,7 +44,7 @@ fun MapScreen(navController: NavController,id:Long) {
     val mapView = rememberMapViewWithLifecycle()
     val  coroutineScope = rememberCoroutineScope()
     val getGeoFencingClient = LocationServices.getGeofencingClient(Graph.appContext)
-    val latlng = LocationRepository.getLocation2()
+   // val latlng = LocationRepository.getLocation2()
 
 
     Column(modifier = Modifier
@@ -56,7 +57,7 @@ fun MapScreen(navController: NavController,id:Long) {
             coroutineScope.launch {
                 val map = mapView.awaitMap()
                 map.uiSettings.isZoomControlsEnabled = true
-                val location = latlng
+                val location = LatLng(0.00,0.00)
                 map.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(location,15f)
                 )
@@ -90,7 +91,9 @@ private fun setMapLongCLick(
 
         )
 
-        LocationRepository.setLocation2(latlng)
+        LocationRepository.reminders[id.toInt()].location_x = latlng.latitude
+        LocationRepository.reminders[id.toInt()].location_y = latlng.longitude
+        LocationRepository.update = true;
         createGeoFence(latlng,geoFenceClient,id)
 
 

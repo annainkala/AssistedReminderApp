@@ -18,8 +18,8 @@ fun start(context1:Context){
 
 
 companion object{
+var update:Boolean = false
 
-    var loc = LatLng(0.00,0.00)
     var reminder:Reminder? = null
     var reminders = emptyList<Reminder>()
     fun setReminderList(reminders1:List<Reminder>) {
@@ -29,32 +29,20 @@ companion object{
     }
 
 
-    fun setLocation2(loc2:LatLng){
-        Log.d("","LAT2:::: " + loc.toString())
-        loc = loc2
+
+var _selectedreminder:Reminder? = null
+
+
+    fun setSelectedReminder(reminder:Reminder){
+
+        _selectedreminder = reminder
 
     }
 
-    fun setCurrentReminder(reminder1:Reminder){
+fun getSelectedReminder():Reminder{
+    return _selectedreminder!!;
+}
 
-        reminder = reminder1
-        Log.d("","SET CURRENT REMINDER:::: "  + reminder.toString())
-
-    }
-
-
-    fun getCurrentReminder():Reminder?{
-
-
-        Log.d("","GET CURRENT REMINDER:::: " + reminder.toString() )
-        return  reminder
-    }
-
-    fun getLocation2():LatLng{
-
-        return loc
-
-    }
 
     fun getReminderList():List<Reminder>{
 

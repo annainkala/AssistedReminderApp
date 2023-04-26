@@ -72,17 +72,14 @@ fun ProfileScreen(
             val password = rememberSaveable { mutableStateOf(user?.password) }
             val firstname = rememberSaveable { mutableStateOf(user?.firstName) }
             val lastName = rememberSaveable { mutableStateOf(user?.lastName) }
-            val imageUri1 = rememberSaveable { mutableStateOf(user?.profilePic) }
+
             val userEmail = rememberSaveable { mutableStateOf(user?.userEmail) }
+            val profilePic = rememberSaveable { mutableStateOf(user?.profilePic) }
 
             Surface(
                 modifier = Modifier.fillMaxSize()
 
             ) {
-
-
-
-                Log.d("PIC::::: ", "PPPP " + imageUri1.value)
 
 
                 Column(
@@ -100,7 +97,9 @@ fun ProfileScreen(
                         contract = ActivityResultContracts.PickVisualMedia(),
                         onResult = { uri ->
                             imageUri = uri
-                            imageUri1.value = imageUri.toString()
+                            profilePic.value = imageUri.toString()
+                            Log.d("","IMAGEEEEE____________ " + profilePic.value
+                            )
                         }
                     )
                     Column(
@@ -114,7 +113,7 @@ fun ProfileScreen(
                         AsyncImage(
                             modifier = Modifier.clip(CircleShape).size(200.dp),
 
-                            model = imageUri1.value,
+                            model = profilePic.value,
                             contentDescription = "image"
                         )
 
@@ -246,44 +245,19 @@ fun ProfileScreen(
                 OutlinedButton(
                     onClick = {
 
-                        Log.d("","IMAGEURI::: " + imageUri1.value.toString())
-                        var firstName1 = user!!.firstName
-                        if(firstname.value != "") {
-                            firstName1 = firstname.value.toString()
-                        }
-                        var lastName1 = user!!.lastName
-                        if(lastName.value != "") {
-                            lastName1 = lastName.value.toString()
-                        }
 
-                        var userName1 = user!!.userName
-                        if(username.value != "") {
-                            userName1 = username.value.toString()
-                        }
-                        var password1 = user!!.password
-                        if(password.value != "") {
-                            password1= password.value.toString()
-                        }
 
-                        var email1 = user!!.userEmail
-                        if(userEmail.value != "") {
-                            email1= userEmail.value.toString()
-                        }
 
-                        var profilePic1 = user!!.profilePic
-                        if(imageUri1.value != "") {
-                            profilePic1= imageUri1.value.toString()
-                        }
 
 
 
                         val user =  User(
-                            firstName = firstName1,
-                            lastName = lastName1,
-                            password =password1,
-                            userName = userName1,
-                            profilePic = profilePic1,
-                            userEmail = email1,
+                            firstName = firstname.value!!,
+                            lastName = lastName.value!!,
+                            password =password.value!!,
+                            userName = username.value!!,
+                            profilePic = profilePic.value!!,
+                            userEmail = userEmail.value!!,
                             userId = user?.userId!!,
 
 

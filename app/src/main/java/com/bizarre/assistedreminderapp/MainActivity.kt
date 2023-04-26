@@ -35,7 +35,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.bizarre.assistedreminderapp.ui.home.AppViewModel
-import com.bizarre.assistedreminderapp.ui.map.geofence.GeofenceReceiver
+
 import com.bizarre.assistedreminderapp.ui.theme.AssistedReminderAppTheme
 import com.bizarre.core_data.repository.ReminderRepositoryImpl_Factory
 import com.bizarre.core_domain.repository.ReminderRepository
@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var geofencingClient: GeofencingClient
 
     val TAG: String = "TAG"
-    private val myViewModel: AppViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +90,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+
         geofencingClient = LocationServices.getGeofencingClient(this)
 
 

@@ -22,8 +22,10 @@ import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 
 import com.bizarre.assistedreminderapp.ui.user.UserState
+import com.bizarre.assistedreminderapp.ui.utils.NotificationWorker
+import com.bizarre.assistedreminderapp.ui.utils.createReminderNotification
 
-import com.bizarre.assistedreminderapp.ui.utils.NotificationWorker2
+
 import com.bizarre.core_domain.entity.User
 
 import com.bizarre.core_domain.repository.ReminderRepository
@@ -50,13 +52,13 @@ class AppViewModel @Inject constructor(
 
     private val __reminderState = MutableStateFlow<ReminderState>(ReminderState.Loading)
     val reminderState: StateFlow<ReminderState> = __reminderState
+    private val _remindeList: MutableStateFlow<List<Reminder>> = MutableStateFlow(mutableListOf())
+    val reminders: StateFlow<List<Reminder>> = _remindeList
+
 
     private val _userList: MutableStateFlow<List<User>> = MutableStateFlow(mutableListOf())
     val users: StateFlow<List<User>> = _userList
 
-
-    private val _remindeList: MutableStateFlow<List<Reminder>> = MutableStateFlow(mutableListOf())
-    val reminders: StateFlow<List<Reminder>> = _remindeList
     private val _userViewState = MutableStateFlow<UserState>(UserState.Loading)
     val userState: StateFlow<UserState> = _userViewState
 
@@ -85,7 +87,7 @@ class AppViewModel @Inject constructor(
     fun updateReminder(reminder: Reminder) {
         viewModelScope.launch {
             Log.d("SAVE::::::: ", reminder.toString())
-            reminderRepository.updateReminder(reminder)
+           // reminderRepository.updateReminder(reminder)
             loadReminders(_selectedUser.value!!)
             //setLocationBackgroundWorker(reminder)
 
@@ -154,7 +156,7 @@ class AppViewModel @Inject constructor(
         // createNotificationChannel()
       //  setPeriodicNotification()
         createNotificationChannel(Graph.appContext)
-        setLocationBackgroundWorker()
+
         viewModelScope.launch {
             loadUsers()
 
@@ -225,24 +227,47 @@ class AppViewModel @Inject constructor(
 
 
     private suspend fun loadReminders(user: User) {
-        combine(
-            reminderRepository.loadRemindersByUser(user)
-                .onEach { reminders1 ->
-                    if (reminders1.isNotEmpty()) {
-                        Log.d("ZZZZZZZZZZZZZ:::: ", reminders1.toString())
-                        _selectedReminder.value = reminders1.first()
 
-                    }
-                },
-            _selectedReminder
-        ) { reminders, selectedReminder ->
-            __reminderState.value = ReminderState.Success(selectedReminder, reminders)
-            _remindeList.value = reminders
-            LocationRepository.setReminderList(_remindeList.value)
+        if (LocationRepository.update){
+            LocationRepository.update = false
+
+            __reminderState.value = ReminderState.Success(LocationRepository.reminder, LocationRepository.reminders)
+            _remindeList.value = LocationRepository.reminders
+
+            _remindeList.value.forEach{
+                reminder ->  saveReminder(reminder)
+            }
+
+
+
         }
-            .catch { error -> ReminderState.Error(error) }
-            .launchIn(viewModelScope)
-    }
+        else{
+
+
+            combine(
+
+                reminderRepository.loadRemindersByUser(user)
+                    .onEach { reminders1 ->
+                        if (reminders1.isNotEmpty()) {
+                            Log.d("ZZZZZZZZZZZZZ:::: ", reminders1.toString())
+                            _selectedReminder.value = reminders1.first()
+
+                        }
+                    },
+                _selectedReminder
+            ) { reminders, selectedReminder ->
+                __reminderState.value = ReminderState.Success(selectedReminder, reminders)
+                _remindeList.value = reminders
+                LocationRepository.setReminderList(_remindeList.value)
+            }
+                .catch { error -> ReminderState.Error(error) }
+                .launchIn(viewModelScope)
+        }
+        }
+
+
+
+
 
 }
 
@@ -262,39 +287,6 @@ private fun createNotificationChannel(context: Context) {
 }
 
 
-
-@SuppressLint("RestrictedApi")
-fun setLocationBackgroundWorker() {
-
-    val duration = 15L;//getDuration(reminder)
-    val workManager = WorkManager.getInstance(Graph.appContext)
-    val constraints = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .build()
-
-    val notificationWorker =  PeriodicWorkRequestBuilder<NotificationWorker2>(15, TimeUnit.MINUTES)
-        .setInitialDelay(duration, TimeUnit.SECONDS)
-        .setConstraints(constraints).addTag("AAA")
-
-        .build()
-
-    workManager
-        .enqueueUniquePeriodicWork("AAA", ExistingPeriodicWorkPolicy.REPLACE, notificationWorker)
-
-    //Monitoring for state of work
-
-    LocationRepository().start(Graph.appContext)
-    workManager.getWorkInfoByIdLiveData(notificationWorker.id)
-        .observeForever { workInfo ->
-            if ((workInfo != null) ) {
-
-                Log.d(" ","OUTPUT___AAAAA________________::::: " + workInfo.outputData.toString())
-
-                val res = LocationRepository.getCurrentReminder()
-                // val myOutputData = workInfo.outputData.getString("KEY_MY_DATA")
-            }
-        }
-}
 
 
 private fun getReminder(id:Long, reminders:List<Reminder>):Reminder?{
@@ -318,3 +310,30 @@ private fun getDuration(reminder: Reminder): Long {
 
     return duration
 }
+
+private fun setOneTimeNotification(reminder:Reminder) {
+
+    val duration = getDuration(reminder)
+    val workManager = WorkManager.getInstance(Graph.appContext)
+    val constraints = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.CONNECTED)
+        .build()
+
+    val notificationWorker = OneTimeWorkRequestBuilder<NotificationWorker>()
+        .setInitialDelay(duration, TimeUnit.SECONDS)
+        .setConstraints(constraints)
+        .build()
+
+    workManager.enqueue(notificationWorker)
+
+    //Monitoring for state of work
+    workManager.getWorkInfoByIdLiveData(notificationWorker.id)
+        .observeForever { workInfo ->
+            if (workInfo.state == WorkInfo.State.SUCCEEDED) {
+                createReminderNotification(reminder)
+            } else {
+                //  createErrorNotification()
+            }
+        }
+}
+

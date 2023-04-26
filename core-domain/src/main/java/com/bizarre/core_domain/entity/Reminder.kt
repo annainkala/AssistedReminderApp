@@ -10,4 +10,5 @@ data class Reminder(
     var location_y: Double,
     var reminder_date: LocalDateTime,
     var creation_date: LocalDateTime,
-    val is_seen: Boolean = false)
+    var is_seen: Boolean = false)
+

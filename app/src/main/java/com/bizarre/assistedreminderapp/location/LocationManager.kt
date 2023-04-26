@@ -53,7 +53,7 @@ class LocationManager(){
 
                 currentLocation = locationResult.lastLocation
 
-                LocationRepository.setLocation2(LatLng(currentLocation?.latitude!!,currentLocation?.longitude!!))
+               // LocationRepository.setLocation2(LatLng(currentLocation?.latitude!!,currentLocation?.longitude!!))
 
 
             }
@@ -67,7 +67,7 @@ class LocationManager(){
                 )
 
                 Log.d("","LAT:::: " + loc.value.toString())
-                LocationRepository.setLocation2(loc.value)
+              //  LocationRepository.setLocation2(loc.value)
 
 
             }

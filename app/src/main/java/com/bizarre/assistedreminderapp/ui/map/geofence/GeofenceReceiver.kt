@@ -1,14 +1,28 @@
 package com.bizarre.assistedreminderapp.ui.map.geofence
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bizarre.assistedreminderapp.Graph
 import com.bizarre.assistedreminderapp.MainActivity
+import com.bizarre.assistedreminderapp.R
+import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.home.AppViewModel
+import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
+import com.bizarre.assistedreminderapp.ui.utils.createReminderNotification
 import com.bizarre.core_domain.entity.Reminder
+import com.bizarre.core_domain.repository.ReminderRepository
+import com.bizarre.core_domain.repository.UserRepository
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
+import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
 const val GEOFENCE_RADIUS = 200
 const val GEOFENCE_ID = "REMINDER_GEOFENCE_ID"
@@ -18,8 +32,12 @@ const val GEOFENCE_LOCATION_REQUEST_CODE = 12345
 const val CAMERA_ZOOM_LEVEL = 13f
 const val LOCATION_REQUEST_CODE = 123
 
-class GeofenceReceiver(viewModel1:AppViewModel) : BroadcastReceiver() {
-    val viewModel = viewModel1
+class GeofenceReceiver @Inject constructor(
+                        private val reminderRepository: ReminderRepository,
+                       private val userRepository: UserRepository,
+
+                       ) : BroadcastReceiver() {
+
     var id: Long = 0
     lateinit var text: String
 
@@ -34,17 +52,23 @@ class GeofenceReceiver(viewModel1:AppViewModel) : BroadcastReceiver() {
                    id = intent.getLongExtra("id",0)!!
                     text = intent.getStringExtra("message")!!
                 }
-                    viewModel.setNotification(id,true)
+
+
+                LocationRepository.reminders[id.toInt()].is_seen = true
+               LocationRepository.update = true;
+
+                createReminderNotification(LocationRepository.reminders[id.toInt()])
 
 
                 // remove geofence
-                val triggeringGeofences = geofencingEvent.triggeringGeofences
+              //  val triggeringGeofences = geofencingEvent.triggeringGeofences
 
 
 
 
-               MainActivity.removeGeofences(context, triggeringGeofences)
+              // MainActivity.removeGeofences(context, triggeringGeofences)
             }
         }
     }
 }
+
