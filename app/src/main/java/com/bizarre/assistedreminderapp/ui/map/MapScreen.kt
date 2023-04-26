@@ -100,9 +100,7 @@ private fun setMapLongCLick(
         map.addMarker(
             MarkerOptions().position(latlng).title("Reminder location").snippet(snippet)
         ).apply {
-            navController.previousBackStackEntry
-                ?.savedStateHandle
-                ?.set("location_data",latlng)
+            navController.previousBackStackEntry?.savedStateHandle?.set("latlng",latlng.latitude.toString() + "," + latlng.longitude.toString())
             navController.popBackStack()
         }
     }

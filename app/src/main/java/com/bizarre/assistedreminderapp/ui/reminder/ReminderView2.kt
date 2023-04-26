@@ -40,13 +40,18 @@ fun ReminderView3(
 
 
     ){
-
-val update1=remember{ mutableStateOf(false)}
-
-Log.d("REMINDER______SCREEENNNNN","GGGGGGGGGGGGGGGGGGGGGG")
+   // val latlng1 = navController.currentBackStackEntry?.arguments
 
 
 
+    val latlng1 =
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("latlng")
+
+
+    Log.d("REMINDER______SCREEENNNNN______","GGGGGGGGGGGGGGGGGGGGGG " + latlng1?.value.toString())
+
+
+//val update1=remember{ mutableStateOf(false)}
 
 
     val reminderViewState by viewModel.reminderState.collectAsState()
@@ -83,11 +88,26 @@ Log.d("REMINDER______SCREEENNNNN","GGGGGGGGGGGGGGGGGGGGGG")
 
 
 
+                val lat = rememberSaveable { mutableStateOf(reminder!!.location_x) }
+                val lng = rememberSaveable { mutableStateOf(reminder!!.location_x) }
+
+
+                  val test:String =   navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("latlng")?.value.toString()
+                Log.d("VVVVVVVVVVV "," LATLNG: " + test.toString())
+
+
                 val message = rememberSaveable { mutableStateOf(reminder!!.message) }
                 val reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
                 val creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
 
-                var latlng = LatLng(0.0,.0)
+                val latlng = rememberSaveable{
+                    mutableStateOf( LatLng(reminder.location_x,reminder.location_y))
+
+                }
+
+                if(test != null &&test.contains(",")){
+                    latlng.value = LatLng(test.split(",")[0].toDouble(),test.split(",")[1].toDouble())
+                }
 
 
 
@@ -156,7 +176,7 @@ Log.d("REMINDER______SCREEENNNNN","GGGGGGGGGGGGGGGGGGGGGG")
                     Spacer(modifier = Modifier.height(10.dp))
                     var text = ""
                     if(latlng != null){
-                        text = latlng.latitude.toString() + " " + latlng.longitude.toString()
+                        text = latlng.value.latitude.toString() + " " + latlng.value.longitude.toString()
                     }
                     Text("Location: " + text)
                     Spacer(modifier = Modifier.height(50.dp))
@@ -191,15 +211,13 @@ Log.d("REMINDER______SCREEENNNNN","GGGGGGGGGGGGGGGGGGGGGG")
                     OutlinedButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-val index = 0;
-                                 latlng = LatLng(LocationRepository.getReminderList()[index].location_x,LocationRepository.getReminderList()[index].location_y)
-
+                            val index = 0;
                                 viewModel.saveReminder(Reminder(
                                     message = message.value,
                                     creation_date = creationDate.value,
                                     reminder_date = reminderDate.value,
-                                    location_y = latlng.longitude,
-                                    location_x = latlng.latitude,
+                                    location_y = latlng.value.longitude,
+                                    location_x = latlng.value.latitude,
                                     userId = viewModel.user.value!!.userId,
                                     is_seen = false,
 
