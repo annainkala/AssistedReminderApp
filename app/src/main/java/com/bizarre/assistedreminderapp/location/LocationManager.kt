@@ -15,7 +15,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import java.util.concurrent.TimeUnit
 
-
+/*
 class LocationManager(){
     private var currentLocation: Location? = null
     fun getLocation(context: Context):LatLng{
@@ -76,3 +76,4 @@ class LocationManager(){
         return loc.value
     }
 }
+*/

@@ -68,11 +68,16 @@ class AppViewModel @Inject constructor(
     val reminder: StateFlow<Reminder?> = _selectedReminder
 
 
-    fun saveReminder(reminder: Reminder) {
+    fun saveReminder(reminder: Reminder, isPending:Boolean) {
         viewModelScope.launch {
             Log.d("SAVE::::::: ", reminder.toString())
             reminderRepository.addReminder(reminder)
             createReminderNotification(reminder)
+            if(isPending){
+                createPendingNotification(reminder)
+            }
+
+
 
         }
     }
@@ -229,7 +234,7 @@ class AppViewModel @Inject constructor(
             _remindeList.value = LocationRepository.reminders
 
             _remindeList.value.forEach{
-                reminder ->  saveReminder(reminder)
+                reminder ->  saveReminder(reminder,false)
             }
 
 
@@ -305,7 +310,7 @@ private fun getDuration(reminder: Reminder): Long {
     return duration
 }
 
-private fun setOneTimeNotification(reminder:Reminder) {
+private fun createPendingNotification(reminder:Reminder) {
 
     val duration = getDuration(reminder)
     val workManager = WorkManager.getInstance(Graph.appContext)

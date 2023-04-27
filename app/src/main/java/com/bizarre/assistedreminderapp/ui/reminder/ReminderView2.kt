@@ -39,29 +39,21 @@ fun ReminderView3(
     viewModel: AppViewModel = hiltViewModel(),
 
 
-    ){
-   // val latlng1 = navController.currentBackStackEntry?.arguments
-
-
+    ) {
 
     val latlng1 =
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("latlng")
 
 
-    Log.d("REMINDER______SCREEENNNNN______","GGGGGGGGGGGGGGGGGGGGGG " + latlng1?.value.toString())
-
-
-//val update1=remember{ mutableStateOf(false)}
-
 
     val reminderViewState by viewModel.reminderState.collectAsState()
     when (reminderViewState) {
         is ReminderState.Loading -> {}
-        is  ReminderState.Success -> {
+        is ReminderState.Success -> {
             var reminder = (reminderViewState as ReminderState.Success).selectedReminder
 
-            val update = remember{ mutableStateOf(true)}
-            if(reminder == null){
+            val update = remember { mutableStateOf(true) }
+            if (reminder == null) {
 
                 reminder = Reminder(
                     message = "",
@@ -79,37 +71,35 @@ fun ReminderView3(
             }
 
 
-            Log.d("FFFFFFFFFFF","SSSSSSSSS")
-            Log.d("FFFFFFFFFFF 2:","SSSSSSSSS "+ reminder.toString())
+            Log.d("FFFFFFFFFFF", "SSSSSSSSS")
+            Log.d("FFFFFFFFFFF 2:", "SSSSSSSSS " + reminder.toString())
 
-            val openDialog = remember { mutableStateOf(false)  }
+            val openDialog = remember { mutableStateOf(false) }
             androidx.compose.material.Surface() {
-
-
 
 
                 val lat = rememberSaveable { mutableStateOf(reminder!!.location_x) }
                 val lng = rememberSaveable { mutableStateOf(reminder!!.location_x) }
 
 
-                  val test:String =   navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("latlng")?.value.toString()
-                Log.d("VVVVVVVVVVV "," LATLNG: " + test.toString())
+                val test: String =
+                    navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("latlng")?.value.toString()
+                Log.d("VVVVVVVVVVV ", " LATLNG: " + test.toString())
 
 
                 val message = rememberSaveable { mutableStateOf(reminder!!.message) }
                 val reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
                 val creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
 
-                val latlng = rememberSaveable{
-                    mutableStateOf( LatLng(reminder.location_x,reminder.location_y))
+                val latlng = rememberSaveable {
+                    mutableStateOf(LatLng(reminder.location_x, reminder.location_y))
 
                 }
 
-                if(test != null &&test.contains(",")){
-                    latlng.value = LatLng(test.split(",")[0].toDouble(),test.split(",")[1].toDouble())
+                if (test != null && test.contains(",")) {
+                    latlng.value =
+                        LatLng(test.split(",")[0].toDouble(), test.split(",")[1].toDouble())
                 }
-
-
 
 
                 val context = LocalContext.current
@@ -124,12 +114,19 @@ fun ReminderView3(
                     context,
                     { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
 
-                        reminderDate.value = LocalDateTime.of(selectedYear,selectedMonth+1,selectedDayOfMonth,0,0,0)
+                        reminderDate.value = LocalDateTime.of(
+                            selectedYear,
+                            selectedMonth + 1,
+                            selectedDayOfMonth,
+                            0,
+                            0,
+                            0
+                        )
 
                     }, year, month, dayOfMonth
                 )
 
-                Column(){
+                Column() {
                     ReminderTopAppBar(navController)
                     val formatter = DateTimeFormatter.ofPattern("dd MM yyyy")
 
@@ -137,69 +134,78 @@ fun ReminderView3(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
 
-                    ){
+                    ) {
 
                         // Text( reminderDate.value.format(formatter))
 
                         OutlinedButton(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .weight(1f)
-                            ,
+                                .weight(1f),
 
                             onClick = {
                                 datePicker.show()
                             }
-                        ){
-                            Text(stringResource(id = R.string.pick_date), style = MaterialTheme.typography.body1)
+                        ) {
+                            Text(
+                                stringResource(id = R.string.pick_date),
+                                style = MaterialTheme.typography.body1
+                            )
                         }
 
                         OutlinedButton(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .weight(1f)
-                            ,
+                                .weight(1f),
 
                             onClick = {
                                 navController.navigate("map/{id}")
                             }
-                        ){
-                            Text(stringResource(id = R.string.map), style = MaterialTheme.typography.body1)
+                        ) {
+                            Text(
+                                stringResource(id = R.string.map),
+                                style = MaterialTheme.typography.body1
+                            )
                         }
 
                     }
                     Text(
 
-                            "Date: ${reminderDate.value.format(formatter).toString()}"
+                        "Date: ${reminderDate.value.format(formatter).toString()}"
 
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     var text = ""
-                    if(latlng != null){
-                        text = latlng.value.latitude.toString() + " " + latlng.value.longitude.toString()
+                    if (latlng != null) {
+                        text =
+                            latlng.value.latitude.toString() + " " + latlng.value.longitude.toString()
                     }
                     Text("Location: " + text)
                     Spacer(modifier = Modifier.height(50.dp))
-                    Card(modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(fraction = 0.5f)) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(fraction = 0.5f)
+                    ) {
 
 
-
-
-                            OutlinedTextField(
-                                value = message.value,
-                                onValueChange = { data -> message.value = data },
-                                label = { Text(text = stringResource(id = R.string.message), style = Typography.body1) },
-                                modifier = Modifier
-                                    .fillMaxSize(),
-                                keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Text
-                                ),
-
-
-
+                        OutlinedTextField(
+                            value = message.value,
+                            onValueChange = { data -> message.value = data },
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.message),
+                                    style = Typography.body1
                                 )
+                            },
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text
+                            ),
+
+
+                            )
 
                     }
 
@@ -212,7 +218,8 @@ fun ReminderView3(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             val index = 0;
-                                viewModel.saveReminder(Reminder(
+                            viewModel.saveReminder(
+                                Reminder(
                                     message = message.value,
                                     creation_date = creationDate.value,
                                     reminder_date = reminderDate.value,
@@ -222,9 +229,8 @@ fun ReminderView3(
                                     is_seen = false,
 
 
-
-
-                                ))
+                                    )
+                            )
 
 
 
@@ -235,40 +241,30 @@ fun ReminderView3(
 
                         }) {
 
-                        Text(stringResource(id = R.string.save), style = MaterialTheme.typography.body1)
+                        Text(
+                            stringResource(id = R.string.save),
+                            style = MaterialTheme.typography.body1
+                        )
 
 
                     }
 
 
-
-
-                  /*
-
-
-
-                   */
+                    /*
 
 
 
-
-
-
+                     */
 
 
                 }
-    }
+            }
 
 
-
-
-
-    }
+        }
 
 
     }
-
-
 
 
 }

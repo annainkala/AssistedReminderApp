@@ -59,14 +59,9 @@ class GeofenceReceiver @Inject constructor(
 
                 createReminderNotification(LocationRepository.reminders[id.toInt()])
 
-
                 // remove geofence
-              //  val triggeringGeofences = geofencingEvent.triggeringGeofences
-
-
-
-
-              // MainActivity.removeGeofences(context, triggeringGeofences)
+                val triggeringGeofences = geofencingEvent.triggeringGeofences
+               MainActivity.removeGeofences(context, triggeringGeofences)
             }
         }
     }

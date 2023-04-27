@@ -9,13 +9,6 @@ class LocationRepository(){
 
 
 
-fun start(context1:Context){
-
-    LocationManager().getLocation(context1)
-}
-
-
-
 
 companion object{
 var update:Boolean = false
