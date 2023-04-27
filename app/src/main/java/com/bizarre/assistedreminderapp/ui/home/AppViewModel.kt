@@ -72,13 +72,7 @@ class AppViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d("SAVE::::::: ", reminder.toString())
             reminderRepository.addReminder(reminder)
-            if (reminder.reminder_date.isAfter(LocalDateTime.now())) {
-                //setLocationBackgroundWorker(reminder)
-            }
-            if (reminder.location_x != 0.0 && reminder.location_y != 0.0) {
-
-            }
-
+            createReminderNotification(reminder)
 
         }
     }
@@ -180,7 +174,7 @@ class AppViewModel @Inject constructor(
 
         val date1 = reminder?.reminder_date?.toLocalDate()?.format(formatter)
         val notificationId = 2;
-        val builder = NotificationCompat.Builder(Graph.appContext, "CHANNEL_id")
+        val builder = NotificationCompat.Builder(Graph.appContext, "channel_id")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("New reminder!!!")
             .setContentText(reminder?.message)
@@ -276,7 +270,7 @@ private fun createNotificationChannel(context: Context) {
         val name = "NotificationChannelName"
         val descriptionText = "NotificationChannelDescriptionText"
         val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel("CHANNEL_ID", name, importance).apply {
+        val channel = NotificationChannel("channel_id", name, importance).apply {
             description = descriptionText
         }
         val notificationManager: NotificationManager =
