@@ -56,7 +56,7 @@ fun HomeScreen(
             Scaffold(
                 floatingActionButton = {
                     FloatingActionButton(
-                        onClick = { navController.navigate(route = "reminder") },
+                        onClick = { navController.navigate(route = "reminder/{false}") },
                         contentColor = Color.Blue,
                         modifier = Modifier.padding(all = 20.dp)
                     ) {
@@ -73,41 +73,54 @@ fun HomeScreen(
                     contentDescription = null,
                     modifier = Modifier.size(50.dp))*/
                 Column {
-                    TopAppBar(
-                        title = {
-                            Text(
-                                text = stringResource(R.string.app_name),
-                                style = Typography.body1,
 
-                                color = MaterialTheme.colors.primary,
-                                modifier = Modifier
-                                    .padding(start = 4.dp)
-                                    .heightIn(24.dp)
-                            )
+                    Row(){
+
+                        TopAppBar(
+                            title = {
+                                Text(
+                                    text = stringResource(R.string.app_name),
+                                    style = Typography.body1,
+
+                                    color = MaterialTheme.colors.primary,
+                                    modifier = Modifier
+                                        .padding(start = 4.dp)
+                                        .heightIn(24.dp)
+                                )
 
 
-                        },
-                        backgroundColor = backgroundColor,
-                        actions = {
+                            },
+                            backgroundColor = backgroundColor,
 
-                            IconButton(onClick = {
+                            actions = {
 
-                                navController.navigate("login")
-                            }) {
-                                Icon(Icons.Filled.ExitToApp, null)
+
+                                Box(modifier = Modifier
+                                    .size(70.dp)
+                                    .clickable {
+                                        navController.navigate("profile")
+                                    }){
+                                    ProfileImage(uri,70)
+
+
+                                }
+                                IconButton(onClick = {
+
+                                    navController.navigate("login")
+                                }) {
+
+                                    Icon(Icons.Filled.ExitToApp, null,tint = Color.Black)
+                                }
+
                             }
-                            Box(modifier = Modifier
-                                .size(70.dp)
-                                .clickable {
-                                    navController.navigate("profile")
-                                }){
-                                ProfileImage(uri,70)
+                        )
 
 
-                            }
 
-                        }
-                    )
+
+                    }
+
+
 
                     Text("Hello $name1}!!!!")
                     ReminderListView(navController,user!!)

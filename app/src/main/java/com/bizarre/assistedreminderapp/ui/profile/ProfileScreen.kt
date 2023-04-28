@@ -287,14 +287,14 @@ fun ProfileScreen(
                         .background(color = MaterialTheme.colors.primary)
                         .fillMaxWidth()
                         .padding(10.dp)
-                        .height(70.dp)
+                        .height(60.dp)
                         .align(Alignment.BottomCenter),
                     shape = MaterialTheme.shapes.small,
                     colors = ButtonDefaults.outlinedButtonColors(backgroundColor =
                     MaterialTheme.colors.background),
                     border = BorderStroke(1.dp, MaterialTheme.colors.secondary)
                 ) {
-                    Text(text =stringResource(id = R.string.save), style = Typography.body1,
+                    Text(text =stringResource(id = R.string.save_profile), style = Typography.body1,
                         color = MaterialTheme.colors.secondary)
                 }
 

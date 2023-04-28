@@ -36,6 +36,7 @@ fun ReminderView3(
 
 
     navController: NavController,
+    update:Boolean,
     viewModel: AppViewModel = hiltViewModel(),
 
 
@@ -52,8 +53,8 @@ fun ReminderView3(
         is ReminderState.Success -> {
             var reminder = (reminderViewState as ReminderState.Success).selectedReminder
 
-            val update = remember { mutableStateOf(true) }
-            if (reminder == null) {
+
+            if (!update) {
 
                 reminder = Reminder(
                     message = "",
@@ -66,7 +67,7 @@ fun ReminderView3(
 
 
                 )
-                update.value = false
+
 
             }
 
@@ -92,7 +93,7 @@ fun ReminderView3(
                 val creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
 
                 val latlng = rememberSaveable {
-                    mutableStateOf(LatLng(reminder.location_x, reminder.location_y))
+                    mutableStateOf(LatLng(reminder!!.location_x, reminder!!.location_y))
 
                 }
 
@@ -218,19 +219,34 @@ fun ReminderView3(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             val index = 0;
-                            viewModel.saveReminder(
-                                Reminder(
-                                    message = message.value,
-                                    creation_date = creationDate.value,
-                                    reminder_date = reminderDate.value,
-                                    location_y = latlng.value.longitude,
-                                    location_x = latlng.value.latitude,
-                                    userId = viewModel.user.value!!.userId,
-                                    is_seen = false,
+
+                            val reminder1 =    Reminder(
+                                message = message.value,
+                                creation_date = creationDate.value,
+                                reminder_date = reminderDate.value,
+                                location_y = latlng.value.longitude,
+                                location_x = latlng.value.latitude,
+                                userId = viewModel.user.value!!.userId,
+                                is_seen = false,
 
 
-                                    )
-                            )
+                                )
+
+                            if(!update){
+                                viewModel.saveReminder(
+                                 reminder1,
+
+                                )
+
+
+                            }
+                            else{
+                                viewModel.updateReminder(
+                                    reminder1,
+
+                                )
+                            }
+
 
 
 

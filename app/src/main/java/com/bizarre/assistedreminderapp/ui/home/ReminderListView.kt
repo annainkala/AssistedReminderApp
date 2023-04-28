@@ -89,7 +89,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
             }
             else{
                 LocationRepository.reminder = viewModel.reminder.value
-                navController.navigate("reminder")
+                navController.navigate("reminder/{true}")
 
 
             }

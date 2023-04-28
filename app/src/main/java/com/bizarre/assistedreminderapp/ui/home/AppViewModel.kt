@@ -68,14 +68,14 @@ class AppViewModel @Inject constructor(
     val reminder: StateFlow<Reminder?> = _selectedReminder
 
 
-    fun saveReminder(reminder: Reminder, isPending:Boolean) {
+    fun saveReminder(reminder: Reminder) {
         viewModelScope.launch {
             Log.d("SAVE::::::: ", reminder.toString())
             reminderRepository.addReminder(reminder)
             createReminderNotification(reminder)
-            if(isPending){
+
                 createPendingNotification(reminder)
-            }
+
 
 
 
@@ -234,7 +234,7 @@ class AppViewModel @Inject constructor(
             _remindeList.value = LocationRepository.reminders
 
             _remindeList.value.forEach{
-                reminder ->  saveReminder(reminder,false)
+                reminder ->  updateReminder(reminder)
             }
 
 

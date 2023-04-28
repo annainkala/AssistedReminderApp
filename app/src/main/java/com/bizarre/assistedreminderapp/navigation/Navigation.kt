@@ -80,15 +80,17 @@ fun Navigation() {
 
 
         composable(
-            "reminder",
+            "reminder/{update}",
             // Fetching the argument which has been passed
         ) {
 
-
+        val update:Boolean? = it.arguments?.getBoolean("update",false)
 
             ReminderView3(
 
-                navController
+                navController,
+                update!!
+
 
             )    // Using that argument in the destination Composabel
         }
