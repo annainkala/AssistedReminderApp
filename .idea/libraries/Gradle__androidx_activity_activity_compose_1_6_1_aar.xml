@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.activity:activity-compose:1.6.1@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a26672502d31cd7aea70eb1aab8a0ebd/transformed/activity-compose-1.6.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a26672502d31cd7aea70eb1aab8a0ebd/transformed/activity-compose-1.6.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a26672502d31cd7aea70eb1aab8a0ebd/transformed/activity-compose-1.6.1/res" />
+      <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/a26672502d31cd7aea70eb1aab8a0ebd/transformed/activity-compose-1.6.1/res" />
+      <root url="file://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/a26672502d31cd7aea70eb1aab8a0ebd/transformed/activity-compose-1.6.1/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-5.6.4/caches/transforms-3/a26672502d31cd7aea70eb1aab8a0ebd/transformed/activity-compose-1.6.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.activity/activity-compose/1.6.1/e9bce564b65bcfa2669ff44af6c578a3dea517dc/activity-compose-1.6.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-5.6.4/caches/modules-2/files-2.1/androidx.activity/activity-compose/1.6.1/e9bce564b65bcfa2669ff44af6c578a3dea517dc/activity-compose-1.6.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -56,7 +56,12 @@ fun HomeScreen(
             Scaffold(
                 floatingActionButton = {
                     FloatingActionButton(
-                        onClick = { navController.navigate(route = "reminder/{false}") },
+
+                        onClick = {
+                            val updateString = "false"
+
+                            navController.navigate("reminder/{$updateString}")
+                        },
                         contentColor = Color.Blue,
                         modifier = Modifier.padding(all = 20.dp)
                     ) {

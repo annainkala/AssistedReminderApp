@@ -36,7 +36,7 @@ fun ReminderView3(
 
 
     navController: NavController,
-    update:Boolean,
+    updateString:String,
     viewModel: AppViewModel = hiltViewModel(),
 
 
@@ -47,6 +47,7 @@ fun ReminderView3(
 
 
 
+    val update = updateString.toBoolean()
     val reminderViewState by viewModel.reminderState.collectAsState()
     when (reminderViewState) {
         is ReminderState.Loading -> {}
@@ -54,12 +55,18 @@ fun ReminderView3(
             var reminder = (reminderViewState as ReminderState.Success).selectedReminder
 
 
+            val test: String =
+                navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("latlng")?.value.toString()
+
+
+
+
             if (!update) {
 
                 reminder = Reminder(
                     message = "",
-                    location_x = 0.0,
-                    location_y = 0.0,
+                    location_x = 65.0121,
+                    location_y = 25.4651,
                     userId = 0,
                     reminder_date = LocalDateTime.now(),
                     creation_date = LocalDateTime.now(),
@@ -71,36 +78,31 @@ fun ReminderView3(
 
             }
 
+            val latlng = rememberSaveable {
+                mutableStateOf(LatLng(reminder!!.location_x, reminder!!.location_y))
 
-            Log.d("FFFFFFFFFFF", "SSSSSSSSS")
-            Log.d("FFFFFFFFFFF 2:", "SSSSSSSSS " + reminder.toString())
+            }
+
+         if(latlng == null){
+
+             latlng.value = LatLng( 65.0121,25.4651)
+         }
 
             val openDialog = remember { mutableStateOf(false) }
             androidx.compose.material.Surface() {
 
 
-                val lat = rememberSaveable { mutableStateOf(reminder!!.location_x) }
-                val lng = rememberSaveable { mutableStateOf(reminder!!.location_x) }
-
-
-                val test: String =
-                    navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("latlng")?.value.toString()
-                Log.d("VVVVVVVVVVV ", " LATLNG: " + test.toString())
-
-
-                val message = rememberSaveable { mutableStateOf(reminder!!.message) }
-                val reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
-                val creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
-
-                val latlng = rememberSaveable {
-                    mutableStateOf(LatLng(reminder!!.location_x, reminder!!.location_y))
-
-                }
 
                 if (test != null && test.contains(",")) {
                     latlng.value =
                         LatLng(test.split(",")[0].toDouble(), test.split(",")[1].toDouble())
                 }
+
+
+
+                val message = rememberSaveable { mutableStateOf(reminder!!.message) }
+                val reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
+                val creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
 
 
                 val context = LocalContext.current
@@ -138,7 +140,7 @@ fun ReminderView3(
                     ) {
 
                         // Text( reminderDate.value.format(formatter))
-
+                        Log.d("XXXXXXX________"," LAT LNG:::: 111111")
                         OutlinedButton(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -154,15 +156,32 @@ fun ReminderView3(
                             )
                         }
 
+
+
                         OutlinedButton(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .weight(1f),
 
                             onClick = {
-                                navController.navigate("map/{id}")
+                                Log.d("XXXXXXX________"," LAT LNG:::: 0000000")
+                                val id1 = reminder!!.reminderId
+                                val lat = latlng.value.latitude.toString()
+                                val lng = latlng.value.longitude.toString()
+
+
+                                val latlngString = lat + "," + lng
+
+
+                            Log.d("XXXXXXX________"," LAT LNG:::: " + latlngString.toString())
+
+
+                                navController.navigate("map/${id1.toString()}/$latlngString")
+
+
                             }
                         ) {
+                            Log.d("XXXXXXX________"," LAT LNG:::: 222222222 " )
                             Text(
                                 stringResource(id = R.string.map),
                                 style = MaterialTheme.typography.body1

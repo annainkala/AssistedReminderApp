@@ -89,7 +89,12 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
             }
             else{
                 LocationRepository.reminder = viewModel.reminder.value
-                navController.navigate("reminder/{true}")
+
+
+                val updateString = "true"
+
+                navController.navigate("login/$updateString")
+
 
 
             }

@@ -63,15 +63,18 @@ fun Navigation() {
 
 
         composable(
-            "map/{id}",
+            "map/{id}/{latlng}",
             // Fetching the argument which has been passed
         ) {
-            val id = it.arguments?.getLong("id")!!
+            val id :String= it.arguments?.getString("id")!!
+            val latlng:String = it.arguments?.getString("latlng")!!
+
 
 
             MapScreen(
                 navController,
-                id
+                id,
+                latlng
 
             )    // Using that argument in the destination Composabel
         }
@@ -80,16 +83,17 @@ fun Navigation() {
 
 
         composable(
-            "reminder/{update}",
+            "reminder/{updateString}",
             // Fetching the argument which has been passed
         ) {
 
-        val update:Boolean? = it.arguments?.getBoolean("update",false)
+        val updateString:String= it.arguments!!.getString("updateString")!!
+
 
             ReminderView3(
 
                 navController,
-                update!!
+                updateString
 
 
             )    // Using that argument in the destination Composabel

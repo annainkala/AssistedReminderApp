@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,14 +40,18 @@ import java.util.*
 
 
 @Composable
-fun MapScreen(navController: NavController,id:Long) {
+fun MapScreen(navController: NavController,id:String,latlng:String) {
 
     val mapView = rememberMapViewWithLifecycle()
     val  coroutineScope = rememberCoroutineScope()
     val getGeoFencingClient = LocationServices.getGeofencingClient(Graph.appContext)
    // val latlng = LocationRepository.getLocation2()
 
+    Log.d("AAAAAAAA______","LATLONG: " + latlng.toString())
 
+    val lat =     latlng.split(",")[0].toDouble()
+   val lng = latlng.split(",")[1].toDouble()
+    val id1 = id.toLong()
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.Black)
@@ -57,7 +62,7 @@ fun MapScreen(navController: NavController,id:Long) {
             coroutineScope.launch {
                 val map = mapView.awaitMap()
                 map.uiSettings.isZoomControlsEnabled = true
-                val location = LatLng(0.00,0.00)
+                val location = LatLng(lat,lng)
                 map.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(location,15f)
                 )
@@ -65,7 +70,7 @@ fun MapScreen(navController: NavController,id:Long) {
                     .title("Reminder")
                     .position(location)
                 map.addMarker(markerOptions)
-                setMapLongCLick(map = map, navController = navController, geoFenceClient = getGeoFencingClient,id=id)
+                setMapLongCLick(map = map, navController = navController, geoFenceClient = getGeoFencingClient,id=id1)
 
             }
         }
