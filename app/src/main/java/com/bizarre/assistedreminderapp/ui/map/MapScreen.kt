@@ -98,8 +98,19 @@ fun MapScreen(navController: NavController,id:String,latlng:String, viewModel:Ap
                             viewModel = viewModel,
                            reminder = reminders.value[id1.toInt()])
 
+                        setMapLongCLick(
+                            map = map,
+                            navController = navController,
+                            geoFenceClient = getGeoFencingClient,
+                            viewModel = viewModel,
+                            reminder = reminders.value[id1.toInt()])
 
-                    }
+
+
+
+
+                }
+
                 }
             }
 
@@ -172,15 +183,17 @@ private fun setMapOnCLick(
                 latlng.longitude
 
             )
-            if (checkForGeoFenceEntry(latlng,reminders)){
+          for (reminder in reminders){
+              if (checkForGeoFenceEntry(latlng,reminder)){
 
-                map.addMarker(
-                    MarkerOptions().position(latlng).title("Reminder location").snippet(snippet)
-                ).apply {
-                    navController.previousBackStackEntry?.savedStateHandle?.set("latlng",latlng.latitude.toString() + "," + latlng.longitude.toString())
-                    navController.popBackStack()
-                }
-            }
+                  map.addMarker(
+                      MarkerOptions().position(latlng).title("Reminder location").snippet(snippet)
+                  ).apply {
+                      navController.previousBackStackEntry?.savedStateHandle?.set("latlng",latlng.latitude.toString() + "," + latlng.longitude.toString())
+                      navController.popBackStack()
+                  }
+              }
+          }
 
 
 

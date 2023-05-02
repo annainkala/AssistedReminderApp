@@ -81,10 +81,10 @@ val RADIUS= 100
 
 
 
-fun checkForGeoFenceEntry(currentLocation: LatLng, reminders:List<Reminder>):Boolean{
+fun checkForGeoFenceEntry(currentLocation: LatLng, reminder:Reminder):Boolean{
 
 
-    for( reminder in reminders){
+
 
 val dist =computeDistanceBetween(currentLocation, LatLng(reminder.location_x,reminder.location_y))
 
@@ -92,7 +92,7 @@ val dist =computeDistanceBetween(currentLocation, LatLng(reminder.location_x,rem
             return true
         }
 
-    }
+
     return false
 
 }
