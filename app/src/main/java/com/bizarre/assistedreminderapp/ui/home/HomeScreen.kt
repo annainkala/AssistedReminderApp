@@ -51,16 +51,16 @@ fun HomeScreen(
             val user = getUser(viewModel)
 
             val name1 = text1.split("_")[0]
-            val uri = text1.split("_")[1]//URLDecoder.decode(text1.split("_")[1])
-
+            val uri = text1.split("_")[1]//URLDecoder.decode(text1.split("_")[1])?
             Scaffold(
                 floatingActionButton = {
                     FloatingActionButton(
 
                         onClick = {
                             val updateString = "false"
+                            val id = viewModel.reminder.value?.reminderId
 
-                            navController.navigate("reminder/{$updateString}")
+                            navController.navigate("reminder/$updateString/$id")
                         },
                         contentColor = Color.Blue,
                         modifier = Modifier.padding(all = 20.dp)

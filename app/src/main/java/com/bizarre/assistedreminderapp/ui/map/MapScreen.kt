@@ -25,7 +25,6 @@ import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.*
 import com.bizarre.assistedreminderapp.location.LocationManager
 import com.bizarre.assistedreminderapp.ui.home.AppViewModel
-import com.bizarre.assistedreminderapp.ui.map.geofence.GeofenceReceiver
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 import com.bizarre.assistedreminderapp.ui.utils.checkForGeoFenceEntry
 
@@ -44,18 +43,23 @@ import java.util.concurrent.TimeUnit
 
 
 @Composable
-fun MapScreen(navController: NavController,id:String,latlng:String, viewModel:AppViewModel = hiltViewModel()) {
+fun MapScreen(
+    navController: NavController,
+    id: String,
+    latlng: String,
+    viewModel: AppViewModel = hiltViewModel()
+) {
 
 
     val reminderViewState by viewModel.reminderState.collectAsState()
     when (reminderViewState) {
         is ReminderState.Loading -> {}
-        is  ReminderState.Success -> {
+        is ReminderState.Success -> {
 
 
-           // val reminder = remember{ mutableStateOf((reminderViewState as ReminderState.Success).selectedReminder) }
-            val reminders = remember{ mutableStateOf((reminderViewState as ReminderState.Success).data) }
-
+            // val reminder = remember{ mutableStateOf((reminderViewState as ReminderState.Success).selectedReminder) }
+            val reminders =
+                remember { mutableStateOf((reminderViewState as ReminderState.Success).data) }
 
 
             val mapView = rememberMapViewWithLifecycle()
@@ -82,7 +86,6 @@ fun MapScreen(navController: NavController,id:String,latlng:String, viewModel:Ap
                         map.uiSettings.isZoomControlsEnabled = true
 
 
-
                         val location = LatLng(lat, lng)
                         map.moveCamera(
                             CameraUpdateFactory.newLatLngZoom(location, 15f)
@@ -96,20 +99,19 @@ fun MapScreen(navController: NavController,id:String,latlng:String, viewModel:Ap
                             navController = navController,
                             geoFenceClient = getGeoFencingClient,
                             viewModel = viewModel,
-                           reminder = reminders.value[id1.toInt()])
+                            reminder = reminders.value[id1.toInt()]
+                        )
 
                         setMapLongCLick(
                             map = map,
                             navController = navController,
                             geoFenceClient = getGeoFencingClient,
                             viewModel = viewModel,
-                            reminder = reminders.value[id1.toInt()])
+                            reminder = reminders.value[id1.toInt()]
+                        )
 
 
-
-
-
-                }
+                    }
 
                 }
             }
@@ -125,11 +127,11 @@ private fun setMapLongCLick(
     navController: NavController,
     map: GoogleMap,
     geoFenceClient: GeofencingClient,
-    viewModel:AppViewModel,
-    reminder:Reminder
-){
+    viewModel: AppViewModel,
+    reminder: Reminder
+) {
 
-    map.setOnMapLongClickListener { latlng->
+    map.setOnMapLongClickListener { latlng ->
         val snippet = String.format(
             Locale.getDefault(),
             "Lat: %1$.2f, Lng %2$.2f",
@@ -149,52 +151,44 @@ private fun setMapLongCLick(
         map.addMarker(
             MarkerOptions().position(latlng).title("Reminder location").snippet(snippet)
         ).apply {
-            navController.previousBackStackEntry?.savedStateHandle?.set("latlng",latlng.latitude.toString() + "," + latlng.longitude.toString())
+            navController.previousBackStackEntry?.savedStateHandle?.set(
+                "latlng",
+                latlng.latitude.toString() + "," + latlng.longitude.toString()
+            )
             navController.popBackStack()
         }
     }
 }
 
 
-
 private fun setMapOnCLick(
     navController: NavController,
     map: GoogleMap,
     geoFenceClient: GeofencingClient,
-    id:Long,
-    viewModel:AppViewModel,
-    reminders:List<Reminder>
-){
+    id: Long,
+    viewModel: AppViewModel,
+    reminders: List<Reminder>
+) {
 
 
+    map.setOnMapClickListener { latlng ->
+        val snippet = String.format(
+            Locale.getDefault(),
+            "Lat: %1$.2f, Lng %2$.2f",
+            latlng.latitude,
+            latlng.longitude
 
+        )
+        for (reminder in reminders) {
+            if (checkForGeoFenceEntry(latlng, reminder)) {
 
+                map.addMarker(
+                    MarkerOptions().position(latlng).title("Reminder location").snippet(snippet)
+                ).apply {
 
-
-
-
-
-
-        map.setOnMapClickListener{ latlng->
-            val snippet = String.format(
-                Locale.getDefault(),
-                "Lat: %1$.2f, Lng %2$.2f",
-                latlng.latitude,
-                latlng.longitude
-
-            )
-          for (reminder in reminders){
-              if (checkForGeoFenceEntry(latlng,reminder)){
-
-                  map.addMarker(
-                      MarkerOptions().position(latlng).title("Reminder location").snippet(snippet)
-                  ).apply {
-
-                  }
-              }
-          }
-
-
+                }
+            }
+        }
 
 
     }

@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.R
-import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.home.AppViewModel
 
 
@@ -68,8 +67,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
 
     Log.d(""," TTIME 1:::::: " + reminder.reminder_date.toString() + " " + currentTime.toString())
 
-    val comp = reminder.reminder_date.compareTo(currentTime)
-    if(comp <= 0){
+
 
 
         Log.d(""," TTIME 2:::::: " + reminder.reminder_date.toString() + " " + currentTime.toString())
@@ -88,12 +86,12 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
                openDialog.value = true
             }
             else{
-                LocationRepository.reminder = viewModel.reminder.value
 
 
                 val updateString = "true"
+                val id = reminder.reminderId
 
-                navController.navigate("login/$updateString")
+                navController.navigate("/$updateString/$id")
 
 
 
@@ -120,7 +118,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
                 }
                isChecked.value =  SimpleCheckbox(reminder,viewModel,isChecked)
             }
-        }
+
 
     }
 

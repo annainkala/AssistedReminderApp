@@ -2,8 +2,6 @@ import android.app.DatePickerDialog
 import android.util.Log
 import android.widget.DatePicker
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -16,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.R
-import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.home.AppViewModel
 
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
@@ -26,7 +23,6 @@ import com.bizarre.assistedreminderapp.ui.theme.Typography
 import com.bizarre.assistedreminderapp.ui.utils.ReminderTopAppBar
 import com.bizarre.core_domain.entity.Reminder
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.flow.first
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -36,7 +32,8 @@ fun ReminderView3(
 
 
     navController: NavController,
-    updateString:String,
+    updateString:Boolean,
+    id: Int?,
     viewModel: AppViewModel = hiltViewModel(),
 
 
@@ -47,12 +44,13 @@ fun ReminderView3(
 
 
 
-    val update = updateString.toBoolean()
+    val update = updateString
     val reminderViewState by viewModel.reminderState.collectAsState()
     when (reminderViewState) {
         is ReminderState.Loading -> {}
         is ReminderState.Success -> {
-            val reminder = remember{ mutableStateOf((reminderViewState as ReminderState.Success).selectedReminder) }
+          val reminders =   (reminderViewState as ReminderState.Success).data
+            val reminder = remember{ mutableStateOf(reminders[id!!]) }
 
 
             val test: String =

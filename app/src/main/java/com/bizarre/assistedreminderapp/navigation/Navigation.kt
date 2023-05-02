@@ -4,15 +4,10 @@ package com.bizarre.assistedreminderapp.navigation
 
 
 import ReminderView3
-import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.bizarre.assistedreminderapp.Graph
 
 import com.bizarre.assistedreminderapp.ui.home.HomeScreen
 
@@ -20,7 +15,6 @@ import com.bizarre.assistedreminderapp.ui.home.HomeScreen
 import com.bizarre.assistedreminderapp.ui.login.LoginScreen
 import com.bizarre.assistedreminderapp.ui.map.MapScreen
 import com.bizarre.assistedreminderapp.ui.profile.ProfileScreen
-import com.bizarre.core_domain.entity.Reminder
 
 
 @Composable
@@ -83,17 +77,19 @@ fun Navigation() {
 
 
         composable(
-            "reminder/{updateString}",
+            "reminder/{updateString}/{id}",
             // Fetching the argument which has been passed
         ) {
 
-        val updateString:String= it.arguments!!.getString("updateString")!!
+        val updateString:Boolean=it.arguments!!.getBoolean("updateString")!!
+            val id:Int?=it.arguments!!.getInt("id")
 
 
             ReminderView3(
 
                 navController,
-                updateString
+                updateString,
+                id
 
 
             )    // Using that argument in the destination Composabel

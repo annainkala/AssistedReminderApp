@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -18,7 +17,6 @@ import com.bizarre.core_domain.entity.Reminder
 import androidx.work.*
 import com.bizarre.assistedreminderapp.Graph
 import com.bizarre.assistedreminderapp.R
-import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 
 import com.bizarre.assistedreminderapp.ui.user.UserState
@@ -227,20 +225,7 @@ class AppViewModel @Inject constructor(
 
     private suspend fun loadReminders(user: User) {
 
-        if (LocationRepository.update){
-            LocationRepository.update = false
 
-            __reminderState.value = ReminderState.Success(LocationRepository.reminder, LocationRepository.reminders)
-            _remindeList.value = LocationRepository.reminders
-
-            _remindeList.value.forEach{
-                reminder ->  updateReminder(reminder)
-            }
-
-
-
-        }
-        else{
 
 
             combine(
@@ -257,11 +242,11 @@ class AppViewModel @Inject constructor(
             ) { reminders, selectedReminder ->
                 __reminderState.value = ReminderState.Success(selectedReminder, reminders)
                 _remindeList.value = reminders
-                LocationRepository.setReminderList(_remindeList.value)
+
             }
                 .catch { error -> ReminderState.Error(error) }
                 .launchIn(viewModelScope)
-        }
+
         }
 
 
@@ -329,7 +314,7 @@ private fun createPendingNotification(reminder:Reminder) {
     workManager.getWorkInfoByIdLiveData(notificationWorker.id)
         .observeForever { workInfo ->
             if (workInfo.state == WorkInfo.State.SUCCEEDED) {
-                LocationRepository.reminder = reminder;
+
                 createLocationNotification(reminder,false)
             } else {
                 //  createErrorNotification()
