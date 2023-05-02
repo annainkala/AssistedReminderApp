@@ -81,8 +81,8 @@ fun Navigation() {
             // Fetching the argument which has been passed
         ) {
 
-        val updateString:Boolean=it.arguments!!.getBoolean("updateString")!!
-            val id:Int?=it.arguments!!.getInt("id")
+        val updateString:String=it.arguments!!.getString("updateString")!!
+            val id:String?=it.arguments!!.getString("id")
 
 
             ReminderView3(

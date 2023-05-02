@@ -32,8 +32,8 @@ fun ReminderView3(
 
 
     navController: NavController,
-    updateString:Boolean,
-    id: Int?,
+    updateString:String,
+    id: String?,
     viewModel: AppViewModel = hiltViewModel(),
 
 
@@ -44,13 +44,22 @@ fun ReminderView3(
 
 
 
-    val update = updateString
+    val update = updateString.toBoolean()
     val reminderViewState by viewModel.reminderState.collectAsState()
     when (reminderViewState) {
         is ReminderState.Loading -> {}
         is ReminderState.Success -> {
           val reminders =   (reminderViewState as ReminderState.Success).data
-            val reminder = remember{ mutableStateOf(reminders[id!!]) }
+
+
+            var reminder0 :Reminder? = null
+
+            for (reminder in reminders){
+                if(reminder.reminderId.toInt() == id?.toInt()){
+                    reminder0 = reminder
+                }
+            }
+           val  reminder = remember{ mutableStateOf(reminder0) }
 
 
             val test: String =

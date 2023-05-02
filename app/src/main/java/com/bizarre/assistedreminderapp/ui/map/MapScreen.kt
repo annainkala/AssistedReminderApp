@@ -90,6 +90,9 @@ fun MapScreen(
                         map.moveCamera(
                             CameraUpdateFactory.newLatLngZoom(location, 15f)
                         )
+
+
+
                         val markerOptions = MarkerOptions()
                             .title("Reminder")
                             .position(location)
@@ -99,7 +102,7 @@ fun MapScreen(
                             navController = navController,
                             geoFenceClient = getGeoFencingClient,
                             viewModel = viewModel,
-                            reminder = reminders.value[id1.toInt()]
+                            reminder = getReminder(id.toInt(), reminders.value)
                         )
 
                         setMapLongCLick(
@@ -107,7 +110,7 @@ fun MapScreen(
                             navController = navController,
                             geoFenceClient = getGeoFencingClient,
                             viewModel = viewModel,
-                            reminder = reminders.value[id1.toInt()]
+                            reminder = getReminder(id.toInt(),reminders.value)
                         )
 
 
@@ -193,6 +196,18 @@ private fun setMapOnCLick(
 
     }
 
+
+}
+
+private fun getReminder(id:Int, reminders:List<Reminder>):Reminder{
+
+    for (reminder in reminders){
+
+        if (reminder.reminderId.toInt() == id){
+            return reminder
+        }
+    }
+    return reminders[0]
 
 }
 

@@ -91,14 +91,11 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
                 val updateString = "true"
                 val id = reminder.reminderId
 
-                navController.navigate("/$updateString/$id")
+                navController.navigate("reminder/$updateString/$id")
 
 
 
             }
-
-
-
 
           //  openDialog.value = true
         }) {
@@ -116,7 +113,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
 
 
                 }
-               isChecked.value =  SimpleCheckbox(reminder,viewModel,isChecked)
+               isChecked.value =  simpleCheckbox(reminder,viewModel,isChecked)
             }
 
 
@@ -159,7 +156,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
 
 
 @Composable
-fun SimpleCheckbox(reminder:Reminder, viewModel: AppViewModel, isChecked:MutableState<Boolean>):Boolean {
+fun simpleCheckbox(reminder:Reminder, viewModel: AppViewModel, isChecked:MutableState<Boolean>):Boolean {
 
 
     Checkbox(checked = isChecked.value, onCheckedChange = { isChecked.value = it

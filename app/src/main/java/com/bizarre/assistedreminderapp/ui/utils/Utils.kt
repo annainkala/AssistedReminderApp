@@ -77,7 +77,7 @@ fun createLocationNotification(reminder: Reminder, isDate:Boolean){
     }
 
 }
-val RADIUS= 100
+val RADIUS= 3000
 
 
 
