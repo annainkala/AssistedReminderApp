@@ -23,7 +23,7 @@ import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
 
 import com.bizarre.assistedreminderapp.ui.user.UserState
 import com.bizarre.assistedreminderapp.ui.utils.NotificationWorker
-import com.bizarre.assistedreminderapp.ui.utils.createReminderNotification
+import com.bizarre.assistedreminderapp.ui.utils.createLocationNotification
 
 
 import com.bizarre.core_domain.entity.User
@@ -72,7 +72,7 @@ class AppViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d("SAVE::::::: ", reminder.toString())
             reminderRepository.addReminder(reminder)
-            createReminderNotification(reminder)
+            createLocationNotification(reminder,false)
 
                 createPendingNotification(reminder)
 
@@ -329,7 +329,8 @@ private fun createPendingNotification(reminder:Reminder) {
     workManager.getWorkInfoByIdLiveData(notificationWorker.id)
         .observeForever { workInfo ->
             if (workInfo.state == WorkInfo.State.SUCCEEDED) {
-                createReminderNotification(reminder)
+                LocationRepository.reminder = reminder;
+                createLocationNotification(reminder,false)
             } else {
                 //  createErrorNotification()
             }

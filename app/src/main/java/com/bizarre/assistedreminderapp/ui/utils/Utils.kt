@@ -9,13 +9,18 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.Graph
 import com.bizarre.assistedreminderapp.R
 import com.bizarre.core_domain.entity.Reminder
+import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.SphericalUtil.computeDistanceBetween
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 
@@ -36,15 +41,21 @@ fun ReminderTopAppBar(navController:NavController){
     }
 }
 
-fun createReminderNotification(reminder: Reminder){
+fun createLocationNotification(reminder: Reminder, isDate:Boolean){
+
+
+
     Log.d("    ", " REMINDER 000000")
     val formatter = DateTimeFormatter.ofPattern("dd MM yyyy")
-    val date1 = reminder.reminder_date.toLocalDate().format(formatter)
+    val date1 = "";
+    if(isDate){
+        reminder.reminder_date.toLocalDate().format(formatter)
+    }
     val notificationId = 2;
     val builder = NotificationCompat.Builder(Graph.appContext,"channel_id")
         .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentTitle(reminder.message)
-        .setContentText("REMINDR!!!!")
+        .setContentTitle("Reminder! " + date1)
+        .setContentText(reminder.message)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
     with(NotificationManagerCompat.from(Graph.appContext)){
         if (ActivityCompat.checkSelfPermission(
@@ -64,6 +75,25 @@ fun createReminderNotification(reminder: Reminder){
         Log.d("    ", " REMINDER 111111")
         notify(notificationId,builder.build())
     }
+
+}
+val RADIUS= 100
+
+
+
+fun checkForGeoFenceEntry(currentLocation: LatLng, reminders:List<Reminder>):Boolean{
+
+
+    for( reminder in reminders){
+
+val dist =computeDistanceBetween(currentLocation, LatLng(reminder.location_x,reminder.location_y))
+
+        if(dist < RADIUS){
+            return true
+        }
+
+    }
+    return false
 
 }
 

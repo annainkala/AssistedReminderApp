@@ -52,7 +52,7 @@ fun ReminderView3(
     when (reminderViewState) {
         is ReminderState.Loading -> {}
         is ReminderState.Success -> {
-            var reminder = (reminderViewState as ReminderState.Success).selectedReminder
+            val reminder = remember{ mutableStateOf((reminderViewState as ReminderState.Success).selectedReminder) }
 
 
             val test: String =
@@ -63,7 +63,7 @@ fun ReminderView3(
 
             if (!update) {
 
-                reminder = Reminder(
+                reminder.value = Reminder(
                     message = "",
                     location_x = 65.0121,
                     location_y = 25.4651,
@@ -79,7 +79,7 @@ fun ReminderView3(
             }
 
             val latlng = rememberSaveable {
-                mutableStateOf(LatLng(reminder!!.location_x, reminder!!.location_y))
+                mutableStateOf(LatLng(reminder!!.value!!.location_x, reminder!!.value!!.location_y))
 
             }
 
@@ -100,9 +100,9 @@ fun ReminderView3(
 
 
 
-                val message = rememberSaveable { mutableStateOf(reminder!!.message) }
-                val reminderDate = rememberSaveable { mutableStateOf(reminder!!.reminder_date) }
-                val creationDate = rememberSaveable { mutableStateOf(reminder!!.creation_date) }
+                val message = rememberSaveable { mutableStateOf(reminder!!.value!!.message) }
+                val reminderDate = rememberSaveable { mutableStateOf(reminder!!.value!!.reminder_date) }
+                val creationDate = rememberSaveable { mutableStateOf(reminder!!.value!!.creation_date) }
 
 
                 val context = LocalContext.current
@@ -165,7 +165,7 @@ fun ReminderView3(
 
                             onClick = {
                                 Log.d("XXXXXXX________"," LAT LNG:::: 0000000")
-                                val id1 = reminder!!.reminderId
+                                val id1 = reminder!!.value!!.reminderId
                                 val lat = latlng.value.latitude.toString()
                                 val lng = latlng.value.longitude.toString()
 

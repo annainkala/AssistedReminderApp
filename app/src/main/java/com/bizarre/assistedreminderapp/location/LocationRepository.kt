@@ -1,5 +1,5 @@
 package com.bizarre.assistedreminderapp.location
-
+/*
 import android.content.Context
 import android.util.Log
 import com.bizarre.core_domain.entity.Reminder
@@ -8,6 +8,11 @@ import com.google.android.gms.maps.model.LatLng
 class LocationRepository(){
 
 
+
+
+    fun getCurrentLocation():LatLng{
+        return LocationManager().getCurrentLocation();
+    }
 
 
 companion object{
@@ -55,4 +60,4 @@ fun getSelectedReminder():Reminder{
 
 
 
-}
+}*/

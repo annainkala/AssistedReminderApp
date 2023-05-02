@@ -15,7 +15,7 @@ import com.bizarre.assistedreminderapp.R
 import com.bizarre.assistedreminderapp.location.LocationRepository
 import com.bizarre.assistedreminderapp.ui.home.AppViewModel
 import com.bizarre.assistedreminderapp.ui.reminder.ReminderState
-import com.bizarre.assistedreminderapp.ui.utils.createReminderNotification
+import com.bizarre.assistedreminderapp.ui.utils.createLocationNotification
 import com.bizarre.core_domain.entity.Reminder
 import com.bizarre.core_domain.repository.ReminderRepository
 import com.bizarre.core_domain.repository.UserRepository
@@ -32,11 +32,7 @@ const val GEOFENCE_LOCATION_REQUEST_CODE = 12345
 const val CAMERA_ZOOM_LEVEL = 13f
 const val LOCATION_REQUEST_CODE = 123
 
-class GeofenceReceiver @Inject constructor(
-                        private val reminderRepository: ReminderRepository,
-                       private val userRepository: UserRepository,
-
-                       ) : BroadcastReceiver() {
+class GeofenceReceiver  : BroadcastReceiver() {
 
     var id: Long = 0
     lateinit var text: String
@@ -54,10 +50,14 @@ class GeofenceReceiver @Inject constructor(
                 }
 
 
-                LocationRepository.reminders[id.toInt()].is_seen = true
-               LocationRepository.update = true;
 
-                createReminderNotification(LocationRepository.reminders[id.toInt()])
+                if (LocationRepository.reminder == LocationRepository.reminders[id.toInt()]){
+                    createLocationNotification(LocationRepository.reminders[id.toInt()],false)
+                }
+                else{
+                    createLocationNotification(LocationRepository.reminders[id.toInt()],true)
+                }
+
 
                 // remove geofence
                 val triggeringGeofences = geofencingEvent.triggeringGeofences
