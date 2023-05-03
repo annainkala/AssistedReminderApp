@@ -12,7 +12,7 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: UserEntity): Long
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(user: UserEntity)
 
     @Query("SELECT * FROM users WHERE userId LIKE :userId")

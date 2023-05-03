@@ -25,13 +25,16 @@ class ReminderDataSourceImpl @Inject constructor(
     }
 
     override suspend fun addReminder(reminder: Reminder):Long {
+
       return  reminderDao.insert(reminder.toEntity())
 
 
     }
 
     override suspend fun updateReminder(reminder: Reminder) {
-        reminderDao.update(reminder.toEntity())
+
+        Log.d("RRRRRRRRRRR_______0: " , "REMINDER::: " + reminder.toString())
+      return  reminderDao.update(reminder.toEntity())
     }
 
     override suspend fun deleteReminder(reminder: Reminder){

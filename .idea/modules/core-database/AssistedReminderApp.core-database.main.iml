@@ -14,6 +14,7 @@
             <stringArg name="classpath">
               <args>
                 <arg>$MODULE_DIR$/../../../core-database/build/intermediates/compile_r_class_jar/debug/R.jar</arg>
+                <arg>$MODULE_DIR$/../../../core-domain/build/intermediates/compile_library_classes_jar/debug/classes.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/09d334b0f0585a9ca459dd12f6901920/transformed/room-ktx-2.4.3-api.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.6.4/2c997cd1c0ef33f3e751d3831929aeff1390cb30/kotlinx-coroutines-core-jvm-1.6.4.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../gradle-5.6.4/caches/transforms-3/400795f726f35ad230e419a3946419b4/transformed/hilt-android-2.44.2-api.jar</arg>
@@ -127,6 +128,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="AssistedReminderApp.core-domain.main" />
     <orderEntry type="module-library">
       <library name="Gradle: kaptGeneratedClasses">
         <CLASSES>

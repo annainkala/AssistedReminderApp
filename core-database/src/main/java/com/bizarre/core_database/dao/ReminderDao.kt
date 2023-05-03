@@ -2,6 +2,7 @@ package com.bizarre.core_database.dao
 
 import androidx.room.*
 import com.bizarre.core_database.entity.ReminderEntity
+import com.bizarre.core_domain.entity.Reminder
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -9,7 +10,7 @@ interface ReminderDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(reminder: ReminderEntity): Long
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update(entity = ReminderEntity::class)
     suspend fun update(reminder: ReminderEntity)
 
     @Query("SELECT * FROM reminders")

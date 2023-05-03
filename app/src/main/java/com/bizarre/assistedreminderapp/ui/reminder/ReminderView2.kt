@@ -38,7 +38,7 @@ fun ReminderView3(
 
 
     ) {
-    Log.d("IIIIIII: ", "ITEM 2:::: " + id)
+
     val latlng1 =
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("latlng")
 
@@ -156,7 +156,7 @@ fun ReminderView3(
                     ) {
 
                         // Text( reminderDate.value.format(formatter))
-                        Log.d("XXXXXXX________"," LAT LNG:::: 111111")
+
                         OutlinedButton(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -180,7 +180,7 @@ fun ReminderView3(
                                 .weight(1f),
 
                             onClick = {
-                                Log.d("XXXXXXX________"," LAT LNG:::: 0000000")
+
                                 val id1 = reminder!!.value!!.reminderId
                                 val lat = latlng.value.latitude.toString()
                                 val lng = latlng.value.longitude.toString()
@@ -189,7 +189,6 @@ fun ReminderView3(
                                 val latlngString = lat + "," + lng
 
 
-                            Log.d("XXXXXXX________"," LAT LNG:::: " + latlngString.toString())
 
 
                                 navController.navigate("map/${id1.toString()}/$latlngString")
@@ -197,7 +196,7 @@ fun ReminderView3(
 
                             }
                         ) {
-                            Log.d("XXXXXXX________"," LAT LNG:::: 222222222 " )
+
                             Text(
                                 stringResource(id = R.string.map),
                                 style = MaterialTheme.typography.body1
@@ -245,9 +244,6 @@ fun ReminderView3(
 
                     }
 
-
-
-                    Log.d("TEXT______"," TEXT:::: " + message.value)
 
 
                     Spacer(modifier = Modifier.height(10.dp))

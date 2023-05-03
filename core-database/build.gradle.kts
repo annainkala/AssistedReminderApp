@@ -42,6 +42,7 @@ dependencies {
     // Room
     implementation(androidx.room.ktx)
     implementation(androidx.room.runtime)
+    implementation(project(mapOf("path" to ":core-domain")))
     kapt("androidx.room:room-compiler:2.5.0")
 
     // Coroutines

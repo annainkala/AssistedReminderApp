@@ -84,8 +84,8 @@ class AppViewModel @Inject constructor(
     fun updateReminder(reminder: Reminder) {
 
         viewModelScope.launch {
-            Log.d("UPDATE ::::::: ", reminder.toString())
-           // reminderRepository.updateReminder(reminder)
+            Log.d("UPDAT11E ::::::: ", reminder.toString())
+            reminderRepository.updateReminder(reminder)
             loadReminders(_selectedUser.value!!)
             //setLocationBackgroundWorker(reminder)
 
@@ -96,7 +96,7 @@ class AppViewModel @Inject constructor(
     fun saveUser(user: User) {
         viewModelScope.launch {
             val result = userRepository.addUser(user)
-            Log.d("HHHHHHHHHHH", "SAVE USER:::::: " + user.toString() + result.toString())
+            //Log.d("HHHHHHHHHHH", "SAVE USER:::::: " + user.toString() + result.toString())
             loadUsers()
             // notifyUserOfReminder(reminder)
         }
@@ -105,7 +105,7 @@ class AppViewModel @Inject constructor(
     fun updateUser(user: User) {
         viewModelScope.launch {
             userRepository.updateUser(user)
-            Log.d("HHHHHHHHHHH", "SAVE USER:::::: " + user.toString())
+            //Log.d("HHHHHHHHHHH", "SAVE USER:::::: " + user.toString())
             loadUsers()
             // notifyUserOfReminder(reminder)
         }
@@ -140,7 +140,7 @@ class AppViewModel @Inject constructor(
             loadReminders(_selectedUser.value!!)
 
 
-            //Log.d("DDDDDDDD","DELETE:::::: ")
+            ////Log.d("DDDDDDDD","DELETE:::::: ")
 
             // notifyUserOfReminder(reminder)
         }
@@ -189,7 +189,7 @@ class AppViewModel @Inject constructor(
                     Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                Log.d("","NOTIFYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+                //Log.d("","NOTIFYYYYYYYYYYYYYYYYYYYYYYYYYYY")
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -199,7 +199,7 @@ class AppViewModel @Inject constructor(
                 // for ActivityCompat#requestPermissions for more details.
                 return
             }
-            Log.d("","NOTIFYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+            //Log.d("","NOTIFYYYYYYYYYYYYYYYYYYYYYYYYYYY")
             notify(notificationId, builder.build())
         }
 
@@ -209,7 +209,7 @@ class AppViewModel @Inject constructor(
             userRepository.loadUsers()
                 .onEach { users1 ->
                     if (users1.isNotEmpty()) {
-                        Log.d("ZZZZZZZZZZZZZ:::: ", users.toString())
+                        //Log.d("ZZZZZZZZZZZZZ:::: ", users.toString())
                         _selectedUser.value = users1.first()
                         loadReminders(_selectedUser.value!!)
                     }
@@ -234,7 +234,7 @@ class AppViewModel @Inject constructor(
                 reminderRepository.loadRemindersByUser(user)
                     .onEach { reminders1 ->
                         if (reminders1.isNotEmpty()) {
-                            Log.d("ZZZZZZZZZZZZZ:::: ", reminders1.toString())
+                            Log.d("LOAD:::: ", reminders1.toString())
                             _selectedReminder.value = reminders1.first()
 
                         }
@@ -291,7 +291,7 @@ private fun getDuration(reminder: Reminder): Long {
     val duration =
         currentTime.toEpochSecond(ZoneOffset.UTC) - reminder.reminder_date.toEpochSecond(
             ZoneOffset.UTC)
-    Log.d("DURATION_____", "DDDDDDDDD ")
+    //Log.d("DURATION_____", "DDDDDDDDD ")
 
     return duration
 }

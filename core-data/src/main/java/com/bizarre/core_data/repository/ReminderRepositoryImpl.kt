@@ -15,9 +15,7 @@ class ReminderRepositoryImpl @Inject constructor(
       return reminderDataSource.findReminderById(id)
     }
 
-    override suspend fun updateReminder(reminder: Reminder) {
-        reminderDataSource.updateReminder(reminder)
-    }
+    override suspend fun updateReminder(reminder: Reminder) = reminderDataSource.updateReminder(reminder)
 
     override suspend fun addReminder(reminder: Reminder):Long   = reminderDataSource.addReminder(reminder)
 
