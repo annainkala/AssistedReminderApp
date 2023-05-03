@@ -54,10 +54,14 @@ fun ReminderView3(
 
             var reminder0 :Reminder? = null
 
+
             for (reminder in reminders){
-                if(reminder.reminderId.toInt() == id?.toInt()){
-                    reminder0 = reminder
+                if(id != null.toString()){
+                    if(reminder.reminderId.toInt() == id!!.toInt()){
+                        reminder0 = reminder
+                    }
                 }
+
             }
            val  reminder = remember{ mutableStateOf(reminder0) }
 
@@ -70,7 +74,12 @@ fun ReminderView3(
 
             if (!update) {
 
+                var id = 0;
+                if (reminders!= null && reminders.size >0){
+                    id = reminders.size-1
+                }
                 reminder.value = Reminder(
+                    reminderId = id.toLong(),
                     message = "",
                     location_x = 65.0121,
                     location_y = 25.4651,
@@ -110,7 +119,7 @@ fun ReminderView3(
                 val message = rememberSaveable { mutableStateOf(reminder!!.value!!.message) }
                 val reminderDate = rememberSaveable { mutableStateOf(reminder!!.value!!.reminder_date) }
                 val creationDate = rememberSaveable { mutableStateOf(reminder!!.value!!.creation_date) }
-
+                val oldValue1 = message.value
 
                 val context = LocalContext.current
                 val calendar = Calendar.getInstance()
@@ -238,6 +247,8 @@ fun ReminderView3(
 
 
 
+                    Log.d("TEXT______"," TEXT:::: " + message.value)
+
 
                     Spacer(modifier = Modifier.height(10.dp))
 
@@ -245,7 +256,7 @@ fun ReminderView3(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
 
-
+                            Log.d("TEXT______"," TEXT2222 :::: " + message.value)
                             val reminder1 =    Reminder(
                                 reminderId = reminder.value!!.reminderId,
                                 message = message.value,
