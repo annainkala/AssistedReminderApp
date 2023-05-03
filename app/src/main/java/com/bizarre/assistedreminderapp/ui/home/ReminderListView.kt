@@ -46,6 +46,8 @@ fun ReminderListView(
                 ) {
                     items(reminderList) { item ->
                        ReminderListItem(reminder = item,viewModel,navController)
+
+
                     }
                 }
             }
@@ -80,7 +82,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
                   }
               )*/
         }, onClick = {
-
+            Log.d("IIIIIII: ", "ITEM:::: " + reminder.reminderId.toString())
 
             if(isChecked.value){
                openDialog.value = true

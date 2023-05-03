@@ -50,6 +50,7 @@ fun MapScreen(
     viewModel: AppViewModel = hiltViewModel()
 ) {
 
+    Log.d("IIIII ", "INDEX 2:::: " + id)
 
     val reminderViewState by viewModel.reminderState.collectAsState()
     when (reminderViewState) {
@@ -173,6 +174,7 @@ private fun setMapOnCLick(
     viewModel: AppViewModel,
     reminders: List<Reminder>
 ) {
+
 
 
     map.setOnMapClickListener {

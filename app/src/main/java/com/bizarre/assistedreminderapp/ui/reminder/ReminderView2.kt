@@ -38,7 +38,7 @@ fun ReminderView3(
 
 
     ) {
-
+    Log.d("IIIIIII: ", "ITEM 2:::: " + id)
     val latlng1 =
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("latlng")
 
@@ -244,9 +244,10 @@ fun ReminderView3(
                     OutlinedButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            val index = 0;
+
 
                             val reminder1 =    Reminder(
+                                reminderId = reminder.value!!.reminderId,
                                 message = message.value,
                                 creation_date = creationDate.value,
                                 reminder_date = reminderDate.value,

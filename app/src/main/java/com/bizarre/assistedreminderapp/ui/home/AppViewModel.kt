@@ -83,7 +83,7 @@ class AppViewModel @Inject constructor(
 
     fun updateReminder(reminder: Reminder) {
         viewModelScope.launch {
-            Log.d("SAVE::::::: ", reminder.toString())
+            Log.d("UPDATE ::::::: ", reminder.toString())
            // reminderRepository.updateReminder(reminder)
             loadReminders(_selectedUser.value!!)
             //setLocationBackgroundWorker(reminder)
