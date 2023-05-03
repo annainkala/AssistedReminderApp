@@ -105,12 +105,13 @@ fun MapScreen(
                             reminder = getReminder(id.toInt(), reminders.value)
                         )
 
-                        setMapLongCLick(
+                        setMapOnCLick(
                             map = map,
                             navController = navController,
                             geoFenceClient = getGeoFencingClient,
+                            id = id.toLong(),
                             viewModel = viewModel,
-                            reminder = getReminder(id.toInt(),reminders.value)
+                            reminders = reminders.value,
                         )
 
 
@@ -174,19 +175,26 @@ private fun setMapOnCLick(
 ) {
 
 
-    map.setOnMapClickListener { latlng ->
+    map.setOnMapClickListener {
+
+        val reminder0 = getReminder(id.toInt(),reminders);
+        val latlng1 = LatLng(reminder0.location_x,reminder0.location_y)
+
+           // latlng1 ->
         val snippet = String.format(
             Locale.getDefault(),
             "Lat: %1$.2f, Lng %2$.2f",
-            latlng.latitude,
-            latlng.longitude
+            latlng1.latitude,
+            latlng1.longitude
 
         )
+        Log.d("MAP0","CLICK 0: ")
         for (reminder in reminders) {
-            if (checkForGeoFenceEntry(latlng, reminder)) {
+            Log.d("MAP0","CLICK 1: ")
+            if (checkForGeoFenceEntry(latlng1, reminder)) {
 
                 map.addMarker(
-                    MarkerOptions().position(latlng).title("Reminder location").snippet(snippet)
+                    MarkerOptions().position(LatLng(reminder.location_x,reminder.location_y)).title("Reminder location").snippet(snippet)
                 ).apply {
 
                 }
