@@ -81,6 +81,7 @@ fun ReminderView3(
                 reminder.value = Reminder(
                     reminderId = id.toLong(),
                     message = "",
+                    title = "",
                     location_x = 65.0121,
                     location_y = 25.4651,
                     userId = 0,
@@ -117,9 +118,10 @@ fun ReminderView3(
 
 
                 val message = rememberSaveable { mutableStateOf(reminder!!.value!!.message) }
+                val title = rememberSaveable { mutableStateOf(reminder!!.value!!.title) }
                 val reminderDate = rememberSaveable { mutableStateOf(reminder!!.value!!.reminder_date) }
                 val creationDate = rememberSaveable { mutableStateOf(reminder!!.value!!.creation_date) }
-                val oldValue1 = message.value
+
 
                 val context = LocalContext.current
                 val calendar = Calendar.getInstance()
@@ -220,6 +222,31 @@ fun ReminderView3(
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .fillMaxHeight(fraction = 0.2f)
+                    ) {
+                        OutlinedTextField(
+                            value = title.value,
+                            onValueChange = { data -> title.value = data },
+                            label = {
+                                Text(
+                                    text = stringResource(id = R.string.title),
+                                    style = Typography.body1
+                                )
+                            },
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text
+                            ),
+
+
+                            )
+
+                    }
+
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .fillMaxHeight(fraction = 0.5f)
                     ) {
 
@@ -245,7 +272,6 @@ fun ReminderView3(
                     }
 
 
-
                     Spacer(modifier = Modifier.height(10.dp))
 
                     OutlinedButton(
@@ -256,6 +282,7 @@ fun ReminderView3(
                             val reminder1 =    Reminder(
                                 reminderId = reminder.value!!.reminderId,
                                 message = message.value,
+                                title = title.value,
                                 creation_date = creationDate.value,
                                 reminder_date = reminderDate.value,
                                 location_y = latlng.value.longitude,

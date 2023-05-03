@@ -20,6 +20,7 @@
     <string name="ok">OK</string>
     <string name="pick_date">Pick date</string>
     <string name="map">Map</string>
+    <string name="title">Title</string>
     <string name="geofence_entered">geofence entered</string>
     <string name="geofence_not_available">not available</string>
     <string name="geofence_too_many_geofences">too many geofences</string>

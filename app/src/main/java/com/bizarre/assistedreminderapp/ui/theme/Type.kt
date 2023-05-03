@@ -19,8 +19,8 @@ val Typography = Typography(
     ),
             body2 = TextStyle(
             fontFamily = FontFamily.Cursive,
-    fontWeight = FontWeight.Normal,
-    fontSize = 20.sp,
+    fontWeight = FontWeight.Bold,
+    fontSize = 22.sp,
     color = Gray100
 
 )

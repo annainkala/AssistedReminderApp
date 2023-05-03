@@ -109,7 +109,7 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Bottom
                 ){
-
+                    Text(reminder.title ,style = MaterialTheme.typography.body1)
                     Text(reminder.message, style = MaterialTheme.typography.body1)
                     Text(reminder.reminder_date.format(formatter), style = MaterialTheme.typography.body1)
 

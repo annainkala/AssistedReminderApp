@@ -30,6 +30,7 @@ data class ReminderEntity(
     @PrimaryKey(autoGenerate = true)
     val reminderId: Long = 0,
     val message: String,
+    val title: String,
     val location_x: Double,
     val location_y: Double,
     @ColumnInfo(name = "user_id")
