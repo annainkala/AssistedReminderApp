@@ -68,6 +68,9 @@ fun ProfileScreen(
 
             // val users = (viewState as UserState.Success).data
 
+
+
+
             val username = rememberSaveable { mutableStateOf(user?.userName) }
             val password = rememberSaveable { mutableStateOf(user?.password) }
             val firstname = rememberSaveable { mutableStateOf(user?.firstName) }
@@ -75,6 +78,22 @@ fun ProfileScreen(
 
             val userEmail = rememberSaveable { mutableStateOf(user?.userEmail) }
             val profilePic = rememberSaveable { mutableStateOf(user?.profilePic) }
+
+
+
+            if(user == null){
+
+                username.value = stringResource(id = R.string.usernameString)
+                password.value =  stringResource(id = R.string.passwordString)
+                firstname.value =  stringResource(id = R.string.firstname)
+                lastName.value =  stringResource(id = R.string.lastname)
+                userEmail.value  = stringResource(id = R.string.email)
+                profilePic.value= "xxx"
+
+            }
+
+
+
 
             Surface(
                 modifier = Modifier.fillMaxSize()
@@ -111,7 +130,9 @@ fun ProfileScreen(
                     ) {
 
                         AsyncImage(
-                            modifier = Modifier.clip(CircleShape).size(200.dp),
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .size(200.dp),
 
                             model = profilePic.value,
                             contentDescription = "image"
@@ -247,33 +268,48 @@ fun ProfileScreen(
 
 
 
+                    var userId:Long = 0;
+                        if(user != null){
+                           userId =  user?.userId!!
+                        }
 
 
 
-
-                        val user =  User(
+                        val user2=  User(
                             firstName = firstname.value!!,
                             lastName = lastName.value!!,
                             password =password.value!!,
                             userName = username.value!!,
                             profilePic = profilePic.value!!,
                             userEmail = userEmail.value!!,
-                            userId = user?.userId!!,
+                            userId = userId,
 
 
                             )
 
-                        Log.d("XXXXXXX","XXXXXXXXX " + user.toString())
+                        Log.d("XXXXXXX","XXXXXXXXX " + user2.toString())
 
-                        viewModel.updateUser(user)
+                        if(user != null){
+                            viewModel.updateUser(user2)
+                        }
+                        if(user == null){
+                            viewModel.saveUser(user2)
+                        }
 
 
-                        val encodedUrl = URLEncoder.encode(user.profilePic)
-                        var username1= user?.firstName + "_" + encodedUrl
+                        var uri1:String? = "xxx"
+
+
+                        if(profilePic.value != "")
+                        {
+                            uri1 = URLEncoder.encode(profilePic.value)
+                        }
+                       // var username1= firstname.value + "_" + uri
 
                         //  "home".replace("{user}","sss")
-                        "home".replace("{user}",username1)
-                        navController.navigate("home/$username1")
+                       // "home".replace("{user1}",username1)
+                        val user1 = firstname.value
+                        navController.navigate("home/$user1/$uri1")
 
 
 

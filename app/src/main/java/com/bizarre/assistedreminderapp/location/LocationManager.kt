@@ -54,9 +54,6 @@ class LocationManager(){
 
 
 
-               // LocationRepository.setLocation2(LatLng(currentLocation?.latitude!!,currentLocation?.longitude!!))
-
-
             }
         }
         fusedLocationManager.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())

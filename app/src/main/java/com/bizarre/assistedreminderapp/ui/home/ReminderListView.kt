@@ -103,19 +103,23 @@ fun ReminderListItem(reminder:Reminder,viewModel: AppViewModel, navController: N
         }) {
 
 
-            Row (horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()){
-                Column(
-                    horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.Bottom
-                ){
-                    Text(reminder.title ,style = MaterialTheme.typography.body1)
-                    Text(reminder.message, style = MaterialTheme.typography.body1)
-                    Text(reminder.reminder_date.format(formatter), style = MaterialTheme.typography.body1)
+            if(reminder.is_seen){
+                Row (horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()){
+                    Column(
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.Bottom
+                    ){
+                        Text(reminder.title ,style = MaterialTheme.typography.body1)
+                        Text(reminder.message, style = MaterialTheme.typography.body1)
+                        Text(reminder.reminder_date.format(formatter), style = MaterialTheme.typography.body1)
 
 
+                    }
+                    isChecked.value =  simpleCheckbox(reminder,viewModel,isChecked)
                 }
-               isChecked.value =  simpleCheckbox(reminder,viewModel,isChecked)
+
+
             }
 
 

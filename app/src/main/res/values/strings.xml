@@ -28,4 +28,11 @@
     <string name="unknown_geofence_error">inknown error</string>
     <string name="location1">location1</string>
     <string name="location2">location2</string>
+
+    <string name="usernameString">Un</string>
+    <string name="passwordString">pw</string>
+    <string name="firstname">NewUser</string>
+    <string name="lastname"></string>
+
+
 </resources>

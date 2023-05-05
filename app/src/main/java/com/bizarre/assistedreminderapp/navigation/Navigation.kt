@@ -30,14 +30,16 @@ fun Navigation() {
         }
 
         composable(
-            "home/{user}",
+            "home/{user1}/{uri1}",
             // Fetching the argument which has been passed
         ) {
-            val user = it.arguments?.getString("user")
+            val user1 = it.arguments?.getString("user1")
+            val uri1 = it.arguments?.getString("uri1")
 
 
             HomeScreen(
-                user.toString(),
+                user1.toString(),
+                uri1.toString(),
                 navController
             )    // Using that argument in the destination Composabel
         }

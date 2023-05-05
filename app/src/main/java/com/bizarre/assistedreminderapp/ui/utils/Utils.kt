@@ -1,6 +1,9 @@
 package com.bizarre.assistedreminderapp.ui.utils
 
 import android.Manifest
+import android.app.PendingIntent
+import android.content.ComponentName
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.compose.material.Icon
@@ -9,20 +12,20 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.bizarre.assistedreminderapp.Graph
+import com.bizarre.assistedreminderapp.MainActivity
 import com.bizarre.assistedreminderapp.R
 import com.bizarre.core_domain.entity.Reminder
-import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil.computeDistanceBetween
-import java.text.SimpleDateFormat
+
 import java.time.format.DateTimeFormatter
+
+
 
 @Composable
 fun ReminderTopAppBar(navController:NavController){
@@ -45,18 +48,25 @@ fun createLocationNotification(reminder: Reminder, isDate:Boolean){
 
 
 
+
     Log.d("    ", " REMINDER 000000")
     val formatter = DateTimeFormatter.ofPattern("dd MM yyyy")
     val date1 = "";
     if(isDate){
         reminder.reminder_date.toLocalDate().format(formatter)
     }
+    val activityIntent = Intent(Graph.appContext, MainActivity::class.java)
+    val id = 0
+    val pendingIntent = PendingIntent.getActivity(Graph.appContext, id, activityIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+
     val notificationId = 2;
     val builder = NotificationCompat.Builder(Graph.appContext,"channel_id")
         .setSmallIcon(R.drawable.ic_launcher_foreground)
         .setContentTitle("Reminder! " + date1)
         .setContentText(reminder.message)
+        .setContentIntent(pendingIntent)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
+
     with(NotificationManagerCompat.from(Graph.appContext)){
         if (ActivityCompat.checkSelfPermission(
                 Graph.appContext,

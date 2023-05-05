@@ -3,10 +3,12 @@ package com.bizarre.assistedreminderapp.ui.map
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
+import android.os.Looper
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -209,6 +211,110 @@ private fun setMapOnCLick(
 
 }
 
+/**
+ * Manages all location related tasks for the app.
+ */
+
+
+lateinit var locationCallback: LocationCallback
+
+lateinit var locationProvider: FusedLocationProviderClient
+
+@SuppressLint("MissingPermission")
+@Composable
+fun getUserLocation(context: Context): LatLng {
+
+    // The Fused Location Provider provides access to location APIs.
+    locationProvider = LocationServices.getFusedLocationProviderClient(context)
+
+    var currentUserLocation by remember { mutableStateOf(LatLng(0.0,0.0)) }
+
+    DisposableEffect(key1 = locationProvider) {
+        locationCallback = object : LocationCallback() {
+            //1
+            override fun onLocationResult(result: LocationResult) {
+                /**
+                 * Option 1
+                 * This option returns the locations computed, ordered from oldest to newest.
+                 * */
+                for (location in result.locations) {
+                    // Update data class with location data
+                    currentUserLocation = LatLng(location.latitude, location.longitude)
+                    Log.d("LOCATION_TAG", "${location.latitude},${location.longitude}")
+                }
+
+
+                /**
+                 * Option 2
+                 * This option returns the most recent historical location currently available.
+                 * Will return null if no historical location is available
+                 * */
+                locationProvider.lastLocation
+                    .addOnSuccessListener { location ->
+                        location?.let {
+                            val lat = location.latitude
+                            val long = location.longitude
+                            // Update data class with location data
+                            currentUserLocation = LatLng(lat, long)
+
+                        }
+                    }
+                    .addOnFailureListener {
+                        Log.e("Location_error", "${it.message}")
+                    }
+
+            }
+        }
+        //2
+
+            locationUpdate()
+
+        //3
+        onDispose {
+            stopLocationUpdate()
+        }
+    }
+    //4
+    return currentUserLocation
+}
+
+//data class to store the user Latitude and longitude
+@SuppressLint("MissingPermission")
+fun locationUpdate() {
+    locationCallback.let {
+        //An encapsulation of various parameters for requesting
+        // location through FusedLocationProviderClient.
+        val locationRequest: LocationRequest =
+            LocationRequest.create().apply {
+                interval = TimeUnit.SECONDS.toMillis(60)
+                fastestInterval = TimeUnit.SECONDS.toMillis(30)
+                maxWaitTime = TimeUnit.MINUTES.toMillis(2)
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
+        //use FusedLocationProviderClient to request location update
+        locationProvider.requestLocationUpdates(
+            locationRequest,
+            it,
+            Looper.getMainLooper()
+        )
+    }
+
+}
+fun stopLocationUpdate() {
+    try {
+        //Removes all location updates for the given callback.
+        val removeTask = locationProvider.removeLocationUpdates(locationCallback)
+        removeTask.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d("LOCATION_TAG", "Location Callback removed.")
+            } else {
+                Log.d("LOCATION_TAG", "Failed to remove Location Callback.")
+            }
+        }
+    } catch (se: SecurityException) {
+        Log.e("LOCATION_TAG", "Failed to remove Location Callback.. $se")
+    }
+}
 private fun getReminder(id:Int, reminders:List<Reminder>):Reminder{
 
     for (reminder in reminders){
@@ -220,4 +326,6 @@ private fun getReminder(id:Int, reminders:List<Reminder>):Reminder{
     return reminders[0]
 
 }
+
+
 

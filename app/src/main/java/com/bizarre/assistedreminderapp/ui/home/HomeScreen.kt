@@ -37,7 +37,8 @@ import java.net.URLDecoder
 @Composable
 fun HomeScreen(
 
-    text1:String,
+    user1:String,
+    uri1:String,
     navController: NavController,
     viewModel: AppViewModel = hiltViewModel(),
 
@@ -50,8 +51,10 @@ fun HomeScreen(
         is UserState.Success -> {
             val user = getUser(viewModel)
 
-            val name1 = text1.split("_")[0]
-            val uri = text1.split("_")[1]//URLDecoder.decode(text1.split("_")[1])?
+            val name1 = user1
+            val uri1 = uri1//URLDecoder.decode(text1.split("_")[1])?
+
+            Log.d("PRIFILE","URRI:::: " + uri1)
             Scaffold(
                 floatingActionButton = {
                     FloatingActionButton(
@@ -105,7 +108,7 @@ fun HomeScreen(
                                     .clickable {
                                         navController.navigate("profile")
                                     }){
-                                    ProfileImage(uri,70)
+                                    ProfileImage(uri1,70)
 
 
                                 }

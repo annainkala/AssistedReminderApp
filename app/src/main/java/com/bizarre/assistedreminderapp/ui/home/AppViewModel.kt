@@ -252,6 +252,33 @@ class AppViewModel @Inject constructor(
 
 
 
+    private fun createPendingNotification(reminder:Reminder) {
+
+        val duration = getDuration(reminder)
+        val workManager = WorkManager.getInstance(Graph.appContext)
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val notificationWorker = OneTimeWorkRequestBuilder<NotificationWorker>()
+            .setInitialDelay(duration, TimeUnit.SECONDS)
+            .setConstraints(constraints)
+            .build()
+
+        workManager.enqueue(notificationWorker)
+
+        //Monitoring for state of work
+        workManager.getWorkInfoByIdLiveData(notificationWorker.id)
+            .observeForever { workInfo ->
+                if (workInfo.state == WorkInfo.State.SUCCEEDED) {
+                    reminder.is_seen = true
+                    saveReminder(reminder)
+                    createLocationNotification(reminder,false)
+                } else {
+                    //  createErrorNotification()
+                }
+            }
+    }
 
 
 }
@@ -296,30 +323,4 @@ private fun getDuration(reminder: Reminder): Long {
     return duration
 }
 
-private fun createPendingNotification(reminder:Reminder) {
-
-    val duration = getDuration(reminder)
-    val workManager = WorkManager.getInstance(Graph.appContext)
-    val constraints = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .build()
-
-    val notificationWorker = OneTimeWorkRequestBuilder<NotificationWorker>()
-        .setInitialDelay(duration, TimeUnit.SECONDS)
-        .setConstraints(constraints)
-        .build()
-
-    workManager.enqueue(notificationWorker)
-
-    //Monitoring for state of work
-    workManager.getWorkInfoByIdLiveData(notificationWorker.id)
-        .observeForever { workInfo ->
-            if (workInfo.state == WorkInfo.State.SUCCEEDED) {
-
-                createLocationNotification(reminder,false)
-            } else {
-                //  createErrorNotification()
-            }
-        }
-}
 
