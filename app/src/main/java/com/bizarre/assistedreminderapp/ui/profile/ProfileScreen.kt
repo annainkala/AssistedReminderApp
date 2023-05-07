@@ -242,11 +242,12 @@ fun ProfileScreen(
                                 },
                                 modifier = Modifier.fillMaxWidth(),
                                 keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Password
+                                    keyboardType = KeyboardType.Text
                                 ),
-                                visualTransformation = PasswordVisualTransformation()
+
                             )
                             Spacer(modifier = Modifier.height(10.dp))
+
 
 
                         }
